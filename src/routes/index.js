@@ -31,12 +31,19 @@ const App = Loadable({
 
 /* 首页 */
 const Index = Loadable({
-    loader: () => import('../modules/public/component/index'),
-    loading: Loading
+  loader: () => import('../modules/public/component/index'),
+  loading: Loading
+});
+
+/* 商品详情 */
+const GoodsDetail = Loadable({
+  loader: () => import('../modules/home/component/goodsDetail'),
+  loading: Loading
 });
 
 module.exports = (
     <Route path="/" component={App}>
         <IndexRoute component={Index}/>
+        <route path="goods/detail/:id" component={GoodsDetail}/>
     </Route>
 );
