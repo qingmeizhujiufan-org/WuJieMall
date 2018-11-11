@@ -31,7 +31,7 @@ const App = Loadable({
 
 /* 首页 */
 const Index = Loadable({
-    loader: () => import('../modules/home/component/index'),
+    loader: () => import('../modules/public/component/index'),
     loading: Loading
 });
 

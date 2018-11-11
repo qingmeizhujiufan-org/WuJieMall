@@ -1,135 +1,90 @@
 import React from 'react';
-import {TabBar} from 'antd-mobile';
+import PropTypes from 'prop-types';
+import {NavBar, Carousel, WingBlank, Grid, Icon,Card} from 'antd-mobile';
+import '../index.less';
+import img1 from 'Img/1.jpg'
+import img2 from 'Img/2.jpg'
+import img3 from 'Img/3.jpg'
 
-import index_1 from 'Img/index_1.png';
-import index_2 from 'Img/index_2.png';
-import index_3 from 'Img/index_3.png';
-import index_1_active from 'Img/index_1_active.png';
-import index_2_active from 'Img/index_2_active.png';
-import index_3_active from 'Img/index_3_active.png';
+const goodCart = ({ className = '', ...restProps }) => (
+  <div className={`${className} goodCart`} {...restProps}>
+    <div>
+      <img src={img1} alt=""/>
+    </div>
+    <Card>
+      <Card.Header
+        title="This is title"
+        thumb="https://gw.alipayobjects.com/zos/rmsportal/MRhHctKOineMbKAZslML.jpg"
+        extra={<span>this is extra</span>}
+      />
+      <Card.Body>
+        <div>This is content of `Card`</div>
+      </Card.Body>
+      <Card.Footer content="footer content" extra={<div>extra footer content</div>} />
+    </Card>
+  </div>
+);
 
-/* 就餐服务 */
-import DiningService from '../../diningService/index/component/';
+class Index extends React.Component {
+  constructor(props) {
+    super(props);
 
-/* 宿舍公寓 */
-import Residence from '../../residence/index/component/';
-
-/* 出行指南 */
-import TravelGuide from '../../travelGuide/index/component/';
-
-export default class Index extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            selectedTab: '1'
-        };
+    this.state = {
+      data: ['1', '2', '3'],
     }
+  };
 
-    componentWillMount() {
-        if (sessionStorage.getItem('selectedTab')) {
-            this.setState({
-                selectedTab: sessionStorage.getItem('selectedTab')
-            });
-        } else {
-            sessionStorage.setItem('selectedTab', '1');
-        }
-    }
+  componentWillMount() {
+  }
 
-    render() {
-        return (
-            <div>
-                <div style={{position: 'fixed', bottom: 0, left: 0, right: 0, height: '100%'}}>
-                    <TabBar
-                        unselectedTintColor="#AAAFB9"
-                        tintColor="#3D3D3D"
-                        barTintColor="white"
-                    >
-                        <TabBar.Item
-                            title="就餐服务"
-                            key="Life"
-                            icon={<img style={{
-                                width: '22px',
-                                height: '20px',
-                            }}
-                                       src={index_1}
-                            />
-                            }
-                            selectedIcon={<img style={{
-                                width: '22px',
-                                height: '20px',
-                            }}
-                                               src={index_1_active}
-                            />
-                            }
-                            selected={this.state.selectedTab === '1'}
-                            className='active'
-                            onPress={() => {
-                                this.setState({
-                                    selectedTab: '1',
-                                });
-                                sessionStorage.setItem('selectedTab', '1');
-                            }}
-                        >
-                            <DiningService/>
-                        </TabBar.Item>
-                        <TabBar.Item
-                            icon={<img style={{
-                                width: '22px',
-                                height: '20px',
-                            }}
-                                       src={index_2}
-                            />
-                            }
-                            selectedIcon={<img style={{
-                                width: '22px',
-                                height: '20px',
-                            }}
-                                               src={index_2_active}
-                            />
-                            }
-                            title="宿舍公寓"
-                            key="Friend"
-                            selected={this.state.selectedTab === '2'}
-                            onPress={() => {
-                                this.setState({
-                                    selectedTab: '2',
-                                });
-                                sessionStorage.setItem('selectedTab', '2');
-                            }}
-                        >
-                            <Residence/>
-                        </TabBar.Item>
-                        <TabBar.Item
-                            icon={<img style={{
-                                width: '22px',
-                                height: '20px',
-                            }}
-                                       src={index_3}
-                            />
-                            }
-                            selectedIcon={<img style={{
-                                width: '22px',
-                                height: '20px',
-                            }}
-                                               src={index_3_active}
-                            />
-                            }
-                            title="出行指南"
-                            key="my"
-                            selected={this.state.selectedTab === '3'}
-                            onPress={() => {
-                                this.setState({
-                                    selectedTab: '3',
-                                });
-                                sessionStorage.setItem('selectedTab', '3');
-                            }}
-                        >
-                            <TravelGuide/>
-                        </TabBar.Item>
-                    </TabBar>
-                </div>
-            </div>
-        );
-    }
+  componentDidMount() {
+  }
+
+  render() {
+    const {data} = this.state;
+    const girdData = Array.from(new Array(10)).map((_val, i) => ({
+      icon: 'https://gw.alipayobjects.com/zos/rmsportal/nywPmnTAvTmLusPxHPSu.png',
+      text: `name${i}`,
+    }));
+    return (
+      <div className="home">
+        <NavBar
+          mode="light"
+          rightContent={[
+            <Icon key="0" type="search" style={{marginRight: '16px'}}/>,
+            <Icon key="1" type="ellipsis"/>,
+          ]}
+        >商城首页</NavBar>
+        <div className='zui-scroll-wrapper'>
+          <div className="zui-scroll">
+            <Carousel
+              autoplay
+              infinite
+            >
+              {data.map(val => (
+                <a
+                  key={val}
+                  href="http://www.alipay.com"
+                  style={{display: 'inline-block', width: '100%', height: '60vw'}}
+                >
+                  <img
+                    src={img1}
+                    alt=""
+                    style={{width: '100%', height: '100%', verticalAlign: 'top'}}
+                  />
+                </a>
+              ))}
+            </Carousel>
+            <Grid data={girdData} hasLine={false} columnNum={5}/>
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
+
+Index.contextTypes = {
+  router: PropTypes.object
+}
+
+export default Index;
