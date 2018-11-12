@@ -4,8 +4,7 @@
   "main": "lib/index",
   "scripts": {
     "start": "webpack-dev-server --devtool eval-source-map --port 8001 --open",
-    "buildwithstats": "webpack -p --display-optimization-bailout --progress --colors",
-    "build": "webpack -p --progress --colors --config webpack.prod.config.js"
+    "prod": "webpack -p --progress --colors --config webpack.prod.config.js"
   },
   "license": "MIT",
   "dependencies": {
