@@ -20,14 +20,9 @@ body {
 }
 
 .am-navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 20;
+    position: relative;
 
     &.am-navbar-light {
-        color: @theme_color !important;
 
         &:after {
             content: '';
@@ -60,7 +55,8 @@ body {
 }
 
 .zui-content {
-     margin-top: 44px; 
+    height: calc(~'100vh - 95px');
+    overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
 }
 
