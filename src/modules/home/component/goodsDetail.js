@@ -5,22 +5,19 @@ import '../index.less';
 import img1 from 'Img/1.jpg'
 import img from 'Img/IMG_1624.png'
 
-
-const GoodsCart = ({className = '', ...restProps}) => (
+const GoodsCart = ({className = '', data, ...restProps}) => (
   <div className={`${className} goodsCart`} {...restProps}>
     <div className='goodsImg'>
       <img src={img1} alt=""/>
     </div>
     <div className='goodsBody'>
-      <div className='goodsLabel'>太平鸟</div>
-      <div className='goodsHeader'>
-        太平鸟太平鸟太平鸟太平鸟太平鸟太平鸟太平鸟那幢冬季短款黑色羽绒服太平鸟那幢冬季短款黑色羽绒服
-      </div>
+      <div className='goodsLabel'>{data.name}</div>
+      <div className='goodsHeader'>{data.title}</div>
       <div className='goodsContent'>
-        <span className='saleLabel'>每400减50</span>
+        <span className='saleLabel'>{data.sale}</span>
       </div>
       <div className='goodsFooter'>
-        <div><span>￥</span><span>299</span></div>
+        <div><span>￥</span><span>{data.price}</span></div>
         <div>找相似</div>
       </div>
     </div>
@@ -40,7 +37,36 @@ class Index extends React.Component {
         title: '太平鸟那幢冬季短款黑色羽绒服',
         price: 300,
         sale: '每400减50'
-      }
+      },
+      goodsList: [
+        {
+          id: 1,
+          name: '太平鸟',
+          title: '太平鸟那幢冬季短款黑色羽绒服',
+          price: 200,
+          sale: '每400减50'
+        },
+        {
+          id: 2,
+          name: '太平鸟',
+          title: '太平鸟那幢冬季短款黑色羽绒服',
+          price: 300,
+          sale: '每400减50'
+        },
+        {
+          id: 3,
+          name: '太平鸟',
+          title: '太平鸟那幢冬季短款黑色羽绒服',
+          price: 400,
+          sale: '每400减50'
+        },
+        {
+          id: 4,
+          name: '太平鸟',
+          title: '太平鸟那幢冬季短款黑色羽绒服',
+          price: 500,
+          sale: '每400减50'
+        }]
     }
   };
 
@@ -51,20 +77,17 @@ class Index extends React.Component {
   }
 
   detail = (id) => {
-    this.context.router.push(`/frame/news/detail/${id}`);
+    this.context.router.push(`/goods/detail/${id}`);
   }
 
   render() {
-    const {data, goodsDetail} = this.state;
+    const {data, goodsList} = this.state;
 
     return (
       <div className="home">
-        <div className='zui-scroll-wrapper'>
-          <div className="zui-scroll">
-            <Carousel
-              autoplay
-              infinite
-            >
+        <div className='zui-scroll-wrapper' style={{bottom: '50px'}}>
+          <div className="zui-scroll" >
+            <Carousel infinite>
               {data.map(val => (
                 <a
                   key={val}
@@ -78,6 +101,8 @@ class Index extends React.Component {
                 </a>
               ))}
             </Carousel>
+            <div className="goods-detail"></div>
+            <div className="goods-comments"></div>
             <Modal
               popup
               visible={false}
@@ -86,6 +111,16 @@ class Index extends React.Component {
             >
               <div></div>
             </Modal>
+            <div className="sub-title">猜你喜欢</div>
+            <div className='goodsWrap'>
+              {
+                goodsList.map(item => {
+                  return (
+                    <GoodsCart key={item.id} data={item} onClick={() => this.detail(item.id)}/>
+                  )
+                })
+              }
+            </div>
           </div>
         </div>
         <div className='footer'>

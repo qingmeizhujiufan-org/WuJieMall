@@ -4,7 +4,6 @@ import {NavBar, Carousel, Grid, Icon} from 'antd-mobile';
 import '../index.less';
 import img1 from 'Img/1.jpg'
 
-
 const GoodsCart = ({className = '', data, ...restProps}) => (
     <div className={`${className} goodsCart`} {...restProps}>
         <div className='goodsImg'>
@@ -25,7 +24,7 @@ const GoodsCart = ({className = '', data, ...restProps}) => (
 );
 
 const girdData = Array.from(new Array(10)).map((_val, i) => ({
-    icon: 'https://gw.alipayobjects.com/zos/rmsportal/nywPmnTAvTmLusPxHPSu.png',
+    icon: img1,
     text: `name${i}`,
 }));
 
@@ -73,7 +72,7 @@ class Index extends React.Component {
     componentDidMount() {
     }
 
-    detail = (id) => {
+    detail = (id, event) => {
         this.context.router.push(`/goods/detail/${id}`);
     }
 
