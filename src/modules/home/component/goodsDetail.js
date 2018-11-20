@@ -85,42 +85,51 @@ class Index extends React.Component {
 
     return (
       <div className="home">
-        <div className='zui-scroll-wrapper' style={{bottom: '50px'}}>
-          <div className="zui-scroll" >
-            <Carousel infinite>
-              {data.map(val => (
-                <a
-                  key={val}
-                  style={{display: 'inline-block', width: '100%', height: '60vw'}}
-                >
-                  <img
-                    src={img1}
-                    alt=""
-                    style={{width: '100%', height: '100%', verticalAlign: 'top'}}
-                  />
-                </a>
-              ))}
-            </Carousel>
-            <div className="goods-detail"></div>
-            <div className="goods-comments"></div>
-            <Modal
-              popup
-              visible={false}
-              onClose={this.onClose}
-              animationType="slide-up"
-            >
-              <div></div>
-            </Modal>
-            <div className="sub-title">猜你喜欢</div>
-            <div className='goodsWrap'>
-              {
-                goodsList.map(item => {
-                  return (
-                    <GoodsCart key={item.id} data={item} onClick={() => this.detail(item.id)}/>
-                  )
-                })
-              }
-            </div>
+        <NavBar
+          mode="light"
+          rightContent={[
+            <Icon key="0" type="search" style={{marginRight: '16px'}}/>,
+            <Icon key="1" type="ellipsis"/>,
+          ]}
+        >商城首页</NavBar>
+        <div className="zui-content">
+          <Carousel infinite>
+            {data.map(val => (
+              <a
+                key={val}
+                style={{display: 'inline-block', width: '100%', height: '60vw'}}
+              >
+                <img
+                  src={img1}
+                  alt=""
+                  style={{width: '100%', height: '100%', verticalAlign: 'top'}}
+                />
+              </a>
+            ))}
+          </Carousel>
+          <div className="goods-detail">
+
+          </div>
+          <div className="goods-comments">
+
+          </div>
+          <Modal
+            popup
+            visible={false}
+            onClose={this.onClose}
+            animationType="slide-up"
+          >
+            <div></div>
+          </Modal>
+          <div className="sub-title">猜你喜欢</div>
+          <div className='goodsWrap'>
+            {
+              goodsList.map(item => {
+                return (
+                  <GoodsCart key={item.id} data={item} onClick={() => this.detail(item.id)}/>
+                )
+              })
+            }
           </div>
         </div>
         <div className='footer'>
