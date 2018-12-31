@@ -11,6 +11,10 @@
 
   }
 
+  .zui-content {
+    height: calc(~'100vh - 45px');
+  }
+
   .sub-title {
     color: #888;
     font-size: 16px;
@@ -19,12 +23,146 @@
     padding: 15px 0;
   }
 
-  .goodsWrap {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 0 5px;
-    margin-bottom: 10px;
+  .am-grid.am-grid-square .am-grid-item .am-grid-item-inner-content .am-grid-icon {
+    width: 60% !important;
   }
+
+  .goods-category {
+    margin-top: 10px;
+    padding: 10px 0px;
+    background-color: #fff;
+    .goods-category-title {
+      position: relative;
+      padding-left: 25px;
+      height: 20px;
+      line-height: 20px;
+      font-family: '华文行楷';
+      font-size: 16px;
+      &:after {
+        position: absolute;
+        top: 0;
+        left: 15px;
+        width: 3px;
+        height: 100%;
+        content: '';
+        background-color: #FF0036;
+      }
+    }
+    .goods-category-body {
+      width: 100%;
+      height: auto;
+      padding-top: 10px;
+      overflow: hidden;
+      a {
+        display: block;
+        position: relative;
+        height: 160px;
+        boxShadow: 2px 1px 1px rgba(0, 0, 0, 0.2);
+        img {
+          width: 100%;
+          height: calc(~'100% - 30px');
+        }
+        div {
+          height: 30px;
+          line-height: 30px;
+          text-align: center;
+        }
+      }
+    }
+    .food-content {
+      width: 100%;
+      padding: 10px 15px 0;
+      display: flex;
+      .left {
+        width: 40%;
+        padding: 10px;
+        border: 1px solid #E0E0E0;
+        .food-img {
+          width: 100%;
+          height: 80px;
+          padding: 0 20px;
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+      .right {
+        width: 60%;
+        border: 1px solid #E0E0E0;
+        border-left: none;
+        >div {
+          position: relative;
+          height: 50%;
+          padding: 10px;
+          border-bottom: 1px solid #E0E0E0;
+          overflow: hidden;
+          &:last-child {
+            border-bottom: none;
+          }
+          .food-img {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            img {
+              width: 100%;
+              height: 100%;
+            }
+          }
+        }
+      }
+      .food-name {
+        font-size: 14px;
+        height: 28px;
+        line-height: 28px;
+      }
+      .food-text {
+        height: 22px;
+        line-height: 22px;
+        font-size: 12px;
+        color: #797979;
+      }
+    }
+    .travel-content {
+      padding: 10px 15px 0;
+      display: flex;
+      justify-content: center;
+      height: 140px;
+      .travel-item {
+        flex: 1 1 auto;
+        margin-right: 10px;
+        &:last-child {
+          margin-right: 0;
+        }
+        .travel-img {
+          width: 100%;
+          height: 80px;
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+        .travel-body {
+          text-align: center;
+          .travel-name {
+            font-size: 14px;
+            height: 28px;
+            line-height: 28px;
+          }
+          .travel-date {
+            font-size: 14px;
+            span {
+              font-size: 12px;
+            }
+          }
+        }
+      }
+    }
+  }
+
   .goodsCart {
     margin: 5px 5px;
     color: #bbb;
@@ -44,16 +182,6 @@
     .goodsBody {
       position: relative;
       padding: 20px 10px 10px;
-      .goodsLabel {
-        position: absolute;
-        top: -10px;
-        left: 5px;
-        padding: 0 10px;
-        line-height: 24px;
-        font-size: 12px;
-        color: #fff;
-        background-color: #d98076;
-      }
       .goodsHeader {
         display: -webkit-box;
         -webkit-box-orient: vertical;
@@ -70,6 +198,16 @@
           padding: 0 5px;
           width: auto;
           border: 1px solid red;
+        }
+        .goodsLabel {
+          position: absolute;
+          top: -10px;
+          left: 5px;
+          padding: 0 10px;
+          line-height: 24px;
+          font-size: 12px;
+          color: #fff;
+          background-color: #d98076;
         }
       }
       .goodsFooter {
@@ -89,60 +227,6 @@
           border-radius: 5px;
         }
       }
-    }
-  }
-
-  .footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    align-items: center;
-    height: 50px;
-    line-height: 50px;
-    border: 1px solid #e3f2fb;
-    z-index: 100;
-    .footer-btn {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      flex: 1;
-      padding: 0 5px;
-      height: 100%;
-      font-size: 10px;
-      text-align: center;
-      border-right: 1px solid #e3f2fb;;
-      .btn-img {
-        display: flex;
-        width: 22px;
-        height: 22px;
-        img {
-          width: 100%;
-          height: 100%;
-        }
-      }
-      .btn-label {
-        font-size: 10px;
-        color: rgb(170, 175, 185);
-        margin: 5px 0 0 0;
-        line-height: 1;
-        text-align: center;
-      }
-    }
-    .add,.buy {
-      flex: 3;
-      padding: 0 5px;
-      color: #fff;
-      text-align: center;
-    }
-    .add {
-      background-color: #ffb836;
-    }
-    .buy {
-      background-color: #FF0036;
-
     }
   }
 }

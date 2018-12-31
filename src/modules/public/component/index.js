@@ -6,7 +6,7 @@ import {TabBar} from 'antd-mobile';
 import Home from '../../home/component/';
 
 /* 商品分类 */
-import Category from '../../category/component/';
+import Category from '../../food/component/';
 
 /* 购物车 */
 import GoodsCar from '../../goodsCar/component/';

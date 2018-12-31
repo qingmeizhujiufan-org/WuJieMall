@@ -77,7 +77,7 @@ class Index extends React.Component {
   }
 
   detail = (id) => {
-    this.context.router.push(`/goods/detail/${id}`);
+    this.context.router.push(`/food/detail/${id}`);
   }
 
   render() {
@@ -87,11 +87,11 @@ class Index extends React.Component {
       <div className="goodsDetail">
         <NavBar
           mode="light"
+          leftContent="关闭"
           rightContent={[
-            <Icon key="0" type="search" style={{marginRight: '16px'}}/>,
-            <Icon key="1" type="ellipsis"/>,
+            <Icon key="0" type="ellipsis"/>
           ]}
-        >商城首页</NavBar>
+        >特色食品</NavBar>
         <div className="zui-content">
           <Carousel infinite>
             {data.map(val => (
