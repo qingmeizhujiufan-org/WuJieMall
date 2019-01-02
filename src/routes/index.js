@@ -50,10 +50,21 @@ const Hotel = Loadable({
   loader: () => import('../modules/hotel/component/index'),
   loading: Loading
 })
+/* 住宿商品详情 */
+const HotelDetail = Loadable({
+  loader: () => import('../modules/hotel/component/hotelDetail'),
+  loading: Loading
+})
+
 
 /* 旅游首页详情 */
 const Travel = Loadable({
   loader: () => import('../modules/travel/component/index'),
+  loading: Loading
+})
+/* 旅游商品详情 */
+const TravelDetail = Loadable({
+  loader: () => import('../modules/travel/component/travelDetail'),
   loading: Loading
 })
 
@@ -65,8 +76,15 @@ module.exports = (
       <Route path="index" component={Food}/>
       <Route path="detail/:id" component={FoodDetail}/>
     </Route>
-    <Route path="hotel/index" component={Hotel}/>
-    <Route path="travel/index" component={Travel}/>
-
+    <Route path="hotel" component={App}>
+      <IndexRoute component={Hotel}/>
+      <Route path="index" component={Hotel}/>
+      <Route path="detail/:id" component={HotelDetail}/>
+    </Route>
+    <Route path="travel" component={App}>
+      <IndexRoute component={Travel}/>
+      <Route path="index" component={Travel}/>
+      <Route path="detail/:id" component={TravelDetail}/>
+    </Route>
   </Route>
 );

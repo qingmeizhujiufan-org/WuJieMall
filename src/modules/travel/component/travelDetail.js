@@ -35,6 +35,13 @@ class Index extends React.Component {
 
     return (
       <div id="goodsDetail">
+        <NavBar
+          mode="light"
+          icon={<Icon type="left" />}
+          rightContent={[
+            <Icon key="0" type="ellipsis"/>
+          ]}
+        >特色食品</NavBar>
         <div className="zui-content">
           <Carousel infinite>
             {data.map(val => (

@@ -263,13 +263,6 @@ class Index extends React.Component {
 
     return (
       <div className="food">
-        <NavBar
-          mode="light"
-          icon={<Icon type="left" />}
-          rightContent={[
-            <Icon key="0" type="ellipsis"/>
-          ]}
-        >特色食品</NavBar>
         <div className="zui-content">
           <SearchBar placeholder="请输入要搜索的商品" maxLength={16}/>
           <Tabs

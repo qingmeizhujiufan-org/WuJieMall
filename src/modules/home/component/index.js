@@ -124,13 +124,6 @@ class Index extends React.Component {
 
     return (
       <div className="home">
-        <NavBar
-          mode="light"
-          leftContent="关闭"
-          rightContent={[
-            <Icon key="0" type="ellipsis"/>
-          ]}
-        >无介</NavBar>
         <div className="zui-content">
           <Carousel
             autoplay
