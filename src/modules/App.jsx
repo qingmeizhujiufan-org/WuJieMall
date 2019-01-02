@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import DocumentTitle from 'react-document-title';
 
 //将状态写入属性
 function mapStateToProps(state) {
@@ -9,7 +10,7 @@ function mapStateToProps(state) {
 };
 
 class App extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.state = {
@@ -19,9 +20,9 @@ class App extends React.Component {
 
     render() {
         return (
-            <div>
+            <DocumentTitle title='无介商城'>
                 {this.props.children}
-            </div>
+            </DocumentTitle>
         );
     }
 }
