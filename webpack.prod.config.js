@@ -120,7 +120,7 @@ module.exports = {
             filename: '[name].[contenthash:5].css',
             allChunks: true
         }),
-        new HtmlWebpackPlugin({template: './index.html'}),
+        new HtmlWebpackPlugin({template: './public/index.html'}),
         new webpack.optimize.UglifyJsPlugin({
             uglifyOptions: {
                 ecma: 8,
