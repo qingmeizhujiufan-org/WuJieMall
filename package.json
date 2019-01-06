@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "main": "lib/index",
   "scripts": {
-    "start": "webpack-dev-server --devtool eval-source-map --port 8001 --open",
+    "start": "webpack-dev-server --devtool eval-source-map --port 8010 --open",
     "prod": "webpack -p --progress --colors --config webpack.prod.config.js"
   },
   "license": "MIT",
   "dependencies": {
     "antd-mobile": "^2.2.0",
+    "axios": "^0.18.0",
     "babel-preset-es2015": "^6.24.1",
     "rc-queue-anim": "^1.6.2",
     "react": "^16.4.1",
