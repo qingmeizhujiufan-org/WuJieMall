@@ -45,10 +45,11 @@
         white-space: nowrap;
         text-overflow: ellipsis;
         font-size: 14px;
+        height: 20px;
         color: #000;
         .isTop {
           display: inline-block;
-          padding: 3px 6px;
+          padding: 2px 4px;
           margin-right: 5px;
           font-size: 12px;
           color: #FF5745;
@@ -101,7 +102,7 @@
       color: #000;
       .is-top {
         display: inline-block;
-        padding: 3px 6px;
+        padding: 2px 4px;
         margin-right: 5px;
         font-size: 12px;
         color: #FF5745;
@@ -128,6 +129,90 @@
 
   .goods-comments {
     margin-top: 10px;
+  }
+
+  .goods-store {
+    background-color: #fff;
+    .goods-store-header {
+      padding: 10px 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      .goods-store-logo {
+        width: 50px;
+        height: 50px;
+      }
+      .goods-store-info {
+        padding: 10px;
+        flex: 1 1 auto;
+        > div {
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          &:first-child {
+            margin-bottom: 5px;
+            font-weight: 600;
+          }
+          &:last-child {
+            color: #797979;
+          }
+        }
+      }
+      .goods-store-into {
+        width: auto;
+        padding: 5px 10px;
+        color: #FF5745;
+        border: 1px solid #FF5745;
+        border-radius: 20px;
+      }
+    }
+    .goods-store-body {
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 15px;
+      .goods-item {
+        flex: 1 1 auto;
+        margin-right: 10px;
+        &:last-child {
+          margin-right: 0;
+        }
+        .goods-item-img {
+          width: 100%;
+          height: 80px;
+          border-radius: 5px;
+          overflow: hidden;
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+        .goods-item-name {
+          margin-top: 10px;
+          text-align: center;
+          overflow: hidden;
+          text-overflow:ellipsis;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+
+  .goods-info {
+    margin-top: 10px;
+    .goods-info-list {
+      background-color: #FFFFFF;
+      .am-list-header {
+        color: #000000;
+        font-weight: 600;
+      }
+      .am-list-item {
+        div {
+          font-size: 14px;
+          color: #797979;
+        }
+      }
+    }
   }
 
   .footer {
