@@ -2,8 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Carousel, Grid} from 'antd-mobile';
 import '../index.less';
-import img1 from 'Img/1.jpg'
 import DocumentTitle from "react-document-title";
+import axios from 'Utils/axios';
+import restUrl from "RestUrl";
+
+import classify_1 from 'Img/classify_1.png';
+import classify_2 from 'Img/classify_2.png';
+import classify_3 from 'Img/classify_3.png';
 
 const TravelItem = ({className = '', data, ...restProps}) => (
     <div className={`${className} travel-item`} {...restProps}>
@@ -19,11 +24,26 @@ const TravelItem = ({className = '', data, ...restProps}) => (
     </div>
 );
 
+const classify = [{
+    icon: classify_1,
+    text: '特色食品',
+    id: '1'
+}, {
+    icon: classify_2,
+    text: '特色住宿',
+    id: '2'
+}, {
+    icon: classify_3,
+    text: '主题旅游',
+    id: '3'
+}]
+
 class Index extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            topSliderList: [],
             data: ['1', '2', '3'],
             foodData: [{
                 id: '1',
@@ -70,19 +90,6 @@ class Index extends React.Component {
                     price: 500,
                     sale: '每400减50'
                 }],
-            goodsCategory: [{
-                icon: img1,
-                text: '特色食品',
-                id: '1'
-            }, {
-                icon: img1,
-                text: '特色住宿',
-                id: '2'
-            }, {
-                icon: img1,
-                text: '主题旅游',
-                id: '3'
-            }],
             hotelData: ['AiyWuByWklrrUDlFignR', 'TekJlZRVCjLFexlOCuWn', 'IJOtIlfsYdTyaDTRVrLI'],
             travelData: [{
                 url: 'AiyWuByWklrrUDlFignR',
@@ -104,6 +111,34 @@ class Index extends React.Component {
     }
 
     componentDidMount() {
+        this.queryTopSliderList();
+    }
+
+    queryTopSliderList = () => {
+        this.setState({loading: true});
+        axios.get('app/queryTopSliderList').then(res => res.data).then(data => {
+            if (data.success) {
+                if (data.backData) {
+                    const backData = data.backData;
+                    backData.map(item => {
+                        if (item.File) {
+                            item.imgSrc = restUrl.ADDR + '/public/' + `${item.File.id + item.File.fileType}`;
+                        }
+                    });
+
+                    this.setState({
+                        topSliderList: backData
+                    });
+                } else {
+                    this.setState({
+                        topSliderList: []
+                    });
+                }
+            } else {
+                Message.error('查询列表失败');
+            }
+            this.setState({loading: false});
+        });
     }
 
     queryCategory = (id, index) => {
@@ -121,7 +156,7 @@ class Index extends React.Component {
     }
 
     render() {
-        const {data, goodsCategory, foodData, travelData, hotelData} = this.state;
+        const {topSliderList, foodData, travelData, hotelData} = this.state;
 
         return (
             <DocumentTitle title='无介商城'>
@@ -131,14 +166,14 @@ class Index extends React.Component {
                             autoplay
                             infinite
                         >
-                            {data.map(val => (
+                            {topSliderList.map(item => (
                                 <a
-                                    key={val}
-                                    href="http://www.alipay.com"
-                                    style={{display: 'inline-block', width: '100%', height: '40vw'}}
+                                    key={item.id}
+                                    href={item.productLink}
+                                    style={{display: 'inline-block', width: '100%', height: '32.27vw'}}
                                 >
                                     <img
-                                        src={img1}
+                                        src={item.imgSrc}
                                         alt=""
                                         style={{width: '100%', height: '100%', verticalAlign: 'top'}}
                                     />
@@ -146,20 +181,20 @@ class Index extends React.Component {
                             ))}
                         </Carousel>
                         <Grid
-                            data={goodsCategory}
+                            data={classify}
                             hasLine={false}
                             columnNum={3}
                             className="not-square-grid"
                             onClick={(item, index) => this.queryCategory(item.id, index)}
                         />
                         <div className='goods-category'>
-                            <div className='goods-category-title'>特色食品</div>
+                            <div className='goods-category-title'><i className='iconfont icon-teseshipin'></i></div>
                             <div className='goods-category-body food-content'>
                                 <div className='left'>
                                     <div className='food-name'>{foodData[0].name}</div>
                                     <div className='food-text'>{foodData[0].text}</div>
                                     <div className='food-img'>
-                                        <img src={img1} alt=""/>
+                                        <img src={classify_1} alt=""/>
                                     </div>
                                 </div>
                                 <div className='right'>
@@ -167,21 +202,21 @@ class Index extends React.Component {
                                         <div className='food-name'>{foodData[1].name}</div>
                                         <div className='food-text'>{foodData[1].text}</div>
                                         <div className='food-img'>
-                                            <img src={img1} alt=""/>
+                                            <img src={classify_1} alt=""/>
                                         </div>
                                     </div>
                                     <div>
                                         <div className='food-name'>{foodData[2].name}</div>
                                         <div className='food-text'>{foodData[2].text}</div>
                                         <div className='food-img'>
-                                            <img src={img1} alt=""/>
+                                            <img src={classify_1} alt=""/>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div className='goods-category'>
-                            <div className='goods-category-title'>特色名宿</div>
+                            <div className='goods-category-title'><i className='iconfont icon-teseminsu'></i></div>
                             <div className='goods-category-body'>
                                 <Carousel className="space-carousel"
                                           frameOverflow="visible"
@@ -211,7 +246,7 @@ class Index extends React.Component {
                             </div>
                         </div>
                         <div className='goods-category'>
-                            <div className='goods-category-title'>主题旅游</div>
+                            <div className='goods-category-title'><i className='iconfont icon-zhutilvyou'></i></div>
                             <div className='goods-category-body travel-content'>
                                 {
                                     travelData.map((item, index) => {

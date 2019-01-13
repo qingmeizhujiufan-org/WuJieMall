@@ -1,4 +1,4 @@
-/* 
+/*
  *  create by zhongzheng in 2018/11/11.
  */
 
@@ -8,83 +8,83 @@ import {Icon} from 'antd-mobile';
 import Loadable from 'react-loadable';
 
 function Loading(props) {
-  if (props.error) {
-    return <div>错误! <button onClick={props.retry}>点击重试</button></div>;
-  } else if (props.timedOut) {
-    return <div>已经超时加载... <button onClick={props.retry}>点击重试</button></div>;
-  } else if (props.pastDelay) {
-    return (
-      <div style={{
-        padding: '30px 0',
-        textAlign: 'center'
-      }}><Icon type='loading'/></div>
-    );
-  } else {
-    return null;
-  }
+    if (props.error) {
+        return <div>错误! <button onClick={props.retry}>点击重试</button></div>;
+    } else if (props.timedOut) {
+        return <div>已经超时加载... <button onClick={props.retry}>点击重试</button></div>;
+    } else if (props.pastDelay) {
+        return (
+            <div style={{
+                padding: '30px 0',
+                textAlign: 'center'
+            }}><Icon type='loading'/></div>
+        );
+    } else {
+        return null;
+    }
 }
 
 const App = Loadable({
-  loader: () => import('../modules/App'),
-  loading: Loading
+    loader: () => import('../modules/App'),
+    loading: Loading
 });
 
 /* 首页 */
 const Index = Loadable({
-  loader: () => import('../modules/home/component/index'),
-  loading: Loading
+    loader: () => import('../modules/home/component/index'),
+    loading: Loading
 });
 
 /* 食品首页详情 */
 const Food = Loadable({
-  loader: () => import('../modules/food/component/index'),
-  loading: Loading
+    loader: () => import('../modules/food/component/index'),
+    loading: Loading
 })
 const FoodDetail = Loadable({
-  loader: () => import('../modules/food/component/foodDetail'),
-  loading: Loading
+    loader: () => import('../modules/food/component/foodDetail'),
+    loading: Loading
 })
 
 /* 住宿首页详情 */
 const Hotel = Loadable({
-  loader: () => import('../modules/hotel/component/index'),
-  loading: Loading
+    loader: () => import('../modules/hotel/component/index'),
+    loading: Loading
 })
 /* 住宿商品详情 */
 const HotelDetail = Loadable({
-  loader: () => import('../modules/hotel/component/hotelDetail'),
-  loading: Loading
+    loader: () => import('../modules/hotel/component/hotelDetail'),
+    loading: Loading
 })
 
 
 /* 旅游首页详情 */
 const Travel = Loadable({
-  loader: () => import('../modules/travel/component/index'),
-  loading: Loading
+    loader: () => import('../modules/travel/component/index'),
+    loading: Loading
 })
 /* 旅游商品详情 */
 const TravelDetail = Loadable({
-  loader: () => import('../modules/travel/component/travelDetail'),
-  loading: Loading
+    loader: () => import('../modules/travel/component/travelDetail'),
+    loading: Loading
 })
 
 module.exports = (
-  <Route path="/" component={App}>
-    <IndexRoute component={Index}/>
-    <Route path="food" component={App}>
-      <IndexRoute component={Food}/>
-      <Route path="index" component={Food}/>
-      <Route path="detail/:id" component={FoodDetail}/>
+    <Route path="/" component={App}>
+        <IndexRoute component={Index}/>
+        <Route path="food" component={App}>
+            <IndexRoute component={Food}/>
+            <Route path="index" component={Food}/>
+            <Route path="detail/:id" component={FoodDetail}/>
+        </Route>
+        <Route path="hotel" component={App}>
+            <IndexRoute component={Hotel}/>
+            <Route path="index" component={Hotel}/>
+            <Route path="detail/:id" component={HotelDetail}/>
+        </Route>
+        <Route path="travel" component={App}>
+            <IndexRoute component={Travel}/>
+            <Route path="index" component={Travel}/>
+            <Route path="detail/:id" component={TravelDetail}/>
+        </Route>
     </Route>
-    <Route path="hotel" component={App}>
-      <IndexRoute component={Hotel}/>
-      <Route path="index" component={Hotel}/>
-      <Route path="detail/:id" component={HotelDetail}/>
-    </Route>
-    <Route path="travel" component={App}>
-      <IndexRoute component={Travel}/>
-      <Route path="index" component={Travel}/>
-      <Route path="detail/:id" component={TravelDetail}/>
-    </Route>
-  </Route>
 );
