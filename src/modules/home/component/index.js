@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Flex, Carousel} from 'antd-mobile';
+import {Layout} from 'Comps/zui-mobile';
 import '../index.less';
 import DocumentTitle from "react-document-title";
 import axios from 'Utils/axios';
@@ -137,7 +138,7 @@ class Index extends React.Component {
         return (
             <DocumentTitle title='无介商城'>
                 <div className="home">
-                    <div className="zui-content">
+                    <Layout.Content>
                         <Carousel
                             autoplay
                             infinite
@@ -157,15 +158,18 @@ class Index extends React.Component {
                             ))}
                         </Carousel>
                         <Flex className='classify-list'>
-                            <Flex.Item className='classify-list-item' onClick={()=> this.context.router.push(`/food/index`)}>
+                            <Flex.Item className='classify-list-item'
+                                       onClick={() => this.context.router.push(`/food/index`)}>
                                 <div><img src={classify_1}/></div>
                                 <span>特色食品</span>
                             </Flex.Item>
-                            <Flex.Item className='classify-list-item' onClick={()=> this.context.router.push(`/hotel/index`)}>
+                            <Flex.Item className='classify-list-item'
+                                       onClick={() => this.context.router.push(`/hotel/index`)}>
                                 <div><img src={classify_2}/></div>
                                 <span>特色住宿</span>
                             </Flex.Item>
-                            <Flex.Item className='classify-list-item'onClick={()=> this.context.router.push(`/travel/index`)}>
+                            <Flex.Item className='classify-list-item'
+                                       onClick={() => this.context.router.push(`/travel/index`)}>
                                 <div><img src={classify_3}/></div>
                                 <span>主题旅游</span>
                             </Flex.Item>
@@ -173,7 +177,8 @@ class Index extends React.Component {
                         <div className='goods-category'>
                             <div className='goods-category-title'><i className='iconfont icon-teseshipin'></i></div>
                             <div className='goods-category-body food-content'>
-                                <div className='left' onClick={() => this.context.router.push(`/food/detail/${foodData[0].id}`)}>
+                                <div className='left'
+                                     onClick={() => this.context.router.push(`/food/detail/${foodData[0].id}`)}>
                                     <div className='food-name'>{foodData[0].name}</div>
                                     <div className='food-text'>{foodData[0].text}</div>
                                     <div className='food-img'>
@@ -240,7 +245,7 @@ class Index extends React.Component {
                                 }
                             </div>
                         </div>
-                    </div>
+                    </Layout.Content>
                 </div>
             </DocumentTitle>
         );

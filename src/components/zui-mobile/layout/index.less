@@ -1,0 +1,41 @@
+@import "../style/index.less";
+
+@layout-prefix-cls: ~"@{zui-prefix}-layout";
+
+.@{layout-prefix-cls} {
+    display: grid;
+    grid-template-rows: auto;
+    height: 100vh;
+
+    &.with-footer {
+        grid-template-rows: auto @footer-height-base;
+    }
+
+    &-content {
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    &-footer {
+        overflow: hidden;
+        background-color: #ffffff;
+
+        .wrap-submit-btn {
+            padding: 10px 15px;
+        }
+    }
+}
+
+@media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) {
+    .@{layout-prefix-cls} {
+        grid-template-rows: 100vh;
+
+        &.with-footer {
+            grid-template-rows: auto calc(~'@{footer-height-base} + @{safearea-bottom-height-ios-x}');
+        }
+
+        &-header {
+            padding-top: @statusbar-height-ios-x;
+        }
+    }
+}
