@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Carousel, Grid} from 'antd-mobile';
+import {Flex, Carousel} from 'antd-mobile';
 import '../index.less';
 import DocumentTitle from "react-document-title";
 import axios from 'Utils/axios';
@@ -23,20 +23,6 @@ const TravelItem = ({className = '', data, ...restProps}) => (
         </div>
     </div>
 );
-
-const classify = [{
-    icon: classify_1,
-    text: '特色食品',
-    id: '1'
-}, {
-    icon: classify_2,
-    text: '特色住宿',
-    id: '2'
-}, {
-    icon: classify_3,
-    text: '主题旅游',
-    id: '3'
-}]
 
 class Index extends React.Component {
     constructor(props) {
@@ -141,16 +127,6 @@ class Index extends React.Component {
         });
     }
 
-    queryCategory = (id, index) => {
-        if (index === 0) {
-            this.context.router.push(`/food/index`);
-        } else if (index === 1) {
-            this.context.router.push(`/hotel/index`);
-        } else {
-            this.context.router.push(`/travel/index/`);
-        }
-    }
-
     queryGoodsDetail = (id) => {
         this.context.router.push(`/goods/detail/${id}`);
     }
@@ -180,13 +156,20 @@ class Index extends React.Component {
                                 </a>
                             ))}
                         </Carousel>
-                        <Grid
-                            data={classify}
-                            hasLine={false}
-                            columnNum={3}
-                            className="not-square-grid"
-                            onClick={(item, index) => this.queryCategory(item.id, index)}
-                        />
+                        <Flex className='classify-list'>
+                            <Flex.Item className='classify-list-item'>
+                                <div><img src={classify_1}/></div>
+                                <span>特色食品</span>
+                            </Flex.Item>
+                            <Flex.Item className='classify-list-item'>
+                                <div><img src={classify_2}/></div>
+                                <span>特色住宿</span>
+                            </Flex.Item>
+                            <Flex.Item className='classify-list-item'>
+                                <div><img src={classify_3}/></div>
+                                <span>主题旅游</span>
+                            </Flex.Item>
+                        </Flex>
                         <div className='goods-category'>
                             <div className='goods-category-title'><i className='iconfont icon-teseshipin'></i></div>
                             <div className='goods-category-body food-content'>
