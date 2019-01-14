@@ -5,6 +5,8 @@ import '../index.less';
 import img1 from 'Img/1.jpg'
 import img from 'Img/IMG_1624.png'
 import DocumentTitle from "react-document-title";
+import axios from "Utils/axios";
+import restUrl from "RestUrl";
 
 const Item = List.Item;
 
@@ -22,6 +24,8 @@ class Index extends React.Component {
     super(props);
 
     this.state = {
+      productId: '',
+      loading: false,
       detailData: {
 
       },
@@ -51,9 +55,38 @@ class Index extends React.Component {
   };
 
   componentWillMount() {
+    this.state.productId = this.props.params.id
+    this.queryDetail();
   }
 
   componentDidMount() {
+  }
+
+  queryDetail = () => {
+    this.setState({loading: true});
+    axios.get('app/queryTopSliderList').then(res => res.data).then(data => {
+      if (data.success) {
+        if (data.backData) {
+          const backData = data.backData;
+          backData.map(item => {
+            if (item.File) {
+              item.imgSrc = restUrl.ADDR + '/public/' + `${item.File.id + item.File.fileType}`;
+            }
+          });
+
+          this.setState({
+            topSliderList: backData
+          });
+        } else {
+          this.setState({
+            topSliderList: []
+          });
+        }
+      } else {
+        Message.error('查询列表失败');
+      }
+      this.setState({loading: false});
+    });
   }
 
   render() {
@@ -94,6 +127,9 @@ class Index extends React.Component {
                   }
                 </div>
               </div>
+              <div className='goods-vip'>
+                
+              </div>
             </div>
             <div className="goods-comments">
               <List className="my-list">
@@ -113,7 +149,7 @@ class Index extends React.Component {
                   <div>安徽商铺</div>
                   <div>sdsd</div>
                 </div>
-                <div className='goods-store-into'>
+                <div className='goods-store-into'onClick={()=> this.context.router.push(`/shop/detail/${id}`)}>
                   进入店铺
                 </div>
               </div>

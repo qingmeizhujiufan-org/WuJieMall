@@ -157,15 +157,15 @@ class Index extends React.Component {
                             ))}
                         </Carousel>
                         <Flex className='classify-list'>
-                            <Flex.Item className='classify-list-item'>
+                            <Flex.Item className='classify-list-item' onClick={()=> this.context.router.push(`/food/index`)}>
                                 <div><img src={classify_1}/></div>
                                 <span>特色食品</span>
                             </Flex.Item>
-                            <Flex.Item className='classify-list-item'>
+                            <Flex.Item className='classify-list-item' onClick={()=> this.context.router.push(`/hotel/index`)}>
                                 <div><img src={classify_2}/></div>
                                 <span>特色住宿</span>
                             </Flex.Item>
-                            <Flex.Item className='classify-list-item'>
+                            <Flex.Item className='classify-list-item'onClick={()=> this.context.router.push(`/travel/index`)}>
                                 <div><img src={classify_3}/></div>
                                 <span>主题旅游</span>
                             </Flex.Item>
@@ -173,7 +173,7 @@ class Index extends React.Component {
                         <div className='goods-category'>
                             <div className='goods-category-title'><i className='iconfont icon-teseshipin'></i></div>
                             <div className='goods-category-body food-content'>
-                                <div className='left'>
+                                <div className='left' onClick={() => this.context.router.push(`/food/detail/${foodData[0].id}`)}>
                                     <div className='food-name'>{foodData[0].name}</div>
                                     <div className='food-text'>{foodData[0].text}</div>
                                     <div className='food-img'>
@@ -181,14 +181,14 @@ class Index extends React.Component {
                                     </div>
                                 </div>
                                 <div className='right'>
-                                    <div>
+                                    <div onClick={() => this.context.router.push(`/food/detail/${foodData[1].id}`)}>
                                         <div className='food-name'>{foodData[1].name}</div>
                                         <div className='food-text'>{foodData[1].text}</div>
                                         <div className='food-img'>
                                             <img src={classify_1} alt=""/>
                                         </div>
                                     </div>
-                                    <div>
+                                    <div onClick={() => this.context.router.push(`/food/detail/${foodData[2].id}`)}>
                                         <div className='food-name'>{foodData[2].name}</div>
                                         <div className='food-text'>{foodData[2].text}</div>
                                         <div className='food-img'>
