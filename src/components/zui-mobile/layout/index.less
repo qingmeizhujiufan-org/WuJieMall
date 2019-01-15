@@ -25,17 +25,3 @@
         }
     }
 }
-
-@media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) {
-    .@{layout-prefix-cls} {
-        grid-template-rows: 100vh;
-
-        &.with-footer {
-            grid-template-rows: auto calc(~'@{footer-height-base} + @{safearea-bottom-height-ios-x}');
-        }
-
-        &-header {
-            padding-top: @statusbar-height-ios-x;
-        }
-    }
-}

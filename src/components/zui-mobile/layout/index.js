@@ -17,11 +17,18 @@ class Index extends Component {
             withFooter,
             children
         } = this.props;
-        const [Content, Footer] = [...children];
+        let _content, _footer;
+        if (children instanceof Object) {
+            _content = children;
+        } else if (children instanceof Array) {
+            _content = children[0];
+            _footer = children[1];
+        }
+
         return (
             <div className={`zui-layout${className ? (' ' + className) : ''}${withFooter ? ' with-footer' : ''}`}>
-                {Content}
-                {withFooter ? Footer : null}
+                {_content}
+                {withFooter ? _footer : null}
             </div>
         )
     }

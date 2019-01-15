@@ -137,7 +137,7 @@ class Index extends React.Component {
 
         return (
             <DocumentTitle title='无介商城'>
-                <div className="home">
+                <Layout className="home">
                     <Layout.Content>
                         <Carousel
                             autoplay
@@ -246,7 +246,7 @@ class Index extends React.Component {
                             </div>
                         </div>
                     </Layout.Content>
-                </div>
+                </Layout>
             </DocumentTitle>
         );
     }
