@@ -81,40 +81,7 @@ class Index extends React.Component {
             categoryList: [{
                 title: '全部'
             }],
-            goodsList: [
-                // {
-                //   id: 1,
-                //   name: '太平鸟',
-                //   title: '太平鸟那幢冬季短款黑色羽绒服',
-                //   address: '杭州',
-                //   price: 200,
-                //   isTop: true
-                // },
-                // {
-                //   id: 2,
-                //   name: '太平鸟',
-                //   title: '太平鸟那幢冬季短款黑色羽绒服',
-                //   address: '杭州',
-                //   price: 300,
-                //   isTop: false
-                // },
-                // {
-                //   id: 3,
-                //   name: '太平鸟',
-                //   title: '太平鸟那幢冬季短款黑色羽绒服',
-                //   address: '杭州',
-                //   price: 400,
-                //   isTop: true
-                // },
-                // {
-                //   id: 4,
-                //   name: '太平鸟',
-                //   title: '太平鸟那幢冬季短款黑色羽绒服',
-                //   address: '杭州',
-                //   price: 500,
-                //   isTop: false
-                // }
-            ]
+            goodsList: []
         }
     };
 
