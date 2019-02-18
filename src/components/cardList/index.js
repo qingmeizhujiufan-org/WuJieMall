@@ -1,132 +1,272 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {Flex} from 'antd-mobile';
-import _ from 'lodash';
-import QueueAnim from 'rc-queue-anim';
+import ReactDOM from 'react-dom';
+import {PullToRefresh, ListView, Toast} from 'antd-mobile';
+import assign from 'lodash/assign';
+import isEqual from 'lodash/isEqual';
+import axios from 'axios';
 import './index.less';
-import arrow from 'Img/right-arrow.png';
 
-class CardList extends React.Component {
+function MyBody(props) {
+    return (
+        <div className='zui-cardlist-body'>
+            {props.children}
+        </div>
+    );
+}
+
+class Index extends React.Component {
     constructor(props) {
         super(props);
+        let dataSource = new ListView.DataSource({
+            rowHasChanged: (row1, row2) => row1 !== row2,
+        });
 
         this.state = {
-            id: this.props.data.tabIndex,
-            tabIndex: this.props.data.tabIndex,
-            tabContent: this.props.data.tabContent
+            dataSource,
+            initLoaded: false,
+            refreshing: false,
+            isLoading: false,
+            listData: [],
+            pageIndex: 0,
+            params: {},
+            height: document.documentElement.clientHeight || document.body.clientHeight
         };
     }
 
     componentWillMount() {
-        if (this.props.data.activeTab) {
-            this.setState({
-                tabIndex: parseInt(this.props.data.activeTab)
-            });
-        }
+        this.setState({
+            params: this.props.params
+        });
+
+        window.addEventListener('resize', this.settingHeight);
     }
 
     componentDidMount() {
+        const {dataSource} = this.state;
+        this.settingHeight();
+        setTimeout(() => {
+            this.setState({
+                    refreshing: true
+                },
+                () => {
+                    this.getListData(
+                        (data) => {
+                            if (data.success && data.backData) {
+                                const content = data.backData.content ? data.backData.content : [];
+                                let listData = this.genData(content);
+                                this.setState({
+                                    dataSource: dataSource.cloneWithRows(listData),
+                                    listData: content,
+                                    totalPages: data.backData.totalPages,
+                                    hasMore: this.state.pageIndex < data.backData.totalPages - 1
+                                });
+                            } else {
+                                Toast.info(data.backMsg);
+                            }
+                            this.setState({
+                                refreshing: false,
+                                initLoaded: true
+                            });
+                        }
+                    );
+                }
+            );
+        }, 100);
     }
 
-    btnClick = (url) => {
-        this.context.router.push(url);
-    }
-
-    changeTab = (index) => {
-        const {tabIndex, tabContent} = this.state;
-        const {data} = this.props;
-        console.log('index === ', index);
-        if(data.blankList){
-            const blankList = data.blankList;
-            if(blankList.keys.findIndex(key => key === `${index}`) > -1) {
-                const content = _.find(blankList.contentList, {key: `${index}`}).tabContent;
-                this.setState({
-                    id: null,
-                    tabIndex: index,
-                    tabContent: content
+    componentWillReceiveProps(nextProps) {
+        const {dataSource} = this.state;
+        if (('pageUrl' in nextProps && isEqual(this.props.pageUrl, nextProps.pageUrl) === false)
+            || ('params' in nextProps && isEqual(this.props.params, nextProps.params) === false)) {
+            this.setState({
+                    dataSource: dataSource.cloneWithRows({}),
+                    listData: [],
+                    refreshing: true,
+                    isLoading: true,
+                    pageIndex: 0,
+                    params: nextProps.params
+                },
+                () => {
+                    ReactDOM.findDOMNode(this.lv).scrollTop = 0;
+                    this.getListData(
+                        (data) => {
+                            if (data.success && data.backData) {
+                                const content = data.backData.content ? data.backData.content : [];
+                                this.rData = this.genData(content);
+                                this.setState({
+                                    dataSource: dataSource.cloneWithRows(this.rData),
+                                    listData: content,
+                                    totalPages: data.backData.totalPages,
+                                    hasMore: this.state.pageIndex < data.backData.totalPages - 1
+                                });
+                            } else {
+                                Toast.info(data.backMsg);
+                                this.rData = {};
+                                this.setState({
+                                    dataSource: dataSource.cloneWithRows(this.rData),
+                                    listData: [],
+                                    totalPages: 0,
+                                    hasMore: false
+                                });
+                            }
+                            this.setState({
+                                refreshing: false,
+                                isLoading: false,
+                            });
+                        }
+                    );
                 });
-            }else {
-                this.setState({
-                    id: index,
-                    tabIndex: index,
-                    tabContent: data.tabContent
+        }
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.settingHeight);
+    }
+
+    settingHeight = () => {
+        const clientHeight = document.documentElement.clientHeight || document.body.clientHeight;
+        let hei;
+        const _domNode = ReactDOM.findDOMNode(this.lv);
+        if (this.props.multi) {
+            const tabsHeight = ReactDOM.findDOMNode(this.lv).parentNode.parentNode.parentNode.offsetTop;
+            const offsetTabsHeight = ReactDOM.findDOMNode(this.lv).parentNode.parentNode.parentNode.parentNode.offsetTop;
+            hei = clientHeight - tabsHeight - offsetTabsHeight;
+        } else {
+            hei = clientHeight - _domNode.offsetTop - _domNode.offsetParent.offsetParent.parentNode.offsetTop;
+        }
+
+        this.setState({height: hei});
+
+    }
+
+    genData(data) {
+        let dataBlob = {};
+        for (let i = 0; i < data.length; i++) {
+            dataBlob[`${i}`] = data[i];
+        }
+        return dataBlob;
+    }
+
+    onRefresh = () => {
+        const {dataSource} = this.state;
+        this.setState(
+            {
+                refreshing: true,
+                isLoading: true,
+                pageIndex: 0
+            },
+            () => {
+                this.getListData(data => {
+                    const content = data.backData.content ? data.backData.content : [];
+                    this.rData = this.genData(content);
+                    this.setState({
+                        dataSource: dataSource.cloneWithRows(this.rData),
+                        refreshing: false,
+                        isLoading: false,
+                        listData: content,
+                        totalPages: data.backData.totalPages,
+                        hasMore: this.state.pageIndex < data.backData.totalPages - 1
+                    });
+                });
+            });
+    }
+
+    onEndReached = event => {
+        const {hasMore} = this.state;
+        if (!hasMore) {
+            return;
+        }
+        this.setState(
+            {
+                isLoading: true,
+                pageIndex: ++this.state.pageIndex
+            }, () => {
+                this.getListData(data => {
+                    const {listData, pageIndex, totalPages} = this.state;
+                    const content = listData.concat(data.backData.content ? data.backData.content : []);
+                    this.rData = this.genData(content);
+                    let dataSource = this.state.dataSource.cloneWithRows(this.rData);
+                    this.setState({
+                        dataSource: dataSource,
+                        isLoading: false,
+                        listData: content,
+                        hasMore: pageIndex < totalPages - 1
+                    });
                 });
             }
-        }else{
-            this.setState({
-                id: index,
-                tabIndex: index
-            });
-        }
+        );
     }
 
-    showTab = () => {
-        const {tabIndex} = this.state;
-        const {data} = this.props;
-        if (data.tabs) {
-            return (
-                <div className="tab-button-group">
-                    <QueueAnim delay={500}>
-                        {
-                            data.tabs.map((item, index) => {
-                                const _class = `tab-button ${tabIndex === (index + 1) ? 'active' : ''}`;
-                                return (
-                                    <span key={index} className={_class}
-                                          onClick={() => this.changeTab(index + 1)}>{item.label}</span>
-                                )
-                            })
-                        }
-                    </QueueAnim>
-                </div>
-            )
-        }
+    getListData = (callback) => {
+        let {params, pageIndex} = this.state;
+        params = assign(params, {pageNumber: pageIndex});
+
+        axios.get(this.props.pageUrl, params).then(res => res.data).then(data => {
+                if (typeof callback === 'function')
+                    callback(data);
+            }
+        );
     }
 
     render() {
-        const {id, tabIndex, tabContent} = this.state;
-        const {data} = this.props;
-
+        const {dataSource, initLoaded, refreshing, isLoading} = this.state;
+        const {row} = this.props;
         return (
-            <div>
-                {this.showTab()}
-                <Flex justify="between" style={{marginTop: 20}}>
-                    <h1 style={{fontSize: 20}}>{data.title}</h1>
+            <ListView
+                ref={el => this.lv = el}
+                dataSource={dataSource}
+                renderFooter={() => (<div style={{padding: 30, textAlign: 'center'}}>
                     {
-                        (data.website && tabIndex < 4) ? (
-                            <span style={{fontSize: 14, color: '#888'}}
-                                  onClick={() => this.btnClick(data.website + data.tabs[tabIndex - 1].value)}>企业官网<img
-                                src={arrow} style={{width: 10, marginLeft: 5}}/></span>
-                        ) : null
+                        initLoaded && !refreshing ? (isLoading ? '正在加载...' : '没有了啦~') : null
                     }
-                </Flex>
-                <ul className="zui-list-unstyled card-list">
-                    <QueueAnim delay={500} type={'bottom'}>
-                        {
-                            tabContent.map((item, index) => {
-                                return (
-                                    <li key={index}
-                                        onClick={() => this.btnClick(item.path + (id ? data.tabs[id - 1].value : ''))}>
-                                        <div className="wrap-img">
-                                            <img src={item.preview}/>
-                                        </div>
-                                        <div className="title">{item.title}</div>
-                                        <div className="desc">{item.desc}</div>
-                                    </li>
-                                )
-                            })
-                        }
-                    </QueueAnim>
-                </ul>
-            </div>
+                </div>)}
+                renderBodyComponent={() => <MyBody/>}
+                renderRow={row}
+                className="zui-cardlist"
+                style={{
+                    height: this.state.height,
+                    overflow: 'auto',
+                }}
+                pageSize={4}
+                pullToRefresh={<PullToRefresh
+                    distanceToRefresh={30}
+                    refreshing={refreshing}
+                    onRefresh={this.onRefresh}
+                    indicator={{
+                        activate: <div className='loader'>
+                            <div className='loader-inner ball-beat'>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                        </div>,
+                        deactivate: <div className='loader'>
+                            <div className='loader-inner ball-beat'>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                        </div>,
+                        release: <div className='loader'>
+                            <div className='loader-inner ball-beat'>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                        </div>,
+                        finish: <span>刷新完成</span>
+                    }}
+                />}
+                scrollRenderAheadDistance={500}
+                onEndReached={this.onEndReached}
+                onEndReachedThreshold={500}
+            />
         );
     }
 }
 
+Index.defaultProps = {
+    mode: 'block',
+};
 
-CardList.contextTypes = {
-    router: PropTypes.object,
-    // value: PropTypes.number.isRequired,
-    // onIncreaseClick: PropTypes.func.isRequired
-}
-
-export default CardList;
+export default Index;
