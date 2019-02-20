@@ -48,35 +48,7 @@ class Index extends React.Component {
                 text: '好吃不贵',
                 img: 'img1'
             }],
-            goodsList: [
-                {
-                    id: 1,
-                    name: '太平鸟',
-                    title: '太平鸟那幢冬季短款黑色羽绒服',
-                    price: 200,
-                    sale: '每400减50'
-                },
-                {
-                    id: 2,
-                    name: '太平鸟',
-                    title: '太平鸟那幢冬季短款黑色羽绒服',
-                    price: 300,
-                    sale: '每400减50'
-                },
-                {
-                    id: 3,
-                    name: '太平鸟',
-                    title: '太平鸟那幢冬季短款黑色羽绒服',
-                    price: 400,
-                    sale: '每400减50'
-                },
-                {
-                    id: 4,
-                    name: '太平鸟',
-                    title: '太平鸟那幢冬季短款黑色羽绒服',
-                    price: 500,
-                    sale: '每400减50'
-                }],
+            goodsList: [],
             hotelData: ['AiyWuByWklrrUDlFignR', 'TekJlZRVCjLFexlOCuWn', 'IJOtIlfsYdTyaDTRVrLI'],
             travelData: [{
                 url: 'AiyWuByWklrrUDlFignR',
@@ -109,7 +81,7 @@ class Index extends React.Component {
                     const backData = data.backData;
                     backData.map(item => {
                         if (item.File) {
-                            item.imgSrc = restUrl.ADDR + '/public/' + `${item.File.id + item.File.fileType}`;
+                            item.imgSrc = restUrl.FILE_ASSET + `${item.File.id + item.File.fileType}`;
                         }
                     });
 
