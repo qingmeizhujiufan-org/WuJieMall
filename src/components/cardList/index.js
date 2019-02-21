@@ -132,7 +132,15 @@ class Index extends React.Component {
             const offsetTabsHeight = ReactDOM.findDOMNode(this.lv).parentNode.parentNode.parentNode.parentNode.offsetTop;
             hei = clientHeight - tabsHeight - offsetTabsHeight;
         } else {
-            hei = clientHeight - _domNode.offsetTop - _domNode.offsetParent.offsetParent.parentNode.offsetTop;
+            if (_domNode.offsetParent) {
+                if (_domNode.offsetParent.offsetParent) {
+                    hei = clientHeight - _domNode.offsetTop - _domNode.offsetParent.offsetParent.parentNode.offsetTop;
+                } else {
+                    hei = clientHeight - _domNode.offsetTop - _domNode.offsetParent.parentNode.offsetTop;
+                }
+            } else {
+                hei = clientHeight - _domNode.offsetTop;
+            }
         }
 
         this.setState({height: hei});
