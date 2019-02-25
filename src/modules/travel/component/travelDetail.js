@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {NavBar, Carousel, List, Icon, Flex} from 'antd-mobile';
+import {Carousel, Flex, Tabs} from 'antd-mobile';
 import '../index.less';
 import img from 'Img/IMG_1624.png'
 import DocumentTitle from "react-document-title";
 import axios from "Utils/axios";
 import restUrl from "RestUrl";
-
-const Item = List.Item;
+import {BaseInfo} from "Comps/zui-mobile";
 
 class Index extends React.Component {
     constructor(props) {
@@ -55,7 +54,7 @@ class Index extends React.Component {
                         topSliderList: headerPic,
                         currentIndex: 1,
                         detailPicList: detailPic,
-                        goodsDetail: backData
+                        data: backData
                     });
                 } else {
                     this.setState({
@@ -130,9 +129,68 @@ class Index extends React.Component {
                         </div>
                         <div className='sign-up'>
                             <Flex justify='between'>
-                                <div className='sign-info'>报名 {5} /{data.travelLimiteNumber || 0}人</div>
+                                <div className='sign-info'>报名<span>{5}</span>/{data.travelLimiteNumber || 0}人</div>
                                 <div className='rest-time-ticker'>距结束：{restTimer}</div>
                             </Flex>
+                        </div>
+                        <div className='travel-base-info'>
+                            <div className='travel-theme'>{data.travelTheme}</div>
+                            <Flex justify='between'>
+                                <div className='travel-price'>¥ <span className='price'>{data.travelPrice}</span></div>
+                                <div className='extra-info'>{data.travelLastTime + ' | 含' + data.travelHas}</div>
+                            </Flex>
+                        </div>
+                        <div className='travel-tabs'>
+                            <Tabs
+                                tabs={[{title: '行程介绍'}, {title: '行程详情'}, {title: '旅游须知'}]}
+                                swipeable={false}
+                                onChange={this.tabChange}
+                            >
+                                <div style={{marginTop: 10}}>
+                                    <div className='sub-title'>行程概况</div>
+                                    <BaseInfo
+                                        baseInfoList={[
+                                            {
+                                                label: '出发地',
+                                                value: data.travelFrom
+                                            },
+                                            {
+                                                label: '目的地',
+                                                value: data.travelTo
+                                            },
+                                            {
+                                                label: '旅游用车',
+                                                value: data.travelUsecar
+                                            },
+                                            {
+                                                label: '线路玩法',
+                                                value: data.linePlay
+                                            },
+                                            {
+                                                label: '游玩时间',
+                                                value: data.travelLastTime
+                                            },
+                                            {
+                                                label: '包含元素',
+                                                value: data.travelHas
+                                            },
+                                        ]}
+                                    />
+                                    <div className='sub-title'>图文介绍</div>
+                                    <div className='detail-img-list'>
+                                        {
+                                            data.detailPic && data.detailPic.map((item, index) => {
+                                                return (
+                                                    <div key={index} className='detail-img-list-item'><img
+                                                        src={restUrl.FILE_ASSET + `${item.id + item.fileType}`}/></div>
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                </div>
+                                <div></div>
+                                <div></div>
+                            </Tabs>
                         </div>
                     </div>
                 </div>

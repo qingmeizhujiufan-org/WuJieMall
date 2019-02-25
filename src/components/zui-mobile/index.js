@@ -7,6 +7,7 @@ import Layout from './layout';
 import Drawer from './drawer';
 import FixedMenu from './fixed-menu';
 import Switch from './switch';
+import BaseInfo from './base-info';
 
 module.exports = {
     InputItem,
@@ -18,4 +19,5 @@ module.exports = {
     Drawer,
     FixedMenu,
     Switch,
+    BaseInfo,
 }
