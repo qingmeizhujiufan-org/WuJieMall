@@ -27,6 +27,10 @@ class Index extends React.Component {
         this.queryDetail();
     }
 
+    componentWillUnmount() {
+        clearInterval(this.id);
+    }
+
     queryDetail = () => {
         this.setState({loading: true});
         const param = {
@@ -73,7 +77,7 @@ class Index extends React.Component {
         const that = this;
         const travelBeginTime = time && new Date(time.substring(0, 10) + ' 00:00:00').getTime() || new Date().getTime();
         let restTime = travelBeginTime - new Date().getTime();
-        let id = setInterval(timeTicker, 1000);
+        this.id = setInterval(timeTicker, 1000);
 
         function timeTicker() {
             if (restTime > 0) {
@@ -97,7 +101,7 @@ class Index extends React.Component {
                     restTime -= 1000;
                 }
             } else {
-                clearInterval(id);
+                clearInterval(this.id);
                 that.setState({restTimer: '已结束'});
             }
         }
@@ -116,7 +120,7 @@ class Index extends React.Component {
                                 beforeChange={(from, to) => this.setState({currentIndex: to + 1})}
                             >
                                 {topSliderList.map((item, index) => (
-                                    <div key={index} style={{height: '60vw'}}>
+                                    <div key={index} className='carousel-item'>
                                         <img
                                             src={item.imgSrc}
                                             alt=""
