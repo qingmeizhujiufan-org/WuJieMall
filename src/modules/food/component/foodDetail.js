@@ -25,7 +25,7 @@ class Index extends React.Component {
     super(props);
 
     this.state = {
-      productId: '',
+      id: this.props.params.id,
       loading: false,
       detailData: {},
       topSliderList: [],
@@ -128,7 +128,9 @@ class Index extends React.Component {
       pageSize: 3,
       pageNumber: 1
     };
-    axios.post('product/queryListByShopId', param).then(res => res.data).then(data => {
+    axios.get('product/queryListByShopId', {
+      params: param
+    }).then(res => res.data).then(data => {
       if (data.success) {
         if (data.backData) {
           let backData = data.backData.content;
@@ -142,6 +144,20 @@ class Index extends React.Component {
         }
       }
     });
+  }
+
+  detail = (id) => {
+    this.context.router.push(`/food/detail/${id}`);
+  }
+
+  toBuy = () => {
+    const id = this.state.id;
+    this.context.router.push(`/order/add/${id}`);
+  }
+
+  toGoodsCar = () => {
+    const id = this.state.id;
+    this.context.router.push(`/order/add/${id}`);
   }
 
   render() {
@@ -227,7 +243,7 @@ class Index extends React.Component {
                   {
                     recommandList.map((item, index) => {
                       return (
-                        <GoodsItem key={index} data={item}/>
+                        <GoodsItem key={index} data={item} onClick={() => this.detail(item.id)}/>
                       )
                     })
                   }
@@ -243,15 +259,14 @@ class Index extends React.Component {
                   <Item extra={goodsDetail.productNetWeight}>净含量</Item>
                   <Item extra={goodsDetail.productBatching}>成分及配料</Item>
                 </List>
-                <WhiteSpace/>
                 <div className='goods-info-pic'>
                   {detailPicList.map(val => (
-                    <div key={val.id} style={{width: '100%', height: '60vw'}}
+                    <div key={val.id} style={{width: '100%', height: '60vw', padding: '10px'}}
                     >
                       <img
                         src={val.imgSrc}
                         alt=""
-                        style={{width: '100%', height: '100%', verticalAlign: 'top'}}
+                        style={{width: '100%', height: '100%'}}
                       />
                     </div>
                   ))}
@@ -259,9 +274,9 @@ class Index extends React.Component {
               </div>
             </Layout.Content>
             <Layout.Footer className='footer'>
-              <div className='service'>客服</div>
-              <div className='add'>加入购物车</div>
-              <div className='buy'>立即购买</div>
+              <div className='service' onClick={this.toServer}>客服</div>
+              <div className='add' onClick={this.toGoodsCar}>加入购物车</div>
+              <div className='buy' onClick={this.toBuy}>立即购买</div>
             </Layout.Footer>
           </Layout>
         </div>

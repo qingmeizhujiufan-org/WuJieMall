@@ -74,6 +74,12 @@ const ShopDetail = Loadable({
   loading: Loading
 })
 
+/* 添加订单 */
+const OrderAdd = Loadable({
+  loader: () => import('../modules/order/component/orderAdd'),
+  loading: Loading
+})
+
 module.exports = (
   <Route path="/" component={App}>
     <IndexRoute component={Index}/>
@@ -95,6 +101,10 @@ module.exports = (
     <Route path="shop" component={App}>
       <IndexRoute component={ShopDetail}/>
       <Route path="detail/:id" component={ShopDetail}/>
+    </Route>
+    <Route path="order" component={App}>
+      <IndexRoute component={OrderAdd}/>
+      <Route path="add/:id" component={OrderAdd}/>
     </Route>
   </Route>
 );
