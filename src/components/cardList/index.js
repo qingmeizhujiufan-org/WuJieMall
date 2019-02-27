@@ -29,7 +29,7 @@ class Index extends React.Component {
             listData: [],
             pageIndex: 0,
             params: {},
-            height: document.documentElement.clientHeight || document.body.clientHeight
+            height: 0//document.documentElement.clientHeight || document.body.clientHeight
         };
     }
 
@@ -47,8 +47,7 @@ class Index extends React.Component {
         setTimeout(() => {
             this.setState({
                     refreshing: true
-                },
-                () => {
+                }, () => {
                     this.getListData(
                         (data) => {
                             if (data.success && data.backData) {
@@ -125,25 +124,11 @@ class Index extends React.Component {
 
     settingHeight = () => {
         const clientHeight = document.documentElement.clientHeight || document.body.clientHeight;
-        let hei;
         const _domNode = ReactDOM.findDOMNode(this.lv);
-        if (this.props.multi) {
-            const tabsHeight = ReactDOM.findDOMNode(this.lv).parentNode.parentNode.parentNode.offsetTop;
-            const offsetTabsHeight = ReactDOM.findDOMNode(this.lv).parentNode.parentNode.parentNode.parentNode.offsetTop;
-            hei = clientHeight - tabsHeight - offsetTabsHeight;
-        } else {
-            if (_domNode.offsetParent) {
-                if (_domNode.offsetParent.offsetParent) {
-                    hei = clientHeight - _domNode.offsetTop - _domNode.offsetParent.offsetParent.parentNode.offsetTop;
-                } else {
-                    hei = clientHeight - _domNode.offsetTop - _domNode.offsetParent.parentNode.offsetTop;
-                }
-            } else {
-                hei = clientHeight - _domNode.offsetTop;
-            }
-        }
+        const clientRect = _domNode.getBoundingClientRect();
+        const height = clientHeight - clientRect.top;
 
-        this.setState({height: hei});
+        this.setState({height});
 
     }
 

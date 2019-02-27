@@ -109,6 +109,7 @@ class Index extends React.Component {
                                 pageUrl={'product/queryList'}
                                 params={params}
                                 row={row}
+                                multi
                             />
                         </Tabs>
                     </div>
