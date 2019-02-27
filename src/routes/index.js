@@ -80,6 +80,20 @@ const OrderAdd = Loadable({
   loading: Loading
 })
 
+/* 地址列表 */
+const AddressList = Loadable({
+  loader: () => import('../modules/address/component/addressList'),
+  loading: Loading
+})
+const AddressAdd = Loadable({
+  loader: () => import('../modules/address/component/addressAdd'),
+  loading: Loading
+})
+const AddressUpdate = Loadable({
+  loader: () => import('../modules/address/component/addressUpdate'),
+  loading: Loading
+})
+
 module.exports = (
   <Route path="/" component={App}>
     <IndexRoute component={Index}/>
@@ -105,6 +119,12 @@ module.exports = (
     <Route path="order" component={App}>
       <IndexRoute component={OrderAdd}/>
       <Route path="add/:id" component={OrderAdd}/>
+    </Route>
+    <Route path="address" component={App}>
+      <IndexRoute component={AddressList}/>
+      <Route path="list/:id" component={AddressList}/>
+      <Route path="add/:id" component={AddressAdd}/>
+      <Route path="update/:id" component={AddressUpdate}/>
     </Route>
   </Route>
 );

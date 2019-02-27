@@ -137,7 +137,6 @@ class Index extends React.Component {
           backData.map(item => {
             item.headerPic.imgSrc = restUrl.FILE_ASSET + `${item.headerPic.id + item.headerPic.fileType}`;
           });
-          console.log(backData)
           this.setState({
             recommandList: backData
           });
@@ -261,7 +260,7 @@ class Index extends React.Component {
                 </List>
                 <div className='goods-info-pic'>
                   {detailPicList.map(val => (
-                    <div key={val.id} style={{width: '100%', height: '60vw', padding: '10px'}}
+                    <div key={val.id} style={{width: '100%', height: '50vw', padding: '10px 15px'}}
                     >
                       <img
                         src={val.imgSrc}

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { List } from 'antd-mobile';
+import { List, Icon } from 'antd-mobile';
 import {Layout} from 'Comps/zui-mobile';
 import '../index.less';
 import DocumentTitle from "react-document-title";
@@ -8,6 +8,7 @@ import axios from "Utils/axios";
 import restUrl from "RestUrl";
 
 const Item = List.Item;
+const Brief = Item.Brief;
 
 class OrderAdd extends React.Component {
   constructor(props) {
@@ -16,40 +17,76 @@ class OrderAdd extends React.Component {
     this.state = {
       productId: [],
       loading: false,
-      detailData: {},
-      topSliderList: [],
-      detailPicList: [],
-      goodsDetail: {},
-      shopDetail: {},
-      recommandList: [],
-      travelData: [{
-        url: 'AiyWuByWklrrUDlFignR',
-        date: '2018-01-25',
-        name: '武汉金秋游'
-      }, {
-        url: 'AiyWuByWklrrUDlFignR',
-        date: '2018-01-25',
-        name: '武汉金秋游'
-      }, {
-        url: 'AiyWuByWklrrUDlFignR',
-        date: '2018-01-25',
-        name: '武汉金秋游'
-      }]
+      address: null,
+      params: {}
     }
   };
 
-  componentWillMount() {}
+  componentWillMount() {
+    this.queryDefaultAddress();
+  }
 
   componentDidMount() {}
 
+  queryDefaultAddress = () => {
+    const param = {
+      isDefault: 1
+    };
+    axios.get('address/queryList', {
+      params: param
+    }).then(res => res.data).then(data => {
+      if (data.success) {
+        if (data.backData) {
+          console.log(backData)
+          let backData = data.backData;
+          this.setState({
+            address: backData.length ? backData[0] : null
+          });
+        }
+      }
+    })
+  }
+
+  showAddressList = () => {
+    const id = 1;
+    this.context.router.push(`/address/list/${id}`);
+  }
+
   render() {
-    const {} = this.state;
+    const {address} = this.state;
     return (
       <DocumentTitle title='确认订单'>
         <div id="orderAdd">
           <Layout withFooter>
             <Layout.Content>
-
+              <List>
+                {
+                  address ?
+                    (
+                      <Item
+                        arrow="horizontal"
+                        align="top"
+                        extra={address.phone}
+                        thumb={<Icon type="check"/>}
+                        multipleLine
+                        onClick={this.showAddressList}
+                        style={{minHeight: '100px'}}
+                      >
+                        收件人：{address.receiver}
+                        <Brief>收货地址：{address.region + address.subArea}</Brief>
+                      </Item>
+                    ) : (
+                      <Item
+                        arrow="horizontal"
+                        thumb={<Icon type="check"/>}
+                        multipleLine
+                        onClick={this.showAddressList}
+                      >
+                        请输入收货地址
+                      </Item>
+                    )
+                }
+              </List>
             </Layout.Content>
             <Layout.Footer className='footer'>
               <div className='total'>客服</div>
