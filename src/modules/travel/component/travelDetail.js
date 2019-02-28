@@ -192,7 +192,45 @@ class Index extends React.Component {
                                         }
                                     </div>
                                 </div>
-                                <div></div>
+                                <div>
+                                    {
+                                        (data.TravelDays || []).map((item, index) => {
+                                            return (
+                                                <div key={index}>
+                                                    <div className='sub-title'>{item.dayTime}</div>
+                                                    <BaseInfo
+                                                        baseInfoList={[
+                                                            {
+                                                                label: '起点',
+                                                                value: item.dayFrom
+                                                            },
+                                                            {
+                                                                label: '目的地',
+                                                                value: item.dayTo
+                                                            },
+                                                            {
+                                                                label: '当日车程',
+                                                                value: item.dayDrive
+                                                            },
+                                                            {
+                                                                label: '住宿',
+                                                                value: item.dayStay
+                                                            },
+                                                            {
+                                                                label: '包含用餐',
+                                                                value: item.dayDinner
+                                                            },
+                                                            {
+                                                                label: '游玩内容',
+                                                                value: item.dayPlay
+                                                            },
+                                                        ]}
+                                                    />
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                </div>
                                 <div></div>
                             </Tabs>
                         </div>
