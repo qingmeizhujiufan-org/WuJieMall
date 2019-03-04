@@ -15,6 +15,7 @@ class OrderAdd extends React.Component {
     super(props);
 
     this.state = {
+      id: null,
       productId: [],
       loading: false,
       addressList: [],
@@ -23,6 +24,7 @@ class OrderAdd extends React.Component {
   };
 
   componentWillMount() {
+    this.state.id = this.props.params.id;
     this.queryDefaultAddress();
   }
 
@@ -45,12 +47,12 @@ class OrderAdd extends React.Component {
   selectAddress = () => {}
 
   toEditAddress = () => {
-    const id = 1;
+    const id = this.state.id;
     this.context.router.push(`/address/update/${id}`);
   }
 
   toAddAddress = () => {
-    const id = 1;
+    const id = this.state.id;
     this.context.router.push(`/address/add/${id}`);
   }
 
@@ -58,7 +60,7 @@ class OrderAdd extends React.Component {
     const {addressList} = this.state;
     return (
       <DocumentTitle title='收件地址列表'>
-        <div className="addressList">
+        <div className="address">
           <Layout withFooter>
             <Layout.Content>
               <List>
