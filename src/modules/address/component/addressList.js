@@ -34,7 +34,6 @@ class OrderAdd extends React.Component {
     axios.get('address/queryList').then(res => res.data).then(data => {
       if (data.success) {
         if (data.backData) {
-          console.log(backData)
           let backData = data.backData;
           this.setState({
             addressList: backData
@@ -46,8 +45,7 @@ class OrderAdd extends React.Component {
 
   selectAddress = () => {}
 
-  toEditAddress = () => {
-    const id = this.state.id;
+  toEditAddress = (id) => {
     this.context.router.push(`/address/update/${id}`);
   }
 
@@ -78,7 +76,7 @@ class OrderAdd extends React.Component {
                           收件人：{item.receiver}
                           <Brief>收货地址：{item.region + item.subArea}</Brief>
                         </Item>
-                        <div className="address-btn" onClick={this.toEditAddress}>编辑</div>
+                        <div className="address-btn" onClick={() => this.toEditAddress(item.id)}>编辑</div>
                       </div>
 
                     )

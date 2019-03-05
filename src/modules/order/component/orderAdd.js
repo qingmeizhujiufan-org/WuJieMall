@@ -37,7 +37,6 @@ class OrderAdd extends React.Component {
     }).then(res => res.data).then(data => {
       if (data.success) {
         if (data.backData) {
-          console.log(backData)
           let backData = data.backData;
           this.setState({
             address: backData.length ? backData[0] : null
