@@ -3,7 +3,7 @@ import {List, InputItem, Switch, Picker, Toast, TextareaItem} from 'antd-mobile'
 import {Layout} from 'Comps/zui-mobile';
 import {createForm} from 'rc-form';
 import DocumentTitle from "react-document-title";
-import {district, provinceLite} from 'antd-mobile-demo-data';
+// import {district, provinceLite} from 'antd-mobile-demo-data';
 import '../index.less';
 import axios from "Utils/axios";
 import PropTypes from "prop-types";
@@ -132,19 +132,19 @@ class Index extends React.Component {
                       Toast.info(getFieldError('phone').join('、'));
                     }}
                     placeholder="请输入手机号码"/>
-                  <Picker
-                    data={district}
-                    title="请选择地区"
-                    {...getFieldProps('regionCode', {
-                      initialValue: address.regionCode,
-                      rules: [
-                        {required: true, message: '请选择地区'}
-                      ]
-                    })}
-                    format={val => this.getSel(val)}
-                  >
-                    <Item arrow="horizontal">省、市、区</Item>
-                  </Picker>
+                    {/*<Picker*/}
+                        {/*data={district}*/}
+                        {/*title="请选择地区"*/}
+                        {/*{...getFieldProps('regionCode', {*/}
+                            {/*initialValue: address.regionCode,*/}
+                            {/*rules: [*/}
+                                {/*{required: true, message: '请选择地区'}*/}
+                            {/*]*/}
+                        {/*})}*/}
+                        {/*format={val => this.getSel(val)}*/}
+                    {/*>*/}
+                        {/*<Item arrow="horizontal">省、市、区</Item>*/}
+                    {/*</Picker>*/}
                   <TextareaItem
                     {...getFieldProps('subArea', {
                       initialValue: address.subArea,

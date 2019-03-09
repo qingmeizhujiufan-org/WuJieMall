@@ -25,7 +25,6 @@
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
-    "antd-mobile-demo-data": "^0.2.0",
     "autoprefixer": "^6.5.1",
     "babel-core": "^6.26.3",
     "babel-loader": "^6.2.4",

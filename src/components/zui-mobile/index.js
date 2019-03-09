@@ -8,6 +8,7 @@ import Drawer from './drawer';
 import FixedMenu from './fixed-menu';
 import Switch from './switch';
 import BaseInfo from './base-info';
+import DistPicker from './distpicker';
 
 module.exports = {
     InputItem,
@@ -20,4 +21,5 @@ module.exports = {
     FixedMenu,
     Switch,
     BaseInfo,
+    DistPicker,
 }
