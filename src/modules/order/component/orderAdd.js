@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { List, Icon } from 'antd-mobile';
-import {Layout} from 'Comps/zui-mobile';
+import {Layout,GoodsCard} from 'Comps/zui-mobile';
 import '../index.less';
 import DocumentTitle from "react-document-title";
 import axios from "Utils/axios";
@@ -86,6 +86,7 @@ class OrderAdd extends React.Component {
                     )
                 }
               </List>
+              <GoodsCard />
             </Layout.Content>
             <Layout.Footer className='footer'>
               <div className='total'>客服</div>

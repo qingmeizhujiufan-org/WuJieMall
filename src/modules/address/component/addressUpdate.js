@@ -1,9 +1,8 @@
 import React from 'react';
 import {List, InputItem, Switch, Picker, Toast, TextareaItem} from 'antd-mobile';
-import {Layout} from 'Comps/zui-mobile';
+import {Layout, DistPicker} from 'Comps/zui-mobile';
 import {createForm} from 'rc-form';
 import DocumentTitle from "react-document-title";
-// import {district, provinceLite} from 'antd-mobile-demo-data';
 import '../index.less';
 import axios from "Utils/axios";
 import PropTypes from "prop-types";
@@ -20,6 +19,7 @@ class Index extends React.Component {
       address: {}
     }
   }
+
   componentWillMount() {
     this.state.id = this.props.params.id;
     this.queryAdressDetail();
@@ -34,10 +34,10 @@ class Index extends React.Component {
     axios.get('address/queryDetail', {
       params: param
     }).then(res => res.data).then(data => {
-      if(data.backData) {
+      if (data.backData) {
         const backData = data.backData;
         backData.regionCode ?
-          backData.regionCode = backData.regionCode.split(',') :
+          backData.regionCode = JSON.parse(backData.regionCode) :
           backData.regionCode = [];
         this.setState({
           address: backData
@@ -51,7 +51,7 @@ class Index extends React.Component {
       if (!error) {
         const values = this.props.form.getFieldsValue();
         values.region = this.state.pickerValue;
-        values.regionCode = values.regionCode.join(',');
+        values.regionCode = JSON.stringify(values.regionCode);
         const param = assign({}, this.state.address, values);
         axios.post('address/update', param).then(res => res.data).then(data => {
           if (data.success) {
@@ -63,7 +63,7 @@ class Index extends React.Component {
         })
       } else {
         let errors = [];
-        for(let key in error) {
+        for (let key in error) {
           errors.push(error[key].errors[0].message)
         }
         Toast.fail(errors[0], 1);
@@ -132,19 +132,18 @@ class Index extends React.Component {
                       Toast.info(getFieldError('phone').join('、'));
                     }}
                     placeholder="请输入手机号码"/>
-                    {/*<Picker*/}
-                        {/*data={district}*/}
-                        {/*title="请选择地区"*/}
-                        {/*{...getFieldProps('regionCode', {*/}
-                            {/*initialValue: address.regionCode,*/}
-                            {/*rules: [*/}
-                                {/*{required: true, message: '请选择地区'}*/}
-                            {/*]*/}
-                        {/*})}*/}
-                        {/*format={val => this.getSel(val)}*/}
-                    {/*>*/}
-                        {/*<Item arrow="horizontal">省、市、区</Item>*/}
-                    {/*</Picker>*/}
+                  <DistPicker
+                    title="请选择地区"
+                    {...getFieldProps('regionCode', {
+                      initialValue: address.regionCode,
+                      rules: [
+                        {required: true, message: '请选择地区'}
+                      ]
+                    })}
+                    format={val => this.getSel(val)}
+                  >
+                    <Item arrow="horizontal">省、市、区</Item>
+                  </DistPicker>
                   <TextareaItem
                     {...getFieldProps('subArea', {
                       initialValue: address.subArea,
@@ -163,7 +162,7 @@ class Index extends React.Component {
                   <Item
                     extra={<Switch {...getFieldProps('isDefault',
                       {
-                        initialValue: address.isDefault === 1?true:false, valuePropName: 'checked'
+                        initialValue: address.isDefault === 1 ? true : false, valuePropName: 'checked'
                       })} />}
                     style={{marginTop: '10px'}}
                   >是否设置为默认地址</Item>

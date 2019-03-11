@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { List, Icon } from 'antd-mobile';
+import { List, Checkbox } from 'antd-mobile';
 import {Layout} from 'Comps/zui-mobile/index';
 import '../index.less';
 import DocumentTitle from "react-document-title";
@@ -9,6 +9,7 @@ import restUrl from "RestUrl";
 
 const Item = List.Item;
 const Brief = Item.Brief;
+const CheckboxItem = Checkbox.CheckboxItem;
 
 class OrderAdd extends React.Component {
   constructor(props) {
@@ -52,6 +53,10 @@ class OrderAdd extends React.Component {
   toAddAddress = () => {
     const id = this.state.id;
     this.context.router.push(`/address/add/${id}`);
+  }
+
+  onChange = (val) => {
+    console.log(val);
   }
 
   render() {

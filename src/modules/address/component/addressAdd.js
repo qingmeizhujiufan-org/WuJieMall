@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from "prop-types";
-import {List, InputItem, Switch, Picker, Toast, TextareaItem} from 'antd-mobile';
+import {List, InputItem, Switch, Toast, TextareaItem} from 'antd-mobile';
 import {Layout, DistPicker} from 'Comps/zui-mobile';
 import {createForm} from 'rc-form';
 import DocumentTitle from "react-document-title";
@@ -28,7 +28,7 @@ class Index extends React.Component {
                 const values = this.props.form.getFieldsValue();
                 values.ownerId = this.state.id;
                 values.region = this.state.pickerValue;
-                values.regionCode = values.regionCode.join(',');
+                values.regionCode = JSON.stringify(values.regionCode);
                 axios.post('address/add', values).then(res => res.data).then(data => {
                     if (data.success) {
                         Toast.success('保存成功', 1);
@@ -105,7 +105,8 @@ class Index extends React.Component {
                                         onErrorClick={() => {
                                             Toast.info(getFieldError('phone').join('、'));
                                         }}
-                                        placeholder="请输入手机号码"/>
+                                        placeholder="请输入手机号码"
+                                    />
                                     <DistPicker
                                         title="请选择地区"
                                         {...getFieldProps('regionCode', {

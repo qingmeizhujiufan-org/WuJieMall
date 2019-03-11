@@ -9,17 +9,19 @@ import FixedMenu from './fixed-menu';
 import Switch from './switch';
 import BaseInfo from './base-info';
 import DistPicker from './distpicker';
+import GoodsCard from './goods-card';
 
 module.exports = {
-    InputItem,
-    Picker,
-    Item,
-    DatePicker,
-    NavBar,
-    Layout,
-    Drawer,
-    FixedMenu,
-    Switch,
-    BaseInfo,
-    DistPicker,
+  InputItem,
+  Picker,
+  Item,
+  DatePicker,
+  NavBar,
+  Layout,
+  Drawer,
+  FixedMenu,
+  Switch,
+  BaseInfo,
+  DistPicker,
+  GoodsCard
 }
