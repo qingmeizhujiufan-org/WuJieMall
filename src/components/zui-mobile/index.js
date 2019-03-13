@@ -1,3 +1,4 @@
+import List from './list';
 import InputItem from './input-item';
 import Picker from './picker';
 import Item from './item';
@@ -10,18 +11,21 @@ import Switch from './switch';
 import BaseInfo from './base-info';
 import DistPicker from './distpicker';
 import GoodsCard from './goods-card';
+import Stepper from './stepper';
 
 module.exports = {
-  InputItem,
-  Picker,
-  Item,
-  DatePicker,
-  NavBar,
-  Layout,
-  Drawer,
-  FixedMenu,
-  Switch,
-  BaseInfo,
-  DistPicker,
-  GoodsCard
+    List,
+    InputItem,
+    Picker,
+    Item,
+    DatePicker,
+    NavBar,
+    Layout,
+    Drawer,
+    FixedMenu,
+    Switch,
+    BaseInfo,
+    DistPicker,
+    GoodsCard,
+    Stepper,
 }

@@ -27,8 +27,8 @@ class Index extends Component {
     onChange = value => {
         let selectData = [];
         value.map(item => {
-            for(let key in jsonData){
-                if(key.toString() === item){
+            for (let key in jsonData) {
+                if (key.toString() === item) {
                     selectData.push({
                         value: item,
                         label: jsonData[key]

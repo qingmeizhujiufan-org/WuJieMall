@@ -5,6 +5,7 @@ import React, {Component} from 'react';
 import {InputItem} from 'antd-mobile';
 import {shiftThousands} from 'Utils/util';
 import _isFunction from 'lodash/isFunction';
+import './index.less';
 
 class Index extends Component {
     constructor(props) {
@@ -90,6 +91,7 @@ class Index extends Component {
 }
 
 Index.defaultProps = {
+    className: 'zui-input-item',
     clear: true,
     placeholder: "请输入",
     thousandsNumber: false,

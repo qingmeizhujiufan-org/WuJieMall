@@ -6,7 +6,8 @@ import img from 'Img/IMG_1624.png'
 import DocumentTitle from "react-document-title";
 import axios from "Utils/axios";
 import restUrl from "RestUrl";
-import {BaseInfo} from "Comps/zui-mobile";
+import {Layout, BaseInfo} from "Comps/zui-mobile";
+import draftToHtml from 'draftjs-to-html';
 
 class Index extends React.Component {
     constructor(props) {
@@ -53,6 +54,14 @@ class Index extends React.Component {
                         item.imgSrc = restUrl.FILE_ASSET + `${item.id + item.fileType}`;
                     });
                     this.setTimer(backData.travelBeginTime);
+
+                    if (backData.expenseDesc && backData.expenseDesc !== '') {
+                        backData.expenseDescHtml = draftToHtml(JSON.parse(backData.expenseDesc));
+                    }
+
+                    if (backData.lineInfo && backData.lineInfo !== '') {
+                        backData.lineInfoHtml = draftToHtml(JSON.parse(backData.lineInfo));
+                    }
 
                     this.setState({
                         topSliderList: headerPic,
@@ -107,13 +116,17 @@ class Index extends React.Component {
         }
     }
 
+    signUp = () => {
+        this.context.router.push('/travel/signinfo');
+    }
+
     render() {
         const {data, topSliderList, currentIndex, restTimer} = this.state;
 
         return (
             <DocumentTitle title='主题旅游'>
-                <div className="travel-detail">
-                    <div className="zui-content">
+                <Layout className="travel-detail" withFooter>
+                    <Layout.Content>
                         <div className='wrap-carousel'>
                             <Carousel
                                 dots={false}
@@ -231,11 +244,24 @@ class Index extends React.Component {
                                         })
                                     }
                                 </div>
-                                <div></div>
+                                <div className='article'>
+                                    <div className='sub-title'>费用说明：</div>
+                                    <div className="wrap-html"
+                                         dangerouslySetInnerHTML={{__html: data.expenseDescHtml}}></div>
+                                    <div className='sub-title'>路线须知：</div>
+                                    <div className="wrap-html"
+                                         dangerouslySetInnerHTML={{__html: data.lineInfoHtml}}></div>
+                                </div>
                             </Tabs>
                         </div>
-                    </div>
-                </div>
+                    </Layout.Content>
+                    <Layout.Footer>
+                        <Flex className='footer-btn-group'>
+                            <div className='call'><i className='iconfont icon-kefu'></i> 拨打咨询电话</div>
+                            <div className='sign' onClick={this.signUp}>我要报名</div>
+                        </Flex>
+                    </Layout.Footer>
+                </Layout>
             </DocumentTitle>
         );
     }
