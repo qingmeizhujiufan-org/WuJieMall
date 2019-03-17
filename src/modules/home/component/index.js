@@ -11,20 +11,6 @@ import classify_1 from 'Img/classify_1.png';
 import classify_2 from 'Img/classify_2.png';
 import classify_3 from 'Img/classify_3.png';
 
-const TravelItem = ({className = '', data, ...restProps}) => (
-    <div className={`${className} travel-item`} {...restProps}>
-        <div className='travel-img'>
-            <img src={`https://zos.alipayobjects.com/rmsportal/${data.url}.png`} alt=""/>
-        </div>
-        <div className='travel-body'>
-            <div className='travel-name'>{data.name}</div>
-            <div className='travel-date iconfont icon-calendar'>
-                <span>{data.date}</span>
-            </div>
-        </div>
-    </div>
-);
-
 class Index extends React.Component {
     constructor(props) {
         super(props);
@@ -50,19 +36,7 @@ class Index extends React.Component {
             }],
             goodsList: [],
             hotelData: ['AiyWuByWklrrUDlFignR', 'TekJlZRVCjLFexlOCuWn', 'IJOtIlfsYdTyaDTRVrLI'],
-            travelData: [{
-                url: 'AiyWuByWklrrUDlFignR',
-                date: '2018-01-25',
-                name: '武汉金秋游'
-            }, {
-                url: 'AiyWuByWklrrUDlFignR',
-                date: '2018-01-25',
-                name: '武汉金秋游'
-            }, {
-                url: 'AiyWuByWklrrUDlFignR',
-                date: '2018-01-25',
-                name: '武汉金秋游'
-            }]
+            travelData: []
         }
     };
 
@@ -71,6 +45,8 @@ class Index extends React.Component {
 
     componentDidMount() {
         this.queryTopSliderList();
+        /* 获取最新Top3 主题旅游 */
+        this.queryTravelTop3();
     }
 
     queryTopSliderList = () => {
@@ -94,14 +70,41 @@ class Index extends React.Component {
                     });
                 }
             } else {
-                Message.error('查询列表失败');
             }
             this.setState({loading: false});
         });
     }
 
+    queryTravelTop3 = () => {
+        axios.get('travel/queryListTop3').then(res => res.data).then(data => {
+            if (data.success) {
+                if (data.backData) {
+                    const backData = data.backData.content || [];
+                    backData.map(item => {
+                        if (item.File) {
+                            item.imgSrc = restUrl.FILE_ASSET + `${item.File.id + item.File.fileType}`;
+                        }
+                    });
+
+                    this.setState({
+                        travelData: backData
+                    });
+                } else {
+                    this.setState({
+                        travelData: []
+                    });
+                }
+            } else {
+            }
+        });
+    }
+
     queryGoodsDetail = (id) => {
         this.context.router.push(`/goods/detail/${id}`);
+    }
+
+    showTravel = id => {
+        this.context.router.push(`/travel/detail/${id}`);
     }
 
     render() {
@@ -211,7 +214,19 @@ class Index extends React.Component {
                                 {
                                     travelData.map((item, index) => {
                                         return (
-                                            <TravelItem key={index} data={item}/>
+                                            <div key={index} className='travel-item'
+                                                 onClick={() => this.showTravel(item.id)}>
+                                                <div className='travel-img'>
+                                                    <img src={item.imgSrc} alt=""/>
+                                                </div>
+                                                <div className='travel-body'>
+                                                    <div className='travel-name'>{item.travelTheme}</div>
+                                                    <div className='travel-date iconfont icon-calendar'>
+                                                        <span><i
+                                                            className='iconfont icon-kaishishijian'></i> {item.travelBeginTime}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         )
                                     })
                                 }

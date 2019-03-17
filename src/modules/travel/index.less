@@ -1,3 +1,5 @@
+@import "../../pub/style/index.less";
+
 .travel {
 
     .travel-item {
@@ -248,14 +250,48 @@
         }
     }
 
+    .participant {
+
+        &-item {
+
+            .btn-group {
+                height: 70px;
+                padding-right: 18px;
+
+                .del {
+                    color: #F16B6B;
+                }
+
+                .add {
+                    margin-left: 25px;
+                    padding: 0 19px;
+                    color: #36AC63;
+
+                    &:before {
+                        border-color: #36AC63;;
+                    }
+                }
+            }
+        }
+    }
+
+    .person-price {
+        float: right;
+        margin-right: 18px;
+        color: #606060;
+    }
+
     .footer-btn-group {
         height: 55px;
         line-height: 55px;
         text-align: center;
 
-        .call {
+        .total-money {
             flex: 3;
             position: relative;
+            padding-left: 22px;
+            font-size: 12px;
+            text-align: left;
 
             &:after {
                 content: '';
@@ -269,6 +305,16 @@
 
                 transform: scaleY(0.5);
                 transform-origin: 0% 0%;
+            }
+
+            .money {
+                color: @theme_color;
+                font-size: 16px;
+
+                .unit {
+                    font-style: initial;
+                    font-size: 12px;
+                }
             }
         }
 

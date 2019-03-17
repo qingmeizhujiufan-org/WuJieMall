@@ -57,7 +57,7 @@ class Index extends React.Component {
                                 <Flex justify='between'>
                                     <div className='base-info'>{obj.travelLastTime + ' | 含' + obj.travelHas}</div>
                                     <div className='sign-info'>报名 <span
-                                        className='num'>{5}</span> /{obj.travelLimiteNumber}人
+                                        className='num'>{obj.TravelSigns.length}</span> /{obj.travelLimiteNumber}人
                                     </div>
                                 </Flex>
                             </div>
@@ -66,7 +66,7 @@ class Index extends React.Component {
                                     <div className='rest-sign-time'><span
                                         className='rest-time'>{day}天{hour}小时</span> 报名结束
                                     </div>
-                                    <div className='sign-price'>￥ <span className='price'>{obj.travelPrice}</span></div>
+                                    <div className='sign-price'>￥ <span className='price'>{obj.manPrice}</span></div>
                                 </Flex>
                             </div>
                         </div>

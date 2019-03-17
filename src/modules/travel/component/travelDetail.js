@@ -117,7 +117,15 @@ class Index extends React.Component {
     }
 
     signUp = () => {
-        this.context.router.push('/travel/signinfo');
+        const data = this.state.data;
+        this.context.router.push({
+            pathname: '/travel/signinfo',
+            state: {
+                travelId: data.id,
+                manPrice: data.manPrice,
+                childPrice: data.childPrice
+            }
+        });
     }
 
     render() {
@@ -146,14 +154,16 @@ class Index extends React.Component {
                         </div>
                         <div className='sign-up'>
                             <Flex justify='between'>
-                                <div className='sign-info'>报名<span>{5}</span>/{data.travelLimiteNumber || 0}人</div>
+                                <div
+                                    className='sign-info'>报名<span>{data.TravelSigns ? data.TravelSigns.length : '--'}</span>/{data.travelLimiteNumber || 0}人
+                                </div>
                                 <div className='rest-time-ticker'>距结束：{restTimer}</div>
                             </Flex>
                         </div>
                         <div className='travel-base-info'>
                             <div className='travel-theme'>{data.travelTheme}</div>
                             <Flex justify='between'>
-                                <div className='travel-price'>¥ <span className='price'>{data.travelPrice}</span></div>
+                                <div className='travel-price'>¥ <span className='price'>{data.manPrice}</span></div>
                                 <div className='extra-info'>{data.travelLastTime + ' | 含' + data.travelHas}</div>
                             </Flex>
                         </div>
