@@ -82,7 +82,7 @@ class Index extends React.Component {
                     const backData = data.backData.content || [];
                     backData.map(item => {
                         if (item.File) {
-                            item.imgSrc = restUrl.FILE_ASSET + `${item.File.id + item.File.fileType}`;
+                            item.imgSrc = restUrl.FILE_ASSET + item.File.id + item.File.fileType;
                         }
                     });
 

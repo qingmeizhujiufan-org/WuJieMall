@@ -155,7 +155,7 @@ class Index extends React.Component {
                         <div className='sign-up'>
                             <Flex justify='between'>
                                 <div
-                                    className='sign-info'>报名<span>{data.TravelSigns ? data.TravelSigns.length : '--'}</span>/{data.travelLimiteNumber || 0}人
+                                    className='sign-info'>报名<span>{data.TravelSigns ? data.TravelSigns.length : '--'}</span>/ {data.travelLimiteNumber || 0}人
                                 </div>
                                 <div className='rest-time-ticker'>距结束：{restTimer}</div>
                             </Flex>
