@@ -23,6 +23,8 @@ class Index extends Component {
   componentWillMount() {
   }
 
+  onChange = (val) => {}
+
 
   render() {
     const {shopDetail} = this.state;
@@ -74,6 +76,7 @@ class Index extends Component {
                   min={1}
                   showNumber
                   size="small"
+                  onChange={this.onChange}
                  />}
               >购买数量</Item>
               <TextareaItem
@@ -89,7 +92,7 @@ class Index extends Component {
             {
               <div className='foot-right'>
                 <div className='foot-right-one'>共1件商品</div>
-                <div className='foot-right-two'>小计：35:00</div>
+                <div className='foot-right-two'>小计：<span>￥ 35:00</span></div>
               </div>
             }/>
       </Card>

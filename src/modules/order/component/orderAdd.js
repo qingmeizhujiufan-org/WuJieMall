@@ -16,6 +16,7 @@ class OrderAdd extends React.Component {
 
     this.state = {
       productId: [],
+      total: 0,
       loading: false,
       address: null,
       params: {}
@@ -52,7 +53,7 @@ class OrderAdd extends React.Component {
   }
 
   render() {
-    const {address} = this.state;
+    const {address, total} = this.state;
     return (
       <DocumentTitle title='确认订单'>
         <div id="orderAdd">
@@ -89,7 +90,7 @@ class OrderAdd extends React.Component {
               <GoodsCard />
             </Layout.Content>
             <Layout.Footer className='footer'>
-              <div className='total'>客服</div>
+              <div className='total'>总计：<span>￥{total}</span></div>
               <div className='submit'>提交订单</div>
             </Layout.Footer>
           </Layout>
