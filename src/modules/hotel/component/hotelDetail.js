@@ -1,106 +1,185 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {NavBar, Carousel, List, Icon} from 'antd-mobile';
+import {Carousel, Flex, List, Toast} from 'antd-mobile';
+import moment from 'moment';
 import '../index.less';
-import img1 from 'Img/1.jpg'
 import img from 'Img/IMG_1624.png'
-
-const Item = List.Item;
+import DocumentTitle from "react-document-title";
+import axios from "Utils/axios";
+import restUrl from "RestUrl";
+import {Layout, BaseInfo, DatePicker} from "Comps/zui-mobile";
 
 class Index extends React.Component {
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
 
-    this.state = {
-      data: ['1', '2', '3'],
-      goodsDetail: {
-        id:'11',
-        name: '太平鸟那幢冬季短款黑色羽绒服',
-        isTop: true,
-        number: 222,
-        price: 222,
-        comments: 22,
-      }
+        this.state = {
+            data: {},
+            topSliderList: [],
+            currentIndex: 0,
+            beginDate: new moment().format('YYYY-MM-DD'),
+            endDate:new moment().format('YYYY-MM-DD'),
+            days: 1
+        }
+    };
+
+    componentWillMount() {
     }
-  };
 
-  componentWillMount() {
-  }
+    componentDidMount() {
+        this.queryDetail();
+    }
 
-  componentDidMount() {
-  }
+    componentWillUnmount() {
+        clearInterval(this.id);
+    }
 
-  render() {
-    const {data, goodsDetail} = this.state;
+    queryDetail = () => {
+        this.setState({loading: true});
+        const param = {
+            id: this.props.params.id
+        }
+        axios.get('hotel/queryDetail', {
+            params: param
+        }).then(res => res.data).then(data => {
+            if (data.success) {
+                if (data.backData) {
+                    const backData = data.backData;
+                    const headerPic = backData.headerPic || [];
+                    const detailPic = backData.detailPic || [];
 
-    return (
-      <div id="goodsDetail">
-        <NavBar
-          mode="light"
-          icon={<Icon type="left" />}
-          rightContent={[
-            <Icon key="0" type="ellipsis"/>
-          ]}
-        >特色食品</NavBar>
-        <div className="zui-content">
-          <Carousel infinite>
-            {data.map(val => (
-              <a
-                key={val}
-                style={{display: 'inline-block', width: '100%', height: '60vw'}}
-              >
-                <img
-                  src={img1}
-                  alt=""
-                  style={{width: '100%', height: '100%', verticalAlign: 'top'}}
-                />
-              </a>
-            ))}
-          </Carousel>
-          <div className="goods-detail">
-            <div className='goods-header'>
-              {goodsDetail.isTop ? <div className='is-top'>精品</div>: null}
-              {goodsDetail.name}
-            </div>
-            <div className='goods-subscribe'>
-              <div className='goods-price'><span>￥</span><span>{goodsDetail.price}</span></div>
-              <div className='goods-number'>
-                {
-                  goodsDetail.number ? (
-                    <div><span>【现货】</span><span>&nbsp;&nbsp;&nbsp;</span><span>库存{goodsDetail.number}件</span></div>
-                  ) : (
-                    缺货
-                  )
+                    headerPic.map(item => {
+                        item.imgSrc = restUrl.FILE_ASSET + `${item.id + item.fileType}`;
+                    });
+
+                    detailPic.map(item => {
+                        item.imgSrc = restUrl.FILE_ASSET + `${item.id + item.fileType}`;
+                    });
+
+                    this.setState({
+                        topSliderList: headerPic,
+                        currentIndex: 1,
+                        detailPicList: detailPic,
+                        data: backData
+                    });
+                } else {
+                    this.setState({
+                        topSliderList: [],
+                        detailPicList: []
+                    });
                 }
-              </div>
-            </div>
-          </div>
-          <div className="goods-comments">
-            <List className="my-list">
-              <Item arrow="horizontal" multipleLine onClick={() => {}}>
-                商品评价&nbsp;{goodsDetail.comments}
-              </Item>
-            </List>
-          </div>
-          <div className="goods-store">
+            } else {
+                message.error('查询列表失败');
+            }
+            this.setState({loading: false});
+        });
+    }
 
-          </div>
-          <div className="goods-subscribe">
+    onBeginDateChange = value => {
+        const {endDate} = this.state;
+        if(new Date(endDate).getTime() < value.getTime()){
+            Toast.info('入住日期不能大于离店日期', 1);
+            this.setState({
+                beginDate: new moment(endDate).format('YYYY-MM-DD'),
+                days: 1
+            });
+        }else {
+            const days = new moment(endDate).diff(new moment(value).format('YYYY-MM-DD'), 'days');
+            this.setState({
+                beginDate: new moment(value).format('YYYY-MM-DD'),
+                days: days > 0 ? days : 1
+            });
+        }
+    }
 
-          </div>
-        </div>
-        <div className='footer'>
-          <div className='service'>客服</div>
-          <div className='add'>加入购物车</div>
-          <div className='buy'>立即购买</div>
-        </div>
-      </div>
-    );
-  }
+    onEndDateChange = value => {
+        const {beginDate} = this.state;
+        if(new Date(beginDate).getTime() > value.getTime()){
+            Toast.info('入住日期不能大于离店日期', 1);
+            this.setState({endDate: new moment(beginDate).format('YYYY-MM-DD')});
+        }else {
+            const days = new moment(value).diff(beginDate, 'days');
+            this.setState({
+                endDate: new moment(value).format('YYYY-MM-DD'),
+                days: days > 0 ? days : 1
+            });
+        }
+    }
+
+    signUp = () => {
+        const data = this.state.data;
+        this.context.router.push({
+            pathname: '/travel/signinfo',
+            state: {
+                travelId: data.id,
+                manPrice: data.manPrice,
+                childPrice: data.childPrice
+            }
+        });
+    }
+
+    render() {
+        const {data, topSliderList, currentIndex, beginDate, endDate, days} = this.state;
+
+        return (
+            <DocumentTitle title='特色民宿'>
+                <Layout className="hotel-detail" withFooter>
+                    <Layout.Content>
+                        <div className='wrap-carousel'>
+                            <Carousel
+                                dots={false}
+                                beforeChange={(from, to) => this.setState({currentIndex: to + 1})}
+                            >
+                                {topSliderList.map((item, index) => (
+                                    <div key={index} className='carousel-item'>
+                                        <img
+                                            src={item.imgSrc}
+                                            alt=""
+                                            style={{width: '100%', height: '100%', verticalAlign: 'top'}}
+                                        />
+                                    </div>
+                                ))}
+                            </Carousel>
+                            <div className='dot'>{currentIndex} / {topSliderList.length}</div>
+                        </div>
+                        <div className='hotel-base-info'>
+                            <div className='hotel-theme'>{data.hotelName}</div>
+                            <Flex justify='between'>
+                                <div className='hotel-price'>¥ <span className='price'>{data.hotelAddress}</span></div>
+                                <div className='extra-info'>{data.travelLastTime + ' | 含' + data.travelHas}</div>
+                            </Flex>
+                        </div>
+                        <List className='count-stay'>
+                            <DatePicker
+                                mode="date"
+                                value={beginDate}
+                                onChange={this.onBeginDateChange}
+                            >
+                                <List.Item arrow="horizontal">请选择入住日期</List.Item>
+                            </DatePicker>
+                            <DatePicker
+                                mode="date"
+                                value={endDate}
+                                onChange={this.onEndDateChange}
+                            >
+                                <List.Item arrow="horizontal">请选择离店日期</List.Item>
+                            </DatePicker>
+                            <List.Item extra={`共 ${days} 晚`} arrow="horizontal" className='count-stay-days'>住店天数</List.Item>
+                        </List>
+                    </Layout.Content>
+                    <Layout.Footer>
+                        <Flex className='footer-btn-group'>
+                            <a className='call' href={`tel:${data.telephone}`}><i className='iconfont icon-kefu'></i> 拨打咨询电话</a>
+                        </Flex>
+                    </Layout.Footer>
+                </Layout>
+            </DocumentTitle>
+        );
+    }
 }
 
 Index.contextTypes = {
-  router: PropTypes.object
+    router: PropTypes.object
 }
 
 export default Index;

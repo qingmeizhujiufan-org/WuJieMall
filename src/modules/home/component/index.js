@@ -125,8 +125,8 @@ class Index extends React.Component {
         });
     }
 
-    queryGoodsDetail = (id) => {
-        this.context.router.push(`/goods/detail/${id}`);
+    showHotel = id => {
+        this.context.router.push(`/hotel/detail/${id}`);
     }
 
     showTravel = id => {
@@ -167,7 +167,7 @@ class Index extends React.Component {
                             <Flex.Item className='classify-list-item'
                                        onClick={() => this.context.router.push(`/hotel/index`)}>
                                 <div><img src={classify_2}/></div>
-                                <span>特色住宿</span>
+                                <span>特色民宿</span>
                             </Flex.Item>
                             <Flex.Item className='classify-list-item'
                                        onClick={() => this.context.router.push(`/travel/index`)}>
@@ -217,7 +217,7 @@ class Index extends React.Component {
                                     {hotelData.map((item, index) => (
                                         <div
                                             key={index}
-                                            onClick={() => this.queryGoodsDetail(item)}
+                                            onClick={() => this.showHotel(item.id)}
                                         >
                                             <div className='hotel-img'>
                                                 <img src={item.imgSrc} alt=""/>

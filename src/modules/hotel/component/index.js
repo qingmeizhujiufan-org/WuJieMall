@@ -25,20 +25,13 @@ class Index extends React.Component {
     }
 
     detail = (id) => {
-        this.context.router.push(`/travel/detail/${id}`);
+        this.context.router.push(`/hotel/detail/${id}`);
     }
 
     render() {
         const {params} = this.state;
         const row = (rowData, sectionID, rowID) => {
             const obj = rowData;
-            let travelBeginTime = obj.travelBeginTime && new Date(obj.travelBeginTime.substring(0, 10) + ' 00:00:00').getTime() || new Date().getTime();
-            let restTime = travelBeginTime - new Date().getTime();
-            let day = 0, hour = 0;
-            if (restTime > 0) {
-                day = Math.floor(restTime / (3600 * 1000 * 24));
-                hour = Math.floor((restTime - (day * 3600 * 1000 * 24)) / (3600 * 1000));
-            }
 
             return (
                 <div
@@ -46,26 +39,23 @@ class Index extends React.Component {
                     className='zui-list-table-cell'
                     onClick={() => this.detail(obj.id)}
                 >
-                    <div className='travel-item'>
+                    <div className='hotel-item'>
                         <div className='wrap-thumbnail'>
                             <img src={obj.File ? (restUrl.FILE_ASSET + obj.File.id + obj.File.fileType) : ''}/>
                             <div className='travel-from'>{obj.travelFrom}出发</div>
                         </div>
-                        <div className='travel-item-content'>
-                            <div className='travel-item-content-title'>{obj.travelTheme}</div>
-                            <div className='travel-item-content-body'>
+                        <div className='hotel-item-content'>
+                            <div className='hotel-item-content-title'>{obj.hotelName}</div>
+                            <div className='hotel-item-content-body'>
                                 <Flex justify='between'>
                                     <div className='base-info'>{obj.travelLastTime + ' | 含' + obj.travelHas}</div>
                                     <div className='sign-info'>报名 <span
-                                        className='num'>{obj.TravelSigns.length}</span> /{obj.travelLimiteNumber}人
+                                        className='num'>{obj.TravelSigns}</span> /{obj.travelLimiteNumber}人
                                     </div>
                                 </Flex>
                             </div>
-                            <div className='travel-item-content-footer'>
+                            <div className='hotel-item-content-footer'>
                                 <Flex justify='between'>
-                                    <div className='rest-sign-time'><span
-                                        className='rest-time'>{day}天{hour}小时</span> 报名结束
-                                    </div>
                                     <div className='sign-price'>￥ <span className='price'>{obj.manPrice}</span></div>
                                 </Flex>
                             </div>
@@ -77,10 +67,10 @@ class Index extends React.Component {
 
         return (
             <DocumentTitle title='特色民宿'>
-                <div className="travel">
+                <div className="hotel">
                     <div className="zui-content">
                         <List
-                            pageUrl={'travel/queryList'}
+                            pageUrl={'hotel/queryList'}
                             params={params}
                             row={row}
                         />
