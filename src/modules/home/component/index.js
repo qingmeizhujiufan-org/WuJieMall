@@ -35,7 +35,7 @@ class Index extends React.Component {
                 img: 'img1'
             }],
             goodsList: [],
-            hotelData: ['AiyWuByWklrrUDlFignR', 'TekJlZRVCjLFexlOCuWn', 'IJOtIlfsYdTyaDTRVrLI'],
+            hotelData: [],
             travelData: []
         }
     };
@@ -45,6 +45,8 @@ class Index extends React.Component {
 
     componentDidMount() {
         this.queryTopSliderList();
+        /* 获取最新Top3 特色民宿 */
+        this.queryHotelTop3();
         /* 获取最新Top3 主题旅游 */
         this.queryTravelTop3();
     }
@@ -72,6 +74,30 @@ class Index extends React.Component {
             } else {
             }
             this.setState({loading: false});
+        });
+    }
+
+    queryHotelTop3 = () => {
+        axios.get('hotel/queryListTop3').then(res => res.data).then(data => {
+            if (data.success) {
+                if (data.backData) {
+                    const backData = data.backData.content || [];
+                    backData.map(item => {
+                        if (item.File) {
+                            item.imgSrc = restUrl.FILE_ASSET + item.File.id + item.File.fileType;
+                        }
+                    });
+
+                    this.setState({
+                        hotelData: backData
+                    });
+                } else {
+                    this.setState({
+                        hotelData: []
+                    });
+                }
+            } else {
+            }
         });
     }
 
@@ -181,29 +207,23 @@ class Index extends React.Component {
                         <div className='goods-category'>
                             <div className='goods-category-title'><i className='iconfont icon-teseminsu'></i></div>
                             <div className='goods-category-body'>
-                                <Carousel className="space-carousel"
+                                <Carousel className="hotel"
                                           frameOverflow="visible"
                                           dots={false}
                                           cellSpacing={10}
-                                          slideWidth={0.8}
+                                          slideWidth={.6667}
                                           infinite
                                 >
-                                    {hotelData.map((val) => (
-                                        <a
-                                            key={val}
-                                            onClick={() => this.queryGoodsDetail(val)}
+                                    {hotelData.map((item, index) => (
+                                        <div
+                                            key={index}
+                                            onClick={() => this.queryGoodsDetail(item)}
                                         >
-                                            <img
-                                                src={`https://zos.alipayobjects.com/rmsportal/${val}.png`}
-                                                alt=""
-                                                onLoad={() => {
-                                                    // fire window resize event to change height
-                                                    window.dispatchEvent(new Event('resize'));
-                                                    this.setState({imgHeight: 'auto'});
-                                                }}
-                                            />
-                                            <div>优美山水游</div>
-                                        </a>
+                                            <div className='hotel-img'>
+                                                <img src={item.imgSrc} alt=""/>
+                                            </div>
+                                            <div className='hotel-name'>{item.hotelName}</div>
+                                        </div>
                                     ))}
                                 </Carousel>
                             </div>

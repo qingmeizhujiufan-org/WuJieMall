@@ -178,70 +178,23 @@
         }
     }
 
-    .goodsCart {
-        margin: 5px 5px;
-        color: #bbb;
-        width: calc(~'(100vw - 30px) / 2');
-        background-color: #fff;
-        border: 1px solid #e3f2fb;
-        border-radius: 5px;
-        overflow: hidden;
-        .goodsImg {
-            width: 100%;
-            height: calc(~'(100vw - 30px) / 2');
+    .hotel {
+        &-img {
+            width: calc(~'100vw * .6667');
+            height: calc(~'(100vw * .6667) * .42');
+            overflow: hidden;
+
             img {
                 width: 100%;
                 height: 100%;
             }
         }
-        .goodsBody {
-            position: relative;
-            padding: 20px 10px 10px;
-            .goodsHeader {
-                display: -webkit-box;
-                -webkit-box-orient: vertical;
-                -webkit-line-clamp: 2;
-                overflow: hidden;
-                font-size: 14px;
-                color: #000;
-            }
-            .goodsContent {
-                padding-top: 5px;
-                font-size: 12px;
-                color: #FF0036;
-                .saleLabel {
-                    padding: 0 5px;
-                    width: auto;
-                    border: 1px solid red;
-                }
-                .goodsLabel {
-                    position: absolute;
-                    top: -10px;
-                    left: 5px;
-                    padding: 0 10px;
-                    line-height: 24px;
-                    font-size: 12px;
-                    color: #fff;
-                    background-color: #d98076;
-                }
-            }
-            .goodsFooter {
-                margin-top: 10px;
-                overflow: hidden;
-                font-size: 14px;
-                color: #FF0036;
-                div:first-child {
-                    float: left;
-                    padding: 5px 0;
-                }
-                div:last-child {
-                    float: right;
-                    padding: 5px;
-                    font-size: 12px;
-                    background-color: #fff1f4;
-                    border-radius: 5px;
-                }
-            }
+
+        &-name {
+            margin: 15px 0 5px;
+            font-size: 14px;
+            color: #0C0C0C;
+            text-align: center;
         }
     }
 }

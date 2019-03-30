@@ -99,6 +99,15 @@ const AddressUpdate = Loadable({
     loading: Loading
 })
 
+const Personal = Loadable({
+    loader: () => import('../modules/user/component'),
+    loading: Loading
+})
+const Vip = Loadable({
+    loader: () => import('../modules/user/component/vip'),
+    loading: Loading
+})
+
 module.exports = (
     <Route path="/" component={App}>
         <IndexRoute component={Index}/>
@@ -131,6 +140,11 @@ module.exports = (
             <Route path="list/:id" component={AddressList}/>
             <Route path="add/:id" component={AddressAdd}/>
             <Route path="update/:id" component={AddressUpdate}/>
+        </Route>
+        <Route>
+            <IndexRoute component={Personal}/>
+            <Route path="personal" component={Personal}/>
+            <Route path="vip" component={Vip}/>
         </Route>
     </Route>
 );
