@@ -40,24 +40,45 @@
     &-body {
         background-color: #ffffff;
 
-        .list-view-section-body:before,
-        .list-view-section-body:after {
-            content: '';
-            display: table;
-            clear: both;
+        .list-view-section-body {
+            position: relative;
+
+            &:before,
+            &:after {
+                content: '';
+                display: table;
+                clear: both;
+                position: absolute;
+                left: 0;
+                right: 0;
+                width: 100%;
+                height: 1px;
+                background-color: #ebebeb;
+                transform: scaleY(.5);
+            }
+
+            &:before {
+                top: 0;
+                transform-origin: 0 0;
+            }
+
+            &:after {
+                bottom: 0;
+                transform-origin: 0 100%;
+            }
         }
     }
 
     &-table-cell {
         position: relative;
-        padding: 15px;
+        padding: 10px 15px;
         overflow: hidden;
 
         &:after {
             content: '';
             display: table;
             position: absolute;
-            left: 15px;
+            left: 0;
             right: 0;
             bottom: 0;
             width: 100%;

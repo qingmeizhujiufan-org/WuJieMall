@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Carousel, Flex, List, Toast} from 'antd-mobile';
+import {Carousel, Flex, Toast} from 'antd-mobile';
 import moment from 'moment';
 import '../index.less';
 import img from 'Img/IMG_1624.png'
 import DocumentTitle from "react-document-title";
 import axios from "Utils/axios";
 import restUrl from "RestUrl";
-import {Layout, BaseInfo, DatePicker} from "Comps/zui-mobile";
+import {Layout, BaseInfo, DatePicker, List} from "Comps/zui-mobile";
+import vipDiscount from 'Img/vip_discount.png';
 
 class Index extends React.Component {
     constructor(props) {
@@ -18,8 +19,9 @@ class Index extends React.Component {
             topSliderList: [],
             currentIndex: 0,
             beginDate: new moment().format('YYYY-MM-DD'),
-            endDate:new moment().format('YYYY-MM-DD'),
-            days: 1
+            endDate: new moment().format('YYYY-MM-DD'),
+            days: 1,
+            rooms: []
         }
     };
 
@@ -28,6 +30,7 @@ class Index extends React.Component {
 
     componentDidMount() {
         this.queryDetail();
+        this.queryHotelRoom(this.props.params.id);
     }
 
     componentWillUnmount() {
@@ -75,15 +78,36 @@ class Index extends React.Component {
         });
     }
 
+    queryHotelRoom = id => {
+        const params = {
+            hotelId: id,
+            pageSize: 999
+        };
+        axios.get('room/queryList', {params}).then(res => res.data).then(data => {
+            console.log('room data ==', data);
+            if (data.backData) {
+                const content = data.backData.content || [];
+                content.map(item => {
+                    if (item.File) {
+                        item.thumbnail = restUrl.FILE_ASSET + `${item.File.id + item.File.fileType}`;
+                    }
+                })
+                this.setState({rooms: content});
+            } else {
+
+            }
+        });
+    }
+
     onBeginDateChange = value => {
         const {endDate} = this.state;
-        if(new Date(endDate).getTime() < value.getTime()){
+        if (new Date(endDate).getTime() < value.getTime()) {
             Toast.info('入住日期不能大于离店日期', 1);
             this.setState({
                 beginDate: new moment(endDate).format('YYYY-MM-DD'),
                 days: 1
             });
-        }else {
+        } else {
             const days = new moment(endDate).diff(new moment(value).format('YYYY-MM-DD'), 'days');
             this.setState({
                 beginDate: new moment(value).format('YYYY-MM-DD'),
@@ -94,16 +118,28 @@ class Index extends React.Component {
 
     onEndDateChange = value => {
         const {beginDate} = this.state;
-        if(new Date(beginDate).getTime() > value.getTime()){
+        if (new Date(beginDate).getTime() > value.getTime()) {
             Toast.info('入住日期不能大于离店日期', 1);
             this.setState({endDate: new moment(beginDate).format('YYYY-MM-DD')});
-        }else {
+        } else {
             const days = new moment(value).diff(beginDate, 'days');
             this.setState({
                 endDate: new moment(value).format('YYYY-MM-DD'),
                 days: days > 0 ? days : 1
             });
         }
+    }
+
+    showRoomDetail = id => {
+        const {beginDate, endDate, days} = this.state;
+        this.context.router.push({
+            pathname: '/hotel/room/' + id,
+            state: {
+                beginDate,
+                endDate,
+                days
+            }
+        });
     }
 
     signUp = () => {
@@ -119,7 +155,7 @@ class Index extends React.Component {
     }
 
     render() {
-        const {data, topSliderList, currentIndex, beginDate, endDate, days} = this.state;
+        const {data, topSliderList, currentIndex, beginDate, endDate, days, rooms} = this.state;
 
         return (
             <DocumentTitle title='特色民宿'>
@@ -143,10 +179,28 @@ class Index extends React.Component {
                             <div className='dot'>{currentIndex} / {topSliderList.length}</div>
                         </div>
                         <div className='hotel-base-info'>
-                            <div className='hotel-theme'>{data.hotelName}</div>
                             <Flex justify='between'>
-                                <div className='hotel-price'>¥ <span className='price'>{data.hotelAddress}</span></div>
-                                <div className='extra-info'>{data.travelLastTime + ' | 含' + data.travelHas}</div>
+                                <div className='hotel-theme'>{data.hotelName}</div>
+                                <div className='vip-discount'><img src={vipDiscount}/></div>
+                            </Flex>
+                            <Flex className='level'>
+                                <div>
+                                    {
+                                        [0, 1, 2, 3, 4].map((item, index) => {
+                                            return (
+                                                <span key={index}
+                                                      className={`iconfont icon-xingzhuang1 star${index < 3 ? ' active' : ''}`}></span>
+                                            )
+                                        })
+                                    }
+                                    <span>推荐 <span className='num'>{3}</span>分</span>
+                                </div>
+                            </Flex>
+                            <Flex justify='between' align='center'>
+                                <p className='address'>
+                                    <span className='iconfont icon-xiangqingyemian-weizhi'></span> {data.hotelAddress}
+                                </p>
+                                <span className='become-vip'><i className='iconfont icon-vip'></i> 办理会员 ></span>
                             </Flex>
                         </div>
                         <List className='count-stay'>
@@ -164,12 +218,38 @@ class Index extends React.Component {
                             >
                                 <List.Item arrow="horizontal">请选择离店日期</List.Item>
                             </DatePicker>
-                            <List.Item extra={`共 ${days} 晚`} arrow="horizontal" className='count-stay-days'>住店天数</List.Item>
+                            <List.Item extra={`共 ${days} 晚`} arrow="horizontal"
+                                       className='count-stay-days'>住店天数</List.Item>
                         </List>
+                        <div className='hotel-room-list'>
+                            {
+                                rooms.map((item, index) => {
+                                    return (
+                                        <div key={index} className='hotel-room-list-item'
+                                             onClick={() => this.showRoomDetail(item.id)}>
+                                            <div className='wrap-thumbnail'>
+                                                <img src={item.thumbnail}/>
+                                            </div>
+                                            <div className='hotel-room-list-item-content'>
+                                                <div className='room-title'>{item.roomName}</div>
+                                                <p className='desc'>{item.roomSize}平米 {item.bedModel} {item.window}</p>
+                                                <p className='rule'>{'不可取消'}</p>
+                                                <div className='vip-discount'><img src={vipDiscount}/></div>
+                                                <div className='sign-button'>预订</div>
+                                                <div className='room-price'>¥ <span
+                                                    className='price'>{item.roomPrice}</span><span
+                                                    className='arrow'> ></span></div>
+                                            </div>
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div>
                     </Layout.Content>
                     <Layout.Footer>
                         <Flex className='footer-btn-group'>
-                            <a className='call' href={`tel:${data.telephone}`}><i className='iconfont icon-kefu'></i> 拨打咨询电话</a>
+                            <a className='call' href={`tel:${data.telephone}`}><i
+                                className='iconfont icon-kefu'></i> 拨打咨询电话</a>
                         </Flex>
                     </Layout.Footer>
                 </Layout>

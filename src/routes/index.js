@@ -55,7 +55,21 @@ const HotelDetail = Loadable({
     loader: () => import('../modules/hotel/component/hotelDetail'),
     loading: Loading
 })
-
+/* 住宿房间详情 */
+const HotelRoom = Loadable({
+    loader: () => import('../modules/hotel/component/hotelRoom'),
+    loading: Loading
+})
+/* 住宿订单 */
+const HotelOrder = Loadable({
+    loader: () => import('../modules/hotel/component/hotelOrder'),
+    loading: Loading
+})
+/* 房间评价 */
+const HotelRoomComment = Loadable({
+    loader: () => import('../modules/hotel/component/comment'),
+    loading: Loading
+})
 
 /* 旅游首页详情 */
 const Travel = Loadable({
@@ -120,6 +134,9 @@ module.exports = (
             <IndexRoute component={Hotel}/>
             <Route path="index" component={Hotel}/>
             <Route path="detail/:id" component={HotelDetail}/>
+            <Route path="room/:id" component={HotelRoom}/>
+            <Route path="comment/:id" component={HotelRoomComment}/>
+            <Route path="order/:id" component={HotelOrder}/>
         </Route>
         <Route path="travel" component={App}>
             <IndexRoute component={Travel}/>

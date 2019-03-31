@@ -125,26 +125,11 @@ class Index extends React.Component {
 
     settingHeight = () => {
         const clientHeight = document.documentElement.clientHeight || document.body.clientHeight;
-        let hei;
         const _domNode = ReactDOM.findDOMNode(this.lv);
-        if (this.props.multi) {
-            const tabsHeight = ReactDOM.findDOMNode(this.lv).parentNode.parentNode.parentNode.offsetTop;
-            const offsetTabsHeight = ReactDOM.findDOMNode(this.lv).parentNode.parentNode.parentNode.parentNode.offsetTop;
-            hei = clientHeight - tabsHeight - offsetTabsHeight;
-        } else {
-            if (_domNode.offsetParent) {
-                if (_domNode.offsetParent.offsetParent) {
-                    hei = clientHeight - _domNode.offsetTop - _domNode.offsetParent.offsetParent.parentNode.offsetTop;
-                } else {
-                    hei = clientHeight - _domNode.offsetTop - _domNode.offsetParent.parentNode.offsetTop;
-                }
-            } else {
-                hei = clientHeight - _domNode.offsetTop;
-            }
-        }
+        const clientRect = _domNode.getBoundingClientRect();
+        const height = clientHeight - clientRect.top;
 
-        this.setState({height: hei});
-
+        this.setState({height});
     }
 
     genData(data) {
@@ -207,9 +192,8 @@ class Index extends React.Component {
 
     getListData = (callback) => {
         let {params, pageIndex} = this.state;
-        params = assign(params, {pageNumber: pageIndex});
-
-        axios.get(this.props.pageUrl, params).then(res => res.data).then(data => {
+        params = assign(params, {pageNumber: ++pageIndex});
+        axios.get(this.props.pageUrl, {params}).then(res => res.data).then(data => {
                 if (typeof callback === 'function')
                     callback(data);
             }

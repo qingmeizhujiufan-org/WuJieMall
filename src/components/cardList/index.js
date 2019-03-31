@@ -129,7 +129,6 @@ class Index extends React.Component {
         const height = clientHeight - clientRect.top;
 
         this.setState({height});
-
     }
 
     genData(data) {
@@ -193,7 +192,6 @@ class Index extends React.Component {
     getListData = (callback) => {
         let {params, pageIndex} = this.state;
         params = assign(params, {pageNumber: ++pageIndex});
-        console.log()
         axios.get(this.props.pageUrl, {params}).then(res => res.data).then(data => {
                 if (typeof callback === 'function')
                     callback(data);

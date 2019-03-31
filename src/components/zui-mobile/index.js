@@ -12,6 +12,7 @@ import BaseInfo from './base-info';
 import DistPicker from './distpicker';
 import GoodsCard from './goods-card';
 import Stepper from './stepper';
+import SearchBar from './search-bar';
 
 module.exports = {
     List,
@@ -28,4 +29,5 @@ module.exports = {
     DistPicker,
     GoodsCard,
     Stepper,
+    SearchBar,
 }
