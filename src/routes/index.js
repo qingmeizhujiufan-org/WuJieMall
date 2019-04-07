@@ -61,8 +61,8 @@ const HotelRoom = Loadable({
     loading: Loading
 })
 /* 住宿订单 */
-const HotelOrder = Loadable({
-    loader: () => import('../modules/hotel/component/hotelOrder'),
+const HotelReserve = Loadable({
+    loader: () => import('../modules/hotel/component/hotelReserve'),
     loading: Loading
 })
 /* 房间评价 */
@@ -136,7 +136,7 @@ module.exports = (
             <Route path="detail/:id" component={HotelDetail}/>
             <Route path="room/:id" component={HotelRoom}/>
             <Route path="comment/:id" component={HotelRoomComment}/>
-            <Route path="order/:id" component={HotelOrder}/>
+            <Route path="reserve/:id" component={HotelReserve}/>
         </Route>
         <Route path="travel" component={App}>
             <IndexRoute component={Travel}/>

@@ -54,7 +54,7 @@ class Index extends React.Component {
                     });
                 }
             } else {
-                message.error('查询列表失败');
+                Toast.fail('查询列表失败', 1);
             }
             this.setState({loading: false});
         });
@@ -69,7 +69,7 @@ class Index extends React.Component {
         const data = this.state.data;
         const {state} = this.props.location;
         this.context.router.push({
-            pathname: '/hotel/order/' + data.id,
+            pathname: '/hotel/reserve/' + data.id,
             state: {
                 ...state,
                 roomInfo: data
@@ -176,7 +176,13 @@ class Index extends React.Component {
                     <Layout.Footer>
                         <Flex className='footer-btn-group'>
                             <div className='total-money'>¥ <span className='price'>{data.roomPrice}</span></div>
-                            <div className='sign' onClick={this.signUp}>预订</div>
+                            {
+                                data.roomStatus !== 1 ? (
+                                    <div className='sign' onClick={this.signUp}>预 订</div>
+                                ) : (
+                                    <div className='sign disable'>订 满</div>
+                                )
+                            }
                         </Flex>
                     </Layout.Footer>
                 </Layout>

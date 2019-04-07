@@ -40,13 +40,14 @@ class Index extends React.Component {
     }
 
     queryDetail = () => {
-        this.setState({loading: true});
         const param = {
             id: this.props.params.id
         }
+        Toast.loading('正在加载...', 0);
         axios.get('room/queryDetail', {
             params: param
         }).then(res => res.data).then(data => {
+            Toast.hide();
             if (data.success) {
                 if (data.backData) {
                     const backData = data.backData;
@@ -66,19 +67,43 @@ class Index extends React.Component {
                     });
                 }
             } else {
-                message.error('查询列表失败');
+                Toast.fail('查询列表失败', 1);
             }
             this.setState({loading: false});
         });
     }
 
-    signUp = () => {
-        const data = this.state.data;
+    reserve = () => {
+        const {formatBeginDate, formatEndDate, days, data, person, telephone} = this.state;
         const {state} = this.props.location;
-        this.context.router.push({
-            pathname: '/hotel/order/' + data.id,
-            state
+        const {beginDate, endDate, roomInfo} = state;
+        const params = {};
+        if (person === null || person === undefined || person.trim() === '') {
+            Toast.fail('请填写入住人信息', 1);
+            return;
+        }
+        if (telephone === null || telephone === undefined || telephone.trim() === '') {
+            Toast.fail('请填写入住人手机号', 1);
+            return;
+        }
+        params.hotelId = roomInfo.hotelId;
+        params.roomId = roomInfo.id;
+        params.beginDate = beginDate;
+        params.endDate = endDate;
+        params.days = days;
+        params.person = person;
+        params.telephone = telephone;
+        axios.post('room/reserve', params).then(res => res.data).then(data => {
+            if (data.success) {
+
+            } else {
+
+            }
         });
+        // this.context.router.push({
+        //     pathname: '/hotel/order/' + data.id,
+        //     state
+        // });
     }
 
     render() {
@@ -105,10 +130,12 @@ class Index extends React.Component {
                                 <InputItem
                                     placeholder={person ? person : '填写实际入住人姓名'}
                                     clear
+                                    onChange={value => this.setState({person: value})}
                                 >入住人</InputItem>
                                 <InputItem
                                     placeholder={telephone ? telephone : '填写实际入住人手机号'}
                                     clear
+                                    onChange={value => this.setState({telephone: value})}
                                 >中国大陆+86</InputItem>
                             </List>
                             <List renderHeader='预定须知：本产品只适用于持中国身份证的居民预订'>
@@ -125,7 +152,13 @@ class Index extends React.Component {
                     <Layout.Footer>
                         <Flex className='footer-btn-group'>
                             <div className='total-money'>¥ <span className='price'>{data.roomPrice}</span></div>
-                            <div className='sign' onClick={this.signUp}>提交订单</div>
+                            {
+                                data.roomStatus !== 1 ? (
+                                    <div className='sign' onClick={this.reserve}>提交订单</div>
+                                ) : (
+                                    <div className='sign disable'>已预订</div>
+                                )
+                            }
                         </Flex>
                     </Layout.Footer>
                 </Layout>

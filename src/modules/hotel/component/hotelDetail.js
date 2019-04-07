@@ -81,12 +81,13 @@ class Index extends React.Component {
     queryHotelRoom = id => {
         const params = {
             hotelId: id,
+            state: 2,
             pageSize: 999
         };
-        axios.get('room/queryList', {params}).then(res => res.data).then(data => {
+        axios.get('room/queryMobileList', {params}).then(res => res.data).then(data => {
             console.log('room data ==', data);
             if (data.backData) {
-                const content = data.backData.content || [];
+                const content = data.backData;
                 content.map(item => {
                     if (item.File) {
                         item.thumbnail = restUrl.FILE_ASSET + `${item.File.id + item.File.fileType}`;
@@ -218,7 +219,7 @@ class Index extends React.Component {
                             >
                                 <List.Item arrow="horizontal">请选择离店日期</List.Item>
                             </DatePicker>
-                            <List.Item extra={`共 ${days} 晚`} arrow="horizontal"
+                            <List.Item extra={`共 ${days} 天`} arrow="horizontal"
                                        className='count-stay-days'>住店天数</List.Item>
                         </List>
                         <div className='hotel-room-list'>
@@ -235,7 +236,13 @@ class Index extends React.Component {
                                                 <p className='desc'>{item.roomSize}平米 {item.bedModel} {item.window}</p>
                                                 <p className='rule'>{'不可取消'}</p>
                                                 <div className='vip-discount'><img src={vipDiscount}/></div>
-                                                <div className='sign-button'>预订</div>
+                                                {
+                                                    item.roomStatus !== 1 ? (
+                                                        <div className='sign-button'>预订</div>
+                                                    ) : (
+                                                        <div className='sign-button disable'>满房</div>
+                                                    )
+                                                }
                                                 <div className='room-price'>¥ <span
                                                     className='price'>{item.roomPrice}</span><span
                                                     className='arrow'> ></span></div>

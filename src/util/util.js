@@ -1,3 +1,5 @@
+import _assign from 'lodash/assign';
+
 /**
  * @param 使用js让数字的千分位用,分隔
  */
@@ -18,4 +20,46 @@ export function shiftThousands(val, precision) {
     } else {
         return _val.replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
     }
+}
+
+/**
+ * @param list 转 tree
+ */
+export function listToTree(list) {
+    if (list.length === 0) return [];
+    const _list = [];
+    list.map(item => _list.push(_assign({}, item)));
+    let arr = [];
+    //首先状态顶层节点
+    _list.map(item => {
+        if (!item.pid) {
+            arr.push(item);
+        }
+    });
+    let toDo = [];
+    arr.map(item => {
+        toDo.push(item);
+    });
+    while (toDo.length) {
+        let node = toDo.shift();
+        for (let i = 0; i < _list.length; i++) {
+            let row = _list[i];
+            if (node.id === row.pid) {
+                if (node.children) {
+                    node.children.push(row);
+                } else {
+                    node.children = [row];
+                }
+                toDo.push(row);
+            }
+        }
+    }
+
+    function sortNumber(a, b) {
+        return new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+    }
+
+    arr.sort(sortNumber);
+
+    return arr;
 }

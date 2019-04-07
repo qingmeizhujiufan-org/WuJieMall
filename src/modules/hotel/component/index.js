@@ -101,7 +101,7 @@ class Index extends React.Component {
                             onSubmit={this.search}
                         />
                         <List
-                            pageUrl={'hotel/queryList'}
+                            pageUrl={'hotel/queryMobileList'}
                             params={params}
                             row={row}
                         />
