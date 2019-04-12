@@ -11,6 +11,10 @@ import classify_1 from 'Img/classify_1.png';
 import classify_2 from 'Img/classify_2.png';
 import classify_3 from 'Img/classify_3.png';
 
+import demo_1 from 'Img/demo_1.png';
+import demo_2 from 'Img/demo_2.png';
+import demo_3 from 'Img/demo_3.png';
+
 class Index extends React.Component {
     constructor(props) {
         super(props);
@@ -133,6 +137,10 @@ class Index extends React.Component {
         this.context.router.push(`/travel/detail/${id}`);
     }
 
+    userCenter = () => {
+        this.context.router.push(`/personal`);
+    }
+
     render() {
         const {topSliderList, foodData, travelData, hotelData} = this.state;
 
@@ -147,7 +155,7 @@ class Index extends React.Component {
                             {topSliderList.map(item => (
                                 <a
                                     key={item.id}
-                                    href={item.productLink}
+                                    href={item.foodLink}
                                     style={{display: 'inline-block', width: '100%', height: '32.27vw'}}
                                 >
                                     <img
@@ -183,7 +191,7 @@ class Index extends React.Component {
                                     <div className='food-name'>{foodData[0].name}</div>
                                     <div className='food-text'>{foodData[0].text}</div>
                                     <div className='food-img'>
-                                        <img src={classify_1} alt=""/>
+                                        <img src={demo_1} alt=""/>
                                     </div>
                                 </div>
                                 <div className='right'>
@@ -191,14 +199,14 @@ class Index extends React.Component {
                                         <div className='food-name'>{foodData[1].name}</div>
                                         <div className='food-text'>{foodData[1].text}</div>
                                         <div className='food-img'>
-                                            <img src={classify_1} alt=""/>
+                                            <img src={demo_3} alt=""/>
                                         </div>
                                     </div>
                                     <div onClick={() => this.context.router.push(`/food/detail/${foodData[2].id}`)}>
                                         <div className='food-name'>{foodData[2].name}</div>
                                         <div className='food-text'>{foodData[2].text}</div>
                                         <div className='food-img'>
-                                            <img src={classify_1} alt=""/>
+                                            <img src={demo_2} alt=""/>
                                         </div>
                                     </div>
                                 </div>
@@ -251,6 +259,10 @@ class Index extends React.Component {
                                     })
                                 }
                             </div>
+                        </div>
+                        <div className='user-center' onClick={this.userCenter}>
+                            <span className='iconfont icon-wode'></span>
+                            <p>我的</p>
                         </div>
                     </Layout.Content>
                 </Layout>

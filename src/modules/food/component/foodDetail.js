@@ -52,7 +52,7 @@ class Index extends React.Component {
         const param = {
             id: this.props.params.id
         }
-        axios.get('product/queryDetail', {
+        axios.get('food/queryDetail', {
             params: param
         }).then(res => res.data).then(data => {
             if (data.success) {
@@ -118,7 +118,7 @@ class Index extends React.Component {
             pageSize: 3,
             pageNumber: 1
         };
-        axios.get('product/queryListByShopId', {
+        axios.get('food/queryListByShopId', {
             params: param
         }).then(res => res.data).then(data => {
             if (data.success) {
@@ -176,11 +176,11 @@ class Index extends React.Component {
                             <div className="goods-detail">
                                 <div className='goods-header'>
                                     {goodsDetail.isTop ? <div className='is-top'>精品</div> : null}
-                                    {goodsDetail.productName}
+                                    {goodsDetail.foodName}
                                 </div>
                                 <div className='goods-subscribe'>
                                     <div className='goods-price'>
-                                        <span>￥</span><span>{goodsDetail.productSellingprice}</span></div>
+                                        <span>￥</span><span>{goodsDetail.foodSellingprice}</span></div>
                                     <div className='goods-number'>
                                         {
                                             goodsDetail.number ? (
@@ -232,13 +232,13 @@ class Index extends React.Component {
                                     {
                                         recommandList.map((item, index) => {
                                             return (
-                                                <div key={index} className='product-item'
-                                                     onClick={() => this.showProduct(item.id)}>
-                                                    <div className='product-img'>
+                                                <div key={index} className='food-item'
+                                                     onClick={() => this.showFood(item.id)}>
+                                                    <div className='food-img'>
                                                         <img src={restUrl.FILE_ASSET + item.headerPic.id + item.headerPic.fileType} alt=""/>
                                                     </div>
-                                                    <div className='product-body'>
-                                                        <div className='product-name'>{item.productName}</div>
+                                                    <div className='food-body'>
+                                                        <div className='food-name'>{item.foodName}</div>
                                                     </div>
                                                 </div>
                                             )
@@ -251,25 +251,25 @@ class Index extends React.Component {
                                 baseInfoList={[
                                     {
                                         label: '生产日期',
-                                        value: goodsDetail.productDate
+                                        value: goodsDetail.foodDate
                                     }, {
                                         label: '生产许可证编号',
-                                        value: goodsDetail.productCode
+                                        value: goodsDetail.foodCode
                                     }, {
                                         label: '厂址',
-                                        value: goodsDetail.productStorage
+                                        value: goodsDetail.foodStorage
                                     }, {
                                         label: '产地省份',
-                                        value: goodsDetail.productOrigin
+                                        value: goodsDetail.foodOrigin
                                     }, {
                                         label: '保质期',
-                                        value: goodsDetail.productStorage
+                                        value: goodsDetail.foodStorage
                                     }, {
                                         label: '净含量',
-                                        value: goodsDetail.productNetWeight
+                                        value: goodsDetail.foodNetWeight
                                     }, {
                                         label: '成分及配料',
-                                        value: goodsDetail.productBatching
+                                        value: goodsDetail.foodBatching
                                     }
                                 ]}
                             />

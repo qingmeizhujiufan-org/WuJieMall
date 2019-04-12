@@ -17,7 +17,7 @@ class OrderAdd extends React.Component {
 
     this.state = {
       id: null,
-      productId: [],
+      foodId: [],
       loading: false,
       addressList: [],
       params: {}

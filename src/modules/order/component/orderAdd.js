@@ -15,7 +15,7 @@ class OrderAdd extends React.Component {
     super(props);
 
     this.state = {
-      productId: [],
+      foodId: [],
       total: 0,
       loading: false,
       address: null,

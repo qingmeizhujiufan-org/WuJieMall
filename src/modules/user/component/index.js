@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {List, NavBar, Icon} from 'antd-mobile';
 import '../index.less';
-import img from 'Img/2.jpg'
-import userImg from 'Img/IMG_1624.png'
+import img from 'Img/2.jpg';
+import userImg from 'Img/IMG_1624.png';
+import vipBadge from 'Img/VIP_badge.png';
 import {Layout} from "Comps/zui-mobile";
 import DocumentTitle from "react-document-title";
 
@@ -50,45 +51,39 @@ class Index extends React.Component {
                                                     <img src={userImg} alt=""/>
                                                 </div>
                                                 <div className='user-detail'>
-                                                    <div className='user-name'>王玮</div>
-                                                    <div className='user-address'>湖北·武汉</div>
-                                                </div>
-                                            </div>
-                                            <div className='order-list'>
-                                                <div className='order-item'>
-                                                    <div className='order-number'>1</div>
-                                                    <div className='order-label'>待支付</div>
-                                                </div>
-                                                <div className='order-item'>
-                                                    <div className='order-number'>1</div>
-                                                    <div className='order-label'>已支付</div>
-                                                </div>
-                                                <div className='order-item'>
-                                                    <div className='order-number'>1</div>
-                                                    <div className='order-label'>已完成</div>
+                                                    <div className='user-name'>丽龙利</div>
+                                                    <div className='user-points'>我的积分 {360}</div>
+                                                    {
+                                                        1 ? (<div className='is-vip'><img src={vipBadge}/> VIP</div>) : (<div className='common-user'>VIP尚未开通</div>)
+                                                    }
                                                 </div>
                                             </div>
                                         </div>
                                         <div className='vip' onClick={this.viewVIP}>
-                                            <div className='title'>查看我的VIP</div>
-                                            <div className='desc'>积分使用原则及详情</div>
                                         </div>
                                         <div className='info-area'>
                                             <List className='info-list'>
                                                 <Item
-                                                    thumb="https://zos.alipayobjects.com/rmsportal/dNuvNrtqUztHCwM.png"
+                                                    thumb={<span className='iconfont icon-gouwuche1'></span>}
+                                                    arrow="horizontal"
+                                                    extra={0}
+                                                    onClick={() => {
+                                                }}
+                                                >购物车</Item>
+                                                <Item
+                                                    thumb={<span className='iconfont icon-gerenzhongxin-shangpindingdan'></span>}
                                                     arrow="horizontal"
                                                     onClick={() => {
                                                     }}
                                                 >商品订单</Item>
                                                 <Item
-                                                    thumb="https://zos.alipayobjects.com/rmsportal/dNuvNrtqUztHCwM.png"
+                                                    thumb={<span className='iconfont icon-fangjianxinxi'></span>}
                                                     arrow="horizontal"
                                                     onClick={() => {
                                                     }}
                                                 >民宿订单</Item>
                                                 <Item
-                                                    thumb="https://zos.alipayobjects.com/rmsportal/UmbJMbWOejVOpxe.png"
+                                                    thumb={<span className='iconfont icon-gerenzhongxin-lvyoudingdan'></span>}
                                                     onClick={() => {
                                                     }}
                                                     arrow="horizontal"

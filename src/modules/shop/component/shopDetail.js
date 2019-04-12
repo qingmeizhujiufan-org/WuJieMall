@@ -18,14 +18,14 @@ const GoodsCart = ({className = '', data, ...restProps}) => (
     <div className='goodsBody'>
       <div className='goodsHeader'>
         {data.isTop ? <div className='isTop'>精品</div> : null}
-        {data.productName}
+        {data.foodName}
       </div>
       <div className='goodsContent'>
         <div className='goodsLabel'>【{data.shopName}】</div>
         <div className='goodsAddress'>{data.shopAddress}</div>
       </div>
       <div className='goodsFooter'>
-        <div><span>￥</span><span style={{fontSize: 15}}>{data.productSellingprice}</span></div>
+        <div><span>￥</span><span style={{fontSize: 15}}>{data.foodSellingprice}</span></div>
       </div>
     </div>
   </div>
@@ -122,7 +122,7 @@ class Index extends React.Component {
               </div>
             </div>
             <CardList
-              pageUrl={'product/queryListByShopId'}
+              pageUrl={'food/queryListByShopId'}
               params={params}
               row={row}
             />

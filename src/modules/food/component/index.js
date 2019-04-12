@@ -19,14 +19,14 @@ const GoodsCart = ({className = '', data, ...restProps}) => (
         <div className='goodsBody'>
             <div className='goodsHeader'>
                 {data.isTop ? <div className='isTop'>精品</div> : null}
-                {data.productName}
+                {data.foodName}
             </div>
             <div className='goodsContent'>
                 <div className='goodsLabel'>【{data.shopName}】</div>
                 <div className='goodsAddress'>{data.shopAddress}</div>
             </div>
             <div className='goodsFooter'>
-                <div><span>￥</span><span style={{fontSize: 15}}>{data.productSellingprice}</span></div>
+                <div><span>￥</span><span style={{fontSize: 15}}>{data.foodSellingprice}</span></div>
             </div>
         </div>
     </div>
@@ -56,13 +56,13 @@ class Index extends React.Component {
 
     queryFoodsCategory = () => {
         const {categoryList} = this.state;
-        axios.get('product/queryAllCategoryList')
+        axios.get('food/queryAllCategoryList')
             .then(res => res.data).then(data => {
             if (data.success) {
                 let list = data.backData.map(item => {
                     return {
                         ...item,
-                        title: item.productCategoryName
+                        title: item.foodCategoryName
                     }
                 })
                 this.setState({
@@ -106,7 +106,7 @@ class Index extends React.Component {
                             renderTabBar={props => <Tabs.DefaultTabBar {...props} page={6}/>}
                         >
                             <CardList
-                                pageUrl={'product/queryList'}
+                                pageUrl={'food/queryList'}
                                 params={params}
                                 row={row}
                                 multi

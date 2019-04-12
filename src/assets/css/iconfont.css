@@ -73,4 +73,35 @@
     content: "\e710";
 }
 
+.icon-dingdanweikong:before {
+    content: "\e711";
+}
+
+.icon-xiangji:before {
+    content: "\e712";
+}
+
+.icon-fangjianxinxi:before {
+    content: "\e713";
+}
+
+.icon-gouwuchekong:before {
+    content: "\e714";
+}
+
+.icon-gouwuche1:before {
+    content: "\e715";
+}
+
+.icon-gerenzhongxin-lvyoudingdan:before {
+    content: "\e716";
+}
+
+.icon-gerenzhongxin-shangpindingdan:before {
+    content: "\e717";
+}
+
+.icon-gerenzhongxin-minsudingdan:before {
+    content: "\e718";
+}
 

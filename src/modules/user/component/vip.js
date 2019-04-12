@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Button, Modal} from 'antd-mobile';
 import '../index.less';
-import img from 'Img/2.jpg'
-import userImg from 'Img/IMG_1624.png'
+import img from 'Img/2.jpg';
+import userImg from 'Img/IMG_1624.png';
+import vipBadge from 'Img/VIP_badge.png';
 import {Layout} from "Comps/zui-mobile";
 import DocumentTitle from "react-document-title";
 
@@ -53,22 +54,11 @@ class Index extends React.Component {
                                                     <img src={userImg} alt=""/>
                                                 </div>
                                                 <div className='user-detail'>
-                                                    <div className='user-name'>王玮</div>
-                                                    <div className='user-address'>湖北·武汉</div>
-                                                </div>
-                                            </div>
-                                            <div className='order-list'>
-                                                <div className='order-item'>
-                                                    <div className='order-number'>1</div>
-                                                    <div className='order-label'>待支付</div>
-                                                </div>
-                                                <div className='order-item'>
-                                                    <div className='order-number'>1</div>
-                                                    <div className='order-label'>已支付</div>
-                                                </div>
-                                                <div className='order-item'>
-                                                    <div className='order-number'>1</div>
-                                                    <div className='order-label'>已完成</div>
+                                                    <div className='user-name'>丽龙利</div>
+                                                    <div className='user-points'>我的积分 {360}</div>
+                                                    {
+                                                        1 ? (<div className='is-vip'><img src={vipBadge}/> VIP</div>) : (<div className='common-user'>VIP尚未开通</div>)
+                                                    }
                                                 </div>
                                             </div>
                                         </div>
