@@ -201,7 +201,6 @@ class Index extends React.Component {
                                 <p className='address'>
                                     <span className='iconfont icon-xiangqingyemian-weizhi'></span> {data.hotelAddress}
                                 </p>
-                                <span className='become-vip'><i className='iconfont icon-vip'></i> 办理会员 ></span>
                             </Flex>
                         </div>
                         <List className='count-stay'>

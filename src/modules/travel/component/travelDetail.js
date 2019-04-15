@@ -122,6 +122,7 @@ class Index extends React.Component {
             pathname: '/travel/signinfo',
             state: {
                 travelId: data.id,
+                travelkeeperId: data.travelkeeperId,
                 manPrice: data.manPrice,
                 childPrice: data.childPrice
             }

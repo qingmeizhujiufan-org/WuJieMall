@@ -2,18 +2,27 @@
 
 .home {
 
+    .carousel-list {
+        height: 2.42rem !important;
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
     .classify-list {
-        height: 115px;
+        height: 2.3rem;
         background-color: #ffffff;
         text-align: center;
 
         &-item {
-            font-size: 14px;
+            font-size: .28rem;
             color: #0C0C0C;
 
             img {
-                width: 40px;
-                height: 40px;
+                width: .8rem;
+                height: .8rem;
             }
 
             span {
@@ -32,31 +41,38 @@
     }
 
     .goods-category {
-        margin-top: 10px;
-        padding: 10px 0px;
+        margin-top: .24rem;
         width: 100%;
         background-color: #fff;
+        overflow: hidden;
+
         .goods-category-title {
             position: relative;
-            padding-left: 25px;
-            height: 30px;
-            line-height: 30px;
+            height: .6rem;
+            margin: .28rem 0 .23rem;
+            padding-left: .5rem;
+            line-height: .6rem;
+
             &:after {
                 content: '';
                 position: absolute;
                 top: 50%;
-                left: 15px;
-                width: 3px;
-                height: 15px;
+                left: .36rem;
+                width: .06rem;
+                height: .3rem;
                 background-color: #C20B0B;
                 transform: translateY(-50%);
             }
+
+            .iconfont {
+                display: block;
+                font-size: .34rem;
+            }
         }
+
         .goods-category-body {
-            width: 100%;
-            height: auto;
-            padding-top: 10px;
             overflow: hidden;
+
             a {
                 display: block;
                 position: relative;
@@ -73,17 +89,21 @@
                 }
             }
         }
+
         .food-content {
-            width: 100%;
-            padding: 10px 15px 0;
             display: flex;
+            margin-top: .01rem;
+            margin-bottom: .3rem;
+            padding: 0 .36rem;
+
             .left {
                 width: 40%;
-                padding: 10px;
-                border: 1px solid #E0E0E0;
+                padding: .38rem .34rem;
+                border: .01rem solid #E0E0E0;
+
                 .food-img {
                     width: 100%;
-                    height: 80px;
+                    height: 1.6rem;
                     padding: 0 20px;
                     img {
                         width: 100%;
@@ -93,13 +113,13 @@
             }
             .right {
                 width: 60%;
-                border: 1px solid #E0E0E0;
+                border: .01rem solid #E0E0E0;
                 border-left: none;
                 > div {
                     position: relative;
                     height: 50%;
-                    padding: 10px;
-                    border-bottom: 1px solid #E0E0E0;
+                    padding: .38rem .34rem;
+                    border-bottom: .01rem solid #E0E0E0;
                     overflow: hidden;
                     &:last-child {
                         border-bottom: none;
@@ -107,10 +127,10 @@
                     .food-img {
                         position: absolute;
                         top: 50%;
-                        right: 10px;
+                        right: .2rem;
                         transform: translateY(-50%);
-                        width: 50px;
-                        height: 50px;
+                        width: 1rem;
+                        height: 1rem;
                         img {
                             width: 100%;
                             height: 100%;
@@ -118,26 +138,27 @@
                     }
                 }
             }
+
             .food-name {
-                font-size: 14px;
-                height: 28px;
-                line-height: 28px;
+                font-size: .28rem;
+                height: .4rem;
+                line-height: .4rem;
             }
+
             .food-text {
-                height: 22px;
-                line-height: 22px;
-                font-size: 12px;
+                height: .33rem;
+                line-height: .33rem;
+                font-size: .24rem;
                 color: #797979;
             }
         }
 
         .travel-content {
-            height: 140px;
-            padding: 10px 15px 0;
+            padding: 0 .36rem;
 
             .travel-item {
                 float: left;
-                width: calc(~'(100vw - 50px)/3');
+                width: 2.12rem;
                 margin-right: 10px;
 
                 &:last-child {
@@ -146,7 +167,8 @@
 
                 .travel-img {
                     width: 100%;
-                    height: 80px;
+                    height: 1.6rem;
+
                     img {
                         width: 100%;
                         height: 100%;
@@ -156,20 +178,24 @@
                     text-align: center;
 
                     .travel-name {
-                        height: 28px;
-                        font-size: 14px;
-                        line-height: 28px;
+                        margin-top: .2rem;
+                        height: .4rem;
+                        font-size: .28rem;
+                        line-height: .4rem;
                         text-overflow: ellipsis;
                         white-space: nowrap;
                         overflow: hidden;
                     }
 
                     .travel-date {
-                        font-size: 12px;
+                        height: .33rem;
+                        margin: .05rem 0 .8rem;
+                        font-size: .24rem;
                         color: #0C0C0C;
+                        line-height: .33rem;
 
                         i {
-                            font-size: 12px;
+                            font-size: .24rem;
                             color: #6F6F6F;
                         }
                     }
@@ -180,8 +206,8 @@
 
     .hotel {
         &-img {
-            width: calc(~'100vw * .6667');
-            height: calc(~'(100vw * .6667) * .42');
+            width: 5rem;
+            height: 2.1rem;
             overflow: hidden;
 
             img {
@@ -191,33 +217,37 @@
         }
 
         &-name {
-            margin: 15px 0 5px;
-            font-size: 14px;
+            height: .4rem;
+            margin: .28rem 0;
+            font-size: .28rem;
             color: #0C0C0C;
             text-align: center;
+            line-height: .4rem;
         }
     }
 
     .user-center {
         position: fixed;
-        right: 20px;
-        bottom: 200px;
-        width: 50px;
-        height: 50px;
-        padding: 5px;
-        line-height: 1.4;
+        right: .4rem;
+        bottom: 3rem;
+        width: 1rem;
+        height: 1rem;
+        padding: .15rem;
+        line-height: .4rem;
         text-align: center;
-        border: 1px solid #D9D9D9;
+        border: .01rem solid #D9D9D9;
         border-radius: 50%;
         background-color: #ffffff;
 
         .iconfont {
+            display: block;
+            font-size: .32rem;
             color: #F35050;
         }
 
         p {
             margin: 0;
-            font-size: 10px;
+            font-size: .2rem;
             color: #858585;
         }
     }

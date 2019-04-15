@@ -121,6 +121,14 @@ const Vip = Loadable({
     loader: () => import('../modules/user/component/vip'),
     loading: Loading
 })
+const HotelOrder = Loadable({
+    loader: () => import('../modules/user/component/hotelOrder'),
+    loading: Loading
+})
+const TravelOrder = Loadable({
+    loader: () => import('../modules/user/component/travelOrder'),
+    loading: Loading
+})
 
 module.exports = (
     <Route path="/" component={App}>
@@ -162,6 +170,8 @@ module.exports = (
             <IndexRoute component={Personal}/>
             <Route path="personal" component={Personal}/>
             <Route path="vip" component={Vip}/>
+            <Route path="hotelOrder" component={HotelOrder}/>
+            <Route path="travelOrder" component={TravelOrder}/>
         </Route>
     </Route>
 );

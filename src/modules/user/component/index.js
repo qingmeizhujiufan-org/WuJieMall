@@ -52,10 +52,7 @@ class Index extends React.Component {
                                                 </div>
                                                 <div className='user-detail'>
                                                     <div className='user-name'>丽龙利</div>
-                                                    <div className='user-points'>我的积分 {360}</div>
-                                                    {
-                                                        1 ? (<div className='is-vip'><img src={vipBadge}/> VIP</div>) : (<div className='common-user'>VIP尚未开通</div>)
-                                                    }
+                                                    <div className='is-vip'><img src={vipBadge}/> VIP</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -64,23 +61,9 @@ class Index extends React.Component {
                                         <div className='info-area'>
                                             <List className='info-list'>
                                                 <Item
-                                                    thumb={<span className='iconfont icon-gouwuche1'></span>}
-                                                    arrow="horizontal"
-                                                    extra={0}
-                                                    onClick={() => {
-                                                }}
-                                                >购物车</Item>
-                                                <Item
-                                                    thumb={<span className='iconfont icon-gerenzhongxin-shangpindingdan'></span>}
-                                                    arrow="horizontal"
-                                                    onClick={() => {
-                                                    }}
-                                                >商品订单</Item>
-                                                <Item
                                                     thumb={<span className='iconfont icon-fangjianxinxi'></span>}
                                                     arrow="horizontal"
-                                                    onClick={() => {
-                                                    }}
+                                                    onClick={() => this.context.router.push('/hotelOrder')}
                                                 >民宿订单</Item>
                                                 <Item
                                                     thumb={<span className='iconfont icon-gerenzhongxin-lvyoudingdan'></span>}

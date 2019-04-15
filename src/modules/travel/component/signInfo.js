@@ -34,21 +34,21 @@ class Index extends React.Component {
         const values = this.props.form.getFieldsValue();
         const count = this.state.count;
         const num = values.manNum + values.childNum;
-        if(num > count.length){
+        if (num > count.length) {
             count.push(count.length);
             this.setState({count});
-        }else {
+        } else {
             Modal.alert('当前人数已达上线');
         }
     }
 
     signUp = () => {
-        this.props.form.validateFields({force: true}, (error, values) => {
+        this.props.form.validateFields((error, values) => {
             if (!error) {
                 const {state} = this.props.location;
                 const count = this.state.count;
-                let {travelId,manPrice, childPrice} = state;
-                if(count.length !== values.manNum + values.childNum){
+                let {travelId, travelkeeperId, manPrice, childPrice} = state;
+                if (count.length !== values.manNum + values.childNum) {
                     Modal.alert('参与人人数不符，请完善信息');
                     return;
                 }
@@ -56,11 +56,15 @@ class Index extends React.Component {
                 manPrice = parseFloat(manPrice);
                 childPrice = parseFloat(childPrice);
                 values.travelId = travelId;
+                values.travelkeeperId = travelkeeperId;
+                values.userId = 'cd133890-5d95-11e9-a045-5328e803891c';
                 values.signDate = new moment().format('YYYY-MM-DD');
                 values.totalMoney = manPrice * (values.manNum || 1) + childPrice * (values.childNum || 0);
                 console.log('values == ', values);
                 axios.post('/travel/signTravel', values).then(res => res.data).then(data => {
                     if (data.success) {
+                        this.props.form.resetFields();
+                        this.setState({count: [0]});
                         Modal.alert('您已报名成功！', '稍后客服人员会联系您，您也可以在我的订单中查询');
                     }
                 });
@@ -173,7 +177,8 @@ class Index extends React.Component {
                                             >身份证号码</InputItem>
                                             <Flex className='btn-group' justify='end'>
                                                 {
-                                                    index !== 0 ? <span className='del' onClick={() => this.delParticipant(index)}>删除</span> : null
+                                                    index !== 0 ? <span className='del'
+                                                                        onClick={() => this.delParticipant(index)}>删除</span> : null
                                                 }
                                                 <Button
                                                     className='add'

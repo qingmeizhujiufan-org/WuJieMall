@@ -148,24 +148,25 @@ class Index extends React.Component {
             <DocumentTitle title='无介商城'>
                 <Layout className="home">
                     <Layout.Content>
-                        <Carousel
-                            autoplay
-                            infinite
-                        >
-                            {topSliderList.map(item => (
-                                <a
-                                    key={item.id}
-                                    href={item.foodLink}
-                                    style={{display: 'inline-block', width: '100%', height: '32.27vw'}}
-                                >
-                                    <img
-                                        src={item.imgSrc}
-                                        alt=""
-                                        style={{width: '100%', height: '100%', verticalAlign: 'top'}}
-                                    />
-                                </a>
-                            ))}
-                        </Carousel>
+                        {topSliderList.length > 0 ? (
+                            <Carousel
+                                className='carousel-list'
+                                autoplay
+                                infinite
+                            >
+                                {topSliderList.map(item => (
+                                    <a
+                                        key={item.id}
+                                        href={item.foodLink}
+                                        style={{display: 'inline-block', width: '100%', height: '2.42rem'}}
+                                    >
+                                        <img src={item.imgSrc}/>
+                                    </a>
+                                ))}
+                            </Carousel>
+                        ) : (
+                            <div style={{height: '2.42rem'}}></div>
+                        )}
                         <Flex className='classify-list'>
                             <Flex.Item className='classify-list-item'
                                        onClick={() => this.context.router.push(`/food/index`)}>
@@ -195,20 +196,30 @@ class Index extends React.Component {
                                     </div>
                                 </div>
                                 <div className='right'>
-                                    <div onClick={() => this.context.router.push(`/food/detail/${foodData[1].id}`)}>
+                                    <Flex
+                                        direction='column'
+                                        justify='center'
+                                        align='start'
+                                        onClick={() => this.context.router.push(`/food/detail/${foodData[1].id}`)}
+                                    >
                                         <div className='food-name'>{foodData[1].name}</div>
                                         <div className='food-text'>{foodData[1].text}</div>
                                         <div className='food-img'>
                                             <img src={demo_3} alt=""/>
                                         </div>
-                                    </div>
-                                    <div onClick={() => this.context.router.push(`/food/detail/${foodData[2].id}`)}>
+                                    </Flex>
+                                    <Flex
+                                        direction='column'
+                                        justify='center'
+                                        align='start'
+                                        onClick={() => this.context.router.push(`/food/detail/${foodData[2].id}`)}
+                                    >
                                         <div className='food-name'>{foodData[2].name}</div>
                                         <div className='food-text'>{foodData[2].text}</div>
                                         <div className='food-img'>
                                             <img src={demo_2} alt=""/>
                                         </div>
-                                    </div>
+                                    </Flex>
                                 </div>
                             </div>
                         </div>
