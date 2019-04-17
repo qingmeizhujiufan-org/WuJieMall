@@ -68,6 +68,7 @@ class Index extends React.Component {
                                                 <Item
                                                     thumb={<span className='iconfont icon-gerenzhongxin-lvyoudingdan'></span>}
                                                     onClick={() => {
+                                                      this.context.router.push('/travelOrder')
                                                     }}
                                                     arrow="horizontal"
                                                 >旅游订单</Item>

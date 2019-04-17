@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Tabs} from 'antd-mobile';
+import {Tabs, Card} from 'antd-mobile';
 import '../index.less';
 import {Layout} from "Comps/zui-mobile";
 import DocumentTitle from "react-document-title";
@@ -54,7 +54,7 @@ class Index extends React.Component {
                             renderTabBar={props => <Tabs.DefaultTabBar {...props} page={6}/>}
                         >
                             <List
-                                pageUrl={'/travelKeeper/queryOrderList'}
+                                pageUrl={'/hotel/queryOrderList'}
                                 params={params}
                                 row={row}
                             />

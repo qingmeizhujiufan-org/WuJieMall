@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {PullToRefresh, ListView, Toast} from 'antd-mobile';
 import assign from 'lodash/assign';
 import isEqual from 'lodash/isEqual';
-import axios from 'axios';
+import axios from "Utils/axios";
 import './index.less';
 
 function MyBody(props) {
