@@ -39,25 +39,30 @@
         width: calc(~'(100vw - 40px) / 2');
         background-color: #fff;
         border: 1px solid #e3f2fb;
-        border-radius: 5px;
         overflow: hidden;
+
         .goodsImg {
             width: 100%;
-            height: calc(~'(100vw - 30px) / 2.5');
+            height: 2.6rem;
             img {
                 width: 100%;
                 height: 100%;
             }
         }
         .goodsBody {
-            padding: 10px 10px;
+
             .goodsHeader {
+                height: .33rem;
+                line-height: .33rem;
+                margin: .12rem .18rem .16rem .15rem;
                 overflow: hidden;
                 white-space: nowrap;
                 text-overflow: ellipsis;
-                font-size: 14px;
-                height: 20px;
-                color: #000;
+                font-size: .24rem;
+                color: #0c0c0c;
+                font-weight: 500;
+                letter-spacing: .01rem;
+
                 .isTop {
                     display: inline-block;
                     padding: 2px 4px;
@@ -70,27 +75,37 @@
                     border-radius: 5px;
                 }
             }
+
             .goodsContent {
                 padding-top: 5px;
                 line-height: 24px;
-                height: 24px;
-                font-size: 12px;
-                color: #797979;
+                height: .3rem;
+                font-size: .22rem;
+                color: #999999;
                 overflow: hidden;
+
                 .goodsAddress {
-                    float: right;
-                    padding: 0 5px;
-                    width: auto;
+                    width: 45%;
+                    margin-right: .2rem;
+                    text-align: right;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
                 }
+
                 .goodsLabel {
-                    float: left;
+                    width: 45%;
+                    text-align: left;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
                 }
             }
             .goodsFooter {
-                margin-top: 10px;
-                overflow: hidden;
-                font-size: 12px;
-                color: #E73939;
+                padding: .09rem .09rem .18rem .09rem;
+                font-size: .24rem;
+                font-weight: 500;
+                color: rgba(231, 57, 57, 1);
+                line-height: .33rem;
+                letter-spacing: .01rem;
             }
         }
     }
@@ -98,14 +113,39 @@
 
 #goodsDetail {
     width: 100%;
+
     .zui-content {
         height: calc(~'100vh - 50px');
     }
 
+    .wrap-carousel {
+        position: relative;
+        height: 60vw;
+
+        .carousel-item {
+            height: 60vw !important;
+        }
+
+        .dot {
+            position: absolute;
+            bottom: 14px;
+            right: 0;
+            width: 50px;
+            height: 22px;
+            line-height: 22px;
+            text-align: center;
+            font-size: 12px;
+            color: #ffffff;
+            border-radius: 4px 0 0 4px;
+            background-color: rgba(0, 0, 0, .4);
+        }
+    }
+
     .goods-detail {
-        padding: 15px;
-        font-size: 16px;
+        padding: .3rem .36rem;
+        font-size: .36rem;
         background-color: #fff;
+
         .goods-header {
             overflow: hidden;
             white-space: nowrap;
@@ -127,19 +167,33 @@
         .goods-subscribe {
             padding-top: 15px;
             overflow: hidden;
+
             .goods-price {
                 float: left;
                 color: #FF5745;
+                font-size: .32rem;
+
+                span:last-child {
+                    font-size: .4rem;
+                    font-weight: 500;
+                }
+
             }
             .goods-number {
                 float: right;
                 color: #797979;
+                font-size: .28rem;
             }
         }
     }
 
     .goods-comments {
         margin-top: 10px;
+
+        .zui-list-item .am-list-line .am-list-content {
+            font-size: .28rem;
+            color: #0C0C0C;
+        }
     }
 
     .goods-store {
@@ -248,27 +302,12 @@
     .footer {
         display: flex;
         align-items: center;
+        justify-content: center;
         height: 55px;
         line-height: 55px;
+        font-size: .32rem;
         background-color: #fff;
         border: 1px solid #e3f2fb;
         z-index: 100;
-        > div {
-            text-align: center;
-        }
-        .service {
-            flex: 1;
-        }
-        .add, .buy {
-            flex: 1.5;
-            color: #fff;
-        }
-        .add {
-            background-color: #ffb836;
-        }
-        .buy {
-            background-color: #FF0036;
-
-        }
     }
 }

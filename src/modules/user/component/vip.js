@@ -55,10 +55,7 @@ class Index extends React.Component {
                                                 </div>
                                                 <div className='user-detail'>
                                                     <div className='user-name'>丽龙利</div>
-                                                    <div className='user-points'>我的积分 {360}</div>
-                                                    {
-                                                        1 ? (<div className='is-vip'><img src={vipBadge}/> VIP</div>) : (<div className='common-user'>VIP尚未开通</div>)
-                                                    }
+                                                    <div className='is-vip'><img src={vipBadge}/> VIP</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -77,9 +74,6 @@ class Index extends React.Component {
                                                 <br/>
                                                 <div className='vip-rule-title'>VIP会员服务协议：</div>
                                                 <div className='vip-rule-desc'>会员服务的最终解释权归新华资产有限公司所有</div>
-                                                <br/>
-                                                <br/>
-                                                <Button type='primary' onClick={this.becomeVip}>兑换开通VIP</Button>
                                             </div>
                                         </div>
                                     </div>

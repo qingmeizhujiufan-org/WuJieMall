@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Carousel, List} from 'antd-mobile';
+import {Carousel, List, Flex} from 'antd-mobile';
 import {Layout, BaseInfo} from 'Comps/zui-mobile';
 import '../index.less';
 import img from 'Img/IMG_1624.png'
@@ -17,6 +17,7 @@ class Index extends React.Component {
         this.state = {
             id: this.props.params.id,
             loading: false,
+            currentIndex: 0,
             detailData: {},
             topSliderList: [],
             detailPicList: [],
@@ -150,37 +151,37 @@ class Index extends React.Component {
     }
 
     render() {
-        const {topSliderList, detailPicList, goodsDetail, shopDetail, recommandList, travelData} = this.state;
+        const {topSliderList, detailPicList, goodsDetail, shopDetail, recommandList, currentIndex} = this.state;
         return (
             <DocumentTitle title='食品介绍'>
                 <div id="goodsDetail">
                     <Layout withFooter>
                         <Layout.Content>
-                            <Carousel
-                                autoplay
-                                infinite
-                            >
-                                {topSliderList.map(item => (
-                                    <a
-                                        key={item.id}
-                                        style={{display: 'inline-block', width: '100%', height: '60vw'}}
-                                    >
-                                        <img
-                                            src={item.imgSrc}
-                                            alt=""
-                                            style={{width: '100%', height: '100%', verticalAlign: 'top'}}
-                                        />
-                                    </a>
-                                ))}
-                            </Carousel>
+                            <div className='wrap-carousel'>
+                                <Carousel
+                                    dots={false}
+                                    beforeChange={(from, to) => this.setState({currentIndex: to + 1})}
+                                >
+                                    {topSliderList.map((item, index) => (
+                                        <div key={index} className='carousel-item'>
+                                            <img
+                                                src={item.imgSrc}
+                                                alt=""
+                                                style={{width: '100%', height: '100%', verticalAlign: 'top'}}
+                                            />
+                                        </div>
+                                    ))}
+                                </Carousel>
+                                <div className='dot'>{currentIndex} / {topSliderList.length}</div>
+                            </div>
                             <div className="goods-detail">
                                 <div className='goods-header'>
                                     {goodsDetail.isTop ? <div className='is-top'>精品</div> : null}
                                     {goodsDetail.foodName}
                                 </div>
-                                <div className='goods-subscribe'>
+                                <Flex justify='between' className='goods-subscribe'>
                                     <div className='goods-price'>
-                                        <span>￥</span><span>{goodsDetail.foodSellingprice}</span></div>
+                                        <span>￥ </span><span>{goodsDetail.foodSellingprice}</span></div>
                                     <div className='goods-number'>
                                         {
                                             goodsDetail.number ? (
@@ -192,7 +193,7 @@ class Index extends React.Component {
                                             )
                                         }
                                     </div>
-                                </div>
+                                </Flex>
                                 <div className='goods-vip'>
                                 </div>
                             </div>
@@ -235,7 +236,9 @@ class Index extends React.Component {
                                                 <div key={index} className='food-item'
                                                      onClick={() => this.showFood(item.id)}>
                                                     <div className='food-img'>
-                                                        <img src={restUrl.FILE_ASSET + item.headerPic.id + item.headerPic.fileType} alt=""/>
+                                                        <img
+                                                            src={restUrl.FILE_ASSET + item.headerPic.id + item.headerPic.fileType}
+                                                            alt=""/>
                                                     </div>
                                                     <div className='food-body'>
                                                         <div className='food-name'>{item.foodName}</div>
@@ -289,9 +292,7 @@ class Index extends React.Component {
                             </div>
                         </Layout.Content>
                         <Layout.Footer className='footer'>
-                            <div className='service' onClick={this.toServer}>客服</div>
-                            <div className='add' onClick={this.toGoodsCar}>加入购物车</div>
-                            <div className='buy' onClick={this.toBuy}>立即购买</div>
+                            <a>前往淘宝查看</a>
                         </Layout.Footer>
                     </Layout>
                 </div>

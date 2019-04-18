@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import {Tabs, Toast, SearchBar} from 'antd-mobile';
+import {Tabs, Toast, Flex} from 'antd-mobile';
+import {SearchBar} from 'Comps/zui-mobile';
 import '../index.less';
 import restUrl from "RestUrl";
 import img from 'Img/IMG_1624.png'
@@ -21,12 +22,12 @@ const GoodsCart = ({className = '', data, ...restProps}) => (
                 {data.isTop ? <div className='isTop'>精品</div> : null}
                 {data.foodName}
             </div>
-            <div className='goodsContent'>
+            <Flex justify='between' className='goodsContent'>
                 <div className='goodsLabel'>【{data.shopName}】</div>
                 <div className='goodsAddress'>{data.shopAddress}</div>
-            </div>
+            </Flex>
             <div className='goodsFooter'>
-                <div><span>￥</span><span style={{fontSize: 15}}>{data.foodSellingprice}</span></div>
+                <div><span>￥</span><span style={{fontSize: '.3rem'}}>{data.foodSellingprice}</span></div>
             </div>
         </div>
     </div>
