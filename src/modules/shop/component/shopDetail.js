@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import {Tabs, Toast, SearchBar} from 'antd-mobile';
+import {Tabs, Toast} from 'antd-mobile';
+import {SearchBar} from 'Comps/zui-mobile';
 import '../index.less';
 import restUrl from "RestUrl";
 import DocumentTitle from "react-document-title";

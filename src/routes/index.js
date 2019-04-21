@@ -6,6 +6,8 @@ import React from 'react';
 import {Route, IndexRoute} from 'react-router';
 import {Icon} from 'antd-mobile';
 import Loadable from 'react-loadable';
+import axios from "Utils/axios";
+import {getRequest} from 'Utils/util';
 
 function Loading(props) {
     if (props.error) {
@@ -21,6 +23,33 @@ function Loading(props) {
         );
     } else {
         return null;
+    }
+}
+
+const requireAuth = (nextState, replace) => {
+    const query = getRequest();
+    console.log('query ===22== ', query);
+    const {code, state} = query;
+
+    if (!localStorage.userId) {
+        if (code && state === 'STATE') {
+            const params = {code};
+            axios.get('app/login', {params}).then(res => res.data).then(data => {
+                if (data.success) {
+                    const userinfo = data.backData && data.backData[0];
+                    localStorage.setItem('userId', userinfo.id);
+                    localStorage.setItem('nickname', userinfo.nickname);
+                    localStorage.setItem('headimgurl', userinfo.headimgurl);
+                }
+            });
+        } else {
+            const appid = 'wxdd6ab56296fa5c11';
+            const redirect_uri = encodeURIComponent(window.location.href);
+            const url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${redirect_uri}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`;
+            window.location.href = url;
+        }
+    } else {
+
     }
 }
 
@@ -131,7 +160,7 @@ const TravelOrder = Loadable({
 })
 
 module.exports = (
-    <Route path="/" component={App}>
+    <Route path="/" component={App} onEnter={requireAuth}>
         <IndexRoute component={Index}/>
         <Route path="food" component={App}>
             <IndexRoute component={Food}/>

@@ -48,6 +48,23 @@ class Index extends React.Component {
     }
 
     componentDidMount() {
+        if(!localStorage.userId) {
+            const query = this.props.location.query;
+            if (query) {
+                const {code, state} = query;
+                if (code && state === 'STATE') {
+                    const params = {code};
+                    axios.get('app/login', {params}).then(res => res.data).then(data => {
+                        if(data.success) {
+                            const userinfo = data.backData && data.backData[0];
+                            localStorage.setItem('userId', userinfo.id);
+                            localStorage.setItem('headimgurl', userinfo.headimgurl);
+                        }
+                    });
+                }
+            }
+        }
+
         this.queryTopSliderList();
         /* 获取最新Top3 特色民宿 */
         this.queryHotelTop3();

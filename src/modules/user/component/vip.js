@@ -31,8 +31,8 @@ class Index extends React.Component {
 
     becomeVip = () => {
         alert('积分开通VIP', '您将用3000积分兑换开通VIP会员', [
-            { text: '取消', onPress: () => console.log('cancel') },
-            { text: '确定', onPress: () => console.log('ok') },
+            {text: '取消', onPress: () => console.log('cancel')},
+            {text: '确定', onPress: () => console.log('ok')},
         ])
     }
 
@@ -44,37 +44,35 @@ class Index extends React.Component {
                 <div id="goodsDetail">
                     <Layout>
                         <Layout.Content>
-                            <div className="zui-content">
-                                <div id="userCenter">
-                                    <div className='img-area'></div>
-                                    <div className='main-area'>
-                                        <div className='user-area'>
-                                            <div className='user-info'>
-                                                <div className='user-img'>
-                                                    <img src={userImg} alt=""/>
-                                                </div>
-                                                <div className='user-detail'>
-                                                    <div className='user-name'>丽龙利</div>
-                                                    <div className='is-vip'><img src={vipBadge}/> VIP</div>
-                                                </div>
+                            <div id="userCenter">
+                                <div className='img-area'></div>
+                                <div className='main-area'>
+                                    <div className='user-area'>
+                                        <div className='user-info'>
+                                            <div className='user-img'>
+                                                <img src={userImg} alt=""/>
+                                            </div>
+                                            <div className='user-detail'>
+                                                <div className='user-name'>丽龙利</div>
+                                                <div className='is-vip'><img src={vipBadge}/> VIP</div>
                                             </div>
                                         </div>
-                                        <div className='info-area'>
-                                            <div className='vip-rule'>
-                                                <div className='vip-rule-title'>积分兑换VIP原则：</div>
-                                                <div
-                                                    className='vip-rule-desc'>1、积分积累原则：用户在购买特产食品后的金额会积累为用户的消费积分（一元积累为一个积分，例如：36元的消费即为36分）
-                                                </div>
-                                                <br/>
-                                                <div className='vip-rule-desc'>2、积分兑换VIP会员：积累3000分的用户可以使用积分兑换VIP会员</div>
-                                                <br/>
-                                                <div className='vip-rule-title'>VIP所享福利：</div>
-                                                <div className='vip-rule-desc'>1、VIP用户购买特产食品可以享受所有商品9折优惠</div>
-                                                <div className='vip-rule-desc'>2、VIP用户预定特色民宿可以享9折优惠</div>
-                                                <br/>
-                                                <div className='vip-rule-title'>VIP会员服务协议：</div>
-                                                <div className='vip-rule-desc'>会员服务的最终解释权归新华资产有限公司所有</div>
+                                    </div>
+                                    <div className='info-area'>
+                                        <div className='vip-rule'>
+                                            <div className='vip-rule-title'>积分兑换VIP原则：</div>
+                                            <div
+                                                className='vip-rule-desc'>1、积分积累原则：用户在购买特产食品后的金额会积累为用户的消费积分（一元积累为一个积分，例如：36元的消费即为36分）
                                             </div>
+                                            <br/>
+                                            <div className='vip-rule-desc'>2、积分兑换VIP会员：积累3000分的用户可以使用积分兑换VIP会员</div>
+                                            <br/>
+                                            <div className='vip-rule-title'>VIP所享福利：</div>
+                                            <div className='vip-rule-desc'>1、VIP用户购买特产食品可以享受所有商品9折优惠</div>
+                                            <div className='vip-rule-desc'>2、VIP用户预定特色民宿可以享9折优惠</div>
+                                            <br/>
+                                            <div className='vip-rule-title'>VIP会员服务协议：</div>
+                                            <div className='vip-rule-desc'>会员服务的最终解释权归新华资产有限公司所有</div>
                                         </div>
                                     </div>
                                 </div>

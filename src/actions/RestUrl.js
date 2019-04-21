@@ -8,6 +8,6 @@ const ADDR = 'http://localhost:7001';
 module.exports = {
     ADDR,
     BASE_HOST: ADDR + '/api/',
-    FILE_UPLOAD_HOST: 'http://www.xuecheh.com/api/',
-    FILE_ASSET: 'http://www.xuecheh.com/public/',
+    FILE_UPLOAD_HOST: 'http://wujie.hbfolkways.com/api/',
+    FILE_ASSET: 'http://wujie.hbfolkways.com/public/',
 };
