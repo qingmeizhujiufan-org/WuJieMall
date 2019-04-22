@@ -45,12 +45,23 @@ class Index extends React.Component {
     });
   }
 
-  detail = (id) => {
-    console.log(id)
+  onDetail = (id) => {
+    console.log(id);
+    this.context.router.push(`/travelOrder/detail/${id}`);
   }
 
+  onDelete = (id) => {
+    console.log(id);
+  }
+
+
   handleClick = (id, flag) => {
-    
+    console.log(id, flag);
+    if (flag === 0) {
+      this.onDelete(id);
+    } else {
+      this.onDetail(id)
+    }
   }
 
   render() {
@@ -64,9 +75,9 @@ class Index extends React.Component {
       return (
         <Card
           key={rowID}
-          className=''
+          className='am-card-full order-card'
           style={{padding: '10px 0', width: '100vw'}}
-          onClick={() => this.detail(obj.id)}>
+        >
           <Card.Header
             title={
               <div className='card-head-title'>
