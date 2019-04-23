@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {List, NavBar, Icon} from 'antd-mobile';
 import '../index.less';
-import img from 'Img/2.jpg';
-import userImg from 'Img/IMG_1624.png';
 import vipBadge from 'Img/VIP_badge.png';
 import {Layout} from "Comps/zui-mobile";
 import DocumentTitle from "react-document-title";

@@ -167,7 +167,7 @@ const TravelOrderDetail = Loadable({
 module.exports = (
   <Route path="/"
          component={App}
-         // onEnter={requireAuth}
+         onEnter={requireAuth}
   >
     <IndexRoute component={Index}/>
     <Route path="food" component={App}>

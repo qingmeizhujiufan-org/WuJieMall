@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Button, Modal} from 'antd-mobile';
+import {Modal} from 'antd-mobile';
 import '../index.less';
-import img from 'Img/2.jpg';
 import userImg from 'Img/IMG_1624.png';
 import vipBadge from 'Img/VIP_badge.png';
 import {Layout} from "Comps/zui-mobile";
@@ -53,7 +52,7 @@ class Index extends React.Component {
                                                 <img src={userImg} alt=""/>
                                             </div>
                                             <div className='user-detail'>
-                                                <div className='user-name'>丽龙利</div>
+                                                <div className='user-name'>{localStorage.nickname}</div>
                                                 <div className='is-vip'><img src={vipBadge}/> VIP</div>
                                             </div>
                                         </div>
