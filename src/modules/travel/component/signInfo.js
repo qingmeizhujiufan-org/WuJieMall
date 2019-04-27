@@ -57,7 +57,7 @@ class Index extends React.Component {
                 childPrice = parseFloat(childPrice);
                 values.travelId = travelId;
                 values.travelkeeperId = travelkeeperId;
-                values.userId = 'cd133890-5d95-11e9-a045-5328e803891c';
+                values.userId = sessionStorage.userId;
                 values.signDate = new moment().format('YYYY-MM-DD');
                 values.totalMoney = manPrice * (values.manNum || 1) + childPrice * (values.childNum || 0);
                 console.log('values == ', values);

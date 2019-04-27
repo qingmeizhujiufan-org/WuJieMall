@@ -86,8 +86,10 @@ class Index extends React.Component {
             Toast.fail('请填写入住人手机号', 1);
             return;
         }
+        params.userId = sessionStorage.userId;
         params.hotelId = roomInfo.hotelId;
         params.roomId = roomInfo.id;
+        params.hotelkeeperId = roomInfo.hotelId;
         params.beginDate = beginDate;
         params.endDate = endDate;
         params.days = days;
@@ -95,7 +97,7 @@ class Index extends React.Component {
         params.telephone = telephone;
         axios.post('room/reserve', params).then(res => res.data).then(data => {
             if (data.success) {
-
+                alert('success');
             } else {
 
             }

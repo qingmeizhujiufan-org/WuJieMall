@@ -41,6 +41,7 @@ class Index extends React.Component {
             params: {
                 pageNumber: 1,
                 pageSize: 10,
+                state: 2
             },
             keyWords: '',
             categoryList: [{
@@ -106,7 +107,7 @@ class Index extends React.Component {
                             renderTabBar={props => <Tabs.DefaultTabBar {...props} page={6}/>}
                         >
                             <CardList
-                                pageUrl={'food/queryList'}
+                                pageUrl={'food/queryAdminList'}
                                 params={params}
                                 row={row}
                                 multi

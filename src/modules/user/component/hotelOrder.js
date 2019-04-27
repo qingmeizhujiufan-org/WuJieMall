@@ -22,6 +22,7 @@ class Index extends React.Component {
             params: {
                 pageNumber: 1,
                 pageSize: 10,
+                userId: sessionStorage.userId
             },
         }
     }
