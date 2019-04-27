@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import {Carousel, List, Flex} from 'antd-mobile';
 import {Layout, BaseInfo} from 'Comps/zui-mobile';
 import '../index.less';
-import img from 'Img/IMG_1624.png'
 import DocumentTitle from "react-document-title";
 import axios from "Utils/axios";
 import restUrl from "RestUrl";

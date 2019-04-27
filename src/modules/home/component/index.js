@@ -11,17 +11,12 @@ import classify_1 from 'Img/classify_1.png';
 import classify_2 from 'Img/classify_2.png';
 import classify_3 from 'Img/classify_3.png';
 
-import demo_1 from 'Img/demo_1.png';
-import demo_2 from 'Img/demo_2.png';
-import demo_3 from 'Img/demo_3.png';
-
 class Index extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
             topSliderList: [],
-            data: ['1', '2', '3'],
             foodData: [{
                 id: '1',
                 name: '红糖姜枣糕',
@@ -38,7 +33,6 @@ class Index extends React.Component {
                 text: '好吃不贵',
                 img: 'img1'
             }],
-            goodsList: [],
             hotelData: [],
             travelData: []
         }
@@ -48,28 +42,13 @@ class Index extends React.Component {
     }
 
     componentDidMount() {
-        if(!localStorage.userId) {
-            const query = this.props.location.query;
-            if (query) {
-                const {code, state} = query;
-                if (code && state === 'STATE') {
-                    const params = {code};
-                    axios.get('app/login', {params}).then(res => res.data).then(data => {
-                        if(data.success) {
-                            const userinfo = data.backData && data.backData[0];
-                            localStorage.setItem('userId', userinfo.id);
-                            localStorage.setItem('headimgurl', userinfo.headimgurl);
-                        }
-                    });
-                }
-            }
-        }
-
         this.queryTopSliderList();
-        /* 获取最新Top3 特色民宿 */
-        this.queryHotelTop3();
-        /* 获取最新Top3 主题旅游 */
-        this.queryTravelTop3();
+        /* 获取推荐特色食品 */
+        this.queryRecommendFood();
+        /* 获取推荐特色民宿 */
+        this.queryRecommendHotel();
+        /* 获取推荐主题旅游 */
+        this.queryRecommendTravel();
     }
 
     queryTopSliderList = () => {
@@ -98,8 +77,32 @@ class Index extends React.Component {
         });
     }
 
-    queryHotelTop3 = () => {
-        axios.get('hotel/queryListTop3').then(res => res.data).then(data => {
+    queryRecommendFood = () => {
+        axios.get('food/queryListTop3').then(res => res.data).then(data => {
+            if (data.success) {
+                if (data.backData) {
+                    const backData = data.backData.content || [];
+                    backData.map(item => {
+                        if (item.File) {
+                            item.imgSrc = restUrl.FILE_ASSET + item.File.id + item.File.fileType;
+                        }
+                    });
+
+                    this.setState({
+                        foodData: backData
+                    });
+                } else {
+                    this.setState({
+                        foodData: []
+                    });
+                }
+            } else {
+            }
+        });
+    }
+
+    queryRecommendHotel = () => {
+        axios.get('room/queryListTop3').then(res => res.data).then(data => {
             if (data.success) {
                 if (data.backData) {
                     const backData = data.backData.content || [];
@@ -122,7 +125,7 @@ class Index extends React.Component {
         });
     }
 
-    queryTravelTop3 = () => {
+    queryRecommendTravel = () => {
         axios.get('travel/queryListTop3').then(res => res.data).then(data => {
             if (data.success) {
                 if (data.backData) {
@@ -147,7 +150,7 @@ class Index extends React.Component {
     }
 
     showHotel = id => {
-        this.context.router.push(`/hotel/detail/${id}`);
+        this.context.router.push(`/room/${id}`);
     }
 
     showTravel = id => {
@@ -204,45 +207,57 @@ class Index extends React.Component {
                         <div className='goods-category'>
                             <div className='goods-category-title'><i className='iconfont icon-teseshipin'></i></div>
                             <div className='goods-category-body food-content'>
-                                <div className='left'
-                                     onClick={() => this.context.router.push(`/food/detail/${foodData[0].id}`)}>
-                                    <div className='food-name'>{foodData[0].name}</div>
-                                    <div className='food-text'>{foodData[0].text}</div>
-                                    <div className='food-img'>
-                                        <img src={demo_1} alt=""/>
-                                    </div>
-                                </div>
+                                {
+                                    foodData[0] ? (
+                                        <div className='left'
+                                             onClick={() => this.context.router.push(`/food/detail/${foodData[0].id}`)}>
+                                            <div className='food-name'>{foodData[0].foodName}</div>
+                                            <div className='food-text'>{foodData[0].foodSummary}</div>
+                                            <div className='food-img'>
+                                                <img src={foodData[0].imgSrc} alt=""/>
+                                            </div>
+                                        </div>
+                                    ) : null
+                                }
                                 <div className='right'>
-                                    <Flex
-                                        direction='column'
-                                        justify='center'
-                                        align='start'
-                                        onClick={() => this.context.router.push(`/food/detail/${foodData[1].id}`)}
-                                    >
-                                        <div className='food-name'>{foodData[1].name}</div>
-                                        <div className='food-text'>{foodData[1].text}</div>
-                                        <div className='food-img'>
-                                            <img src={demo_3} alt=""/>
-                                        </div>
-                                    </Flex>
-                                    <Flex
-                                        direction='column'
-                                        justify='center'
-                                        align='start'
-                                        onClick={() => this.context.router.push(`/food/detail/${foodData[2].id}`)}
-                                    >
-                                        <div className='food-name'>{foodData[2].name}</div>
-                                        <div className='food-text'>{foodData[2].text}</div>
-                                        <div className='food-img'>
-                                            <img src={demo_2} alt=""/>
-                                        </div>
-                                    </Flex>
+                                    {
+                                        foodData[1] ? (
+                                            <Flex
+                                                direction='column'
+                                                justify='center'
+                                                align='start'
+                                                onClick={() => this.context.router.push(`/food/detail/${foodData[1].id}`)}
+                                            >
+                                                <div className='food-name'>{foodData[1].foodName}</div>
+                                                <div className='food-text'>{foodData[1].foodSummary}</div>
+                                                <div className='food-img'>
+                                                    <img src={foodData[1].imgSrc} alt=""/>
+                                                </div>
+                                            </Flex>
+                                        ) : null
+                                    }
+                                    {
+                                        foodData[2] ? (
+                                            <Flex
+                                                direction='column'
+                                                justify='center'
+                                                align='start'
+                                                onClick={() => this.context.router.push(`/food/detail/${foodData[2].id}`)}
+                                            >
+                                                <div className='food-name'>{foodData[2].foodName}</div>
+                                                <div className='food-text'>{foodData[2].foodSummary}</div>
+                                                <div className='food-img'>
+                                                    <img src={foodData[2].imgSrc} alt=""/>
+                                                </div>
+                                            </Flex>
+                                        ) : null
+                                    }
                                 </div>
                             </div>
                         </div>
                         <div className='goods-category'>
                             <div className='goods-category-title'><i className='iconfont icon-teseminsu'></i></div>
-                            <div className='goods-category-body'>
+                            <div className='goods-category-body' style={{height: '3.05rem'}}>
                                 <Carousel className="hotel"
                                           frameOverflow="visible"
                                           dots={false}
@@ -258,7 +273,7 @@ class Index extends React.Component {
                                             <div className='hotel-img'>
                                                 <img src={item.imgSrc} alt=""/>
                                             </div>
-                                            <div className='hotel-name'>{item.hotelName}</div>
+                                            <div className='hotel-name'>{item.roomName}</div>
                                         </div>
                                     ))}
                                 </Carousel>

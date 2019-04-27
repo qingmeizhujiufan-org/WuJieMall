@@ -5,7 +5,6 @@ import {Tabs, Toast, Flex} from 'antd-mobile';
 import {SearchBar} from 'Comps/zui-mobile';
 import '../index.less';
 import restUrl from "RestUrl";
-import img from 'Img/IMG_1624.png'
 import DocumentTitle from "react-document-title";
 import axios from "Utils/axios";
 import assign from 'lodash/assign';

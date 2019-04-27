@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import {Toast, Flex} from 'antd-mobile';
 import '../index.less';
 import restUrl from "RestUrl";
-import img from 'Img/IMG_1624.png'
 import DocumentTitle from "react-document-title";
 import axios from "Utils/axios";
 import assign from 'lodash/assign';

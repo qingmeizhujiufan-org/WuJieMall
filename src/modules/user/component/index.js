@@ -46,10 +46,10 @@ class Index extends React.Component {
                                         <div className='user-area'>
                                             <div className='user-info'>
                                                 <div className='user-img'>
-                                                    <img src={localStorage.headimgurl} alt=""/>
+                                                    <img src={sessionStorage.headimgurl} alt=""/>
                                                 </div>
                                                 <div className='user-detail'>
-                                                    <div className='user-name'>{localStorage.nickname}</div>
+                                                    <div className='user-name'>{sessionStorage.nickname}</div>
                                                     <div className='is-vip'><img src={vipBadge}/> VIP</div>
                                                 </div>
                                             </div>

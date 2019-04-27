@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Carousel, Flex, Toast} from 'antd-mobile';
 import moment from 'moment';
 import '../index.less';
-import img from 'Img/IMG_1624.png'
+
 import DocumentTitle from "react-document-title";
 import axios from "Utils/axios";
 import restUrl from "RestUrl";

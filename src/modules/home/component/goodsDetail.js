@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {NavBar, Carousel, Modal, Icon} from 'antd-mobile';
 import '../index.less';
-import img1 from 'Img/1.jpg'
-import img from 'Img/IMG_1624.png'
 
 const GoodsCart = ({className = '', data, ...restProps}) => (
   <div className={`${className} goodsCart`} {...restProps}>
