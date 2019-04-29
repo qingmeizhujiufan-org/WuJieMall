@@ -7,10 +7,16 @@ import DocumentTitle from "react-document-title";
 import {List} from 'Comps';
 
 const stateList = [{
-  title: '待出行',
+  title: '待确认',
   status: 0
 }, {
+  title: '已确认',
+  status: 2
+}, {
   title: '已结束',
+  status: 3
+}, {
+  title: '已取消',
   status: 1
 }];
 
@@ -66,9 +72,7 @@ class Index extends React.Component {
 
   render() {
     const {params} = this.state;
-    const obj = {
-      stutus: 0
-    }
+    // const stateList = ['待出行', '已'];
     const row = (rowData, sectionID, rowID) => {
       const obj = rowData;
       const travel = obj.Travel;
@@ -77,6 +81,7 @@ class Index extends React.Component {
           key={rowID}
           className='am-card-full order-card'
           style={{padding: '10px 0', width: '100vw'}}
+          onClick={() => this.onDetail(obj.id)}
         >
           <Card.Header
             title={
@@ -84,7 +89,7 @@ class Index extends React.Component {
                 <Icon type='check-circle'/>
                 <div>{travel.travelTheme}</div>
               </div>}
-            extra={<span>{obj.state === 0 ? '未出行' : '已结束'}</span>}
+            // extra={<span>{obj.state === 0 ? '未出行' : '已结束'}</span>}
           />
           <Card.Body>
             <div className='card-body-title'>{travel.travelTheme}</div>
@@ -103,7 +108,7 @@ class Index extends React.Component {
                 size='small'
                 style={{float: 'right', color: '#888'}}
                 onClick={() => this.handleClick(obj.id, obj.state )}
-              >{obj.state === 0 ? '删除订单' : '查看详情'}</Button>
+              >{obj.state === 0 || obj.state === 2 ? '删除订单' : '查看详情'}</Button>
             }/>
         </Card>
       );

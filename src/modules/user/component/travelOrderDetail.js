@@ -18,6 +18,8 @@ class Index extends React.Component {
       userId: 'cd133890-5d95-11e9-a045-5328e803891c',
       data: {},
       travel: {},
+      keeper: {},
+      participant: [],
       initLoading: false
     }
   }
@@ -39,7 +41,9 @@ class Index extends React.Component {
           const backData = data.backData;
           this.setState({
             data: backData,
-            travel: backData.Travel
+            travel: backData.Travel,
+            keeper: backData.TravelKeeper,
+            participant: backData.TravelSignParticipants
           });
         }
       } else {
@@ -50,12 +54,13 @@ class Index extends React.Component {
     });
   }
 
-  onTravelDetail = (id) => {
-
+  onTravelDetail = () => {
+    const id = this.state.data.travelId;
+    this.context.router.push(`/travel/detail/${id}`);
   }
 
   render() {
-    const {data, travel} = this.state;
+    const {data, travel, keeper, participant} = this.state;
     return (
       <DocumentTitle title='订单详情'>
         <Layout className='travel-order-detail'>
@@ -71,47 +76,56 @@ class Index extends React.Component {
               <Card.Header
                 title='旅游项目'
                 extra={
-                  <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+                  <div style={{display: 'flex', justifyContent: 'flex-end'}} onClick={this.onTravelDetail}>
                     查看项目详情<Icon type="right" size='md'/>
                   </div>
                 }
               />
               <Card.Body>
-                <List>
-                  <Item>
-                    <div>报名团期 {data.signDate}</div>
-                    <Brief>{travel.travelTheme}</Brief>
-                  </Item>
-                  <Item>
-                    <div>
-                      {travel.travelBeginTime + '至' + travel.travelEndTime}
-                      <span style={{marginLeft: '10px'}}>{travel.travelLastTime}</span>
-                    </div>
-                    <Brief>包含元素 {travel.travelHas}</Brief>
-                  </Item>
-                </List>
-                <div>
-                  <Button
-                    size='small'
-                    style={{margin: '10px 15%', color: '#FF5745', backgroundColor: '#fff0ca'}}
-                  >拨打咨询电话</Button>
-                </div>
+
+                <p>报名团期 {data.signDate}</p>
+                <Brief>{travel.travelTheme}</Brief>
+
+                <p>
+                  {travel.travelBeginTime + '至' + travel.travelEndTime}
+                  <span style={{marginLeft: '10px'}}>{travel.travelLastTime}</span>
+                </p>
+                <Brief>包含元素 {travel.travelHas}</Brief>
+
+                <p style={{marginTop: '20px'}}>
+                  <a size='small'
+                     href={`tel:${keeper.phone}`}
+                     style={{
+                       display: 'block',
+                       margin: '10px 15%',
+                       padding: '5px 0',
+                       textAlign: 'center',
+                       backgroundColor: '#fff0ca',
+                       color: '#FF5745'
+                     }}>拨打咨询电话</a>
+                </p>
               </Card.Body>
             </Card>
             <Card className='detail-card am-card-full'>
               <Card.Header title='联系人员信息'/>
               <Card.Body>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
+                <p>联系人：{keeper.keeperName}</p>
+                <p>联系电话：{keeper.phone}</p>
+                <p>车牌号：{}</p>
+                <p>订单编号：{data.orderId}</p>
               </Card.Body>
             </Card>
             <Card className='detail-card am-card-full'>
               <Card.Header title='参与人员信息'/>
               <Card.Body>
-                <div>ssss</div>
-                <div>ssss</div>
+                {
+                  participant.map(item => {
+                    return (
+                      <p key={item.id}>{item.name}</p>
+                    )
+                  })
+
+                }
               </Card.Body>
             </Card>
           </Layout.Content>
