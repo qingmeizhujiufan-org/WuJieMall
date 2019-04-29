@@ -252,9 +252,6 @@ class Index extends React.Component {
                             <BaseInfo
                                 baseInfoList={[
                                     {
-                                        label: '生产日期',
-                                        value: goodsDetail.foodDate
-                                    }, {
                                         label: '生产许可证编号',
                                         value: goodsDetail.foodCode
                                     }, {
@@ -278,7 +275,7 @@ class Index extends React.Component {
                             <div className="goods-info">
                                 <div className='goods-info-pic'>
                                     {detailPicList.map(val => (
-                                        <div key={val.id} style={{width: '100%', height: '50vw', padding: '10px 15px'}}
+                                        <div key={val.id} style={{width: '100%', padding: '10px 15px'}}
                                         >
                                             <img
                                                 src={val.imgSrc}

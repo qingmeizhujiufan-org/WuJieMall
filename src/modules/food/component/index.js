@@ -103,6 +103,7 @@ class Index extends React.Component {
                         <Tabs
                             tabs={categoryList}
                             swipeable={false}
+                            animated={false}
                             onChange={this.tabChange}
                             renderTabBar={props => <Tabs.DefaultTabBar {...props} page={6}/>}
                         >

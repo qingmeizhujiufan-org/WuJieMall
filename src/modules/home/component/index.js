@@ -17,22 +17,7 @@ class Index extends React.Component {
 
         this.state = {
             topSliderList: [],
-            foodData: [{
-                id: '1',
-                name: '红糖姜枣糕',
-                text: '养生秘法',
-                img: 'img1'
-            }, {
-                id: '2',
-                name: '古法红糖',
-                text: '优质红糖选古法',
-                img: 'img1'
-            }, {
-                id: '3',
-                name: '香辣食品',
-                text: '好吃不贵',
-                img: 'img1'
-            }],
+            foodData: [],
             hotelData: [],
             travelData: []
         }
@@ -73,6 +58,7 @@ class Index extends React.Component {
                 }
             } else {
             }
+        }).finally(() => {
             this.setState({loading: false});
         });
     }
@@ -150,7 +136,7 @@ class Index extends React.Component {
     }
 
     showHotel = id => {
-        this.context.router.push(`/room/${id}`);
+        this.context.router.push(`/hotel/detail/${id}`);
     }
 
     showTravel = id => {
@@ -268,7 +254,7 @@ class Index extends React.Component {
                                     {hotelData.map((item, index) => (
                                         <div
                                             key={index}
-                                            onClick={() => this.showHotel(item.id)}
+                                            onClick={() => this.showHotel(item.hotelId)}
                                         >
                                             <div className='hotel-img'>
                                                 <img src={item.imgSrc} alt=""/>
