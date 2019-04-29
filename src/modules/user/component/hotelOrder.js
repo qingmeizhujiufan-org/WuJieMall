@@ -5,6 +5,8 @@ import '../index.less';
 import {Layout} from "Comps/zui-mobile";
 import DocumentTitle from "react-document-title";
 import {List} from 'Comps';
+import {Toast} from "antd-mobile/lib/index";
+import axios from "Utils/axios";
 
 const stateList = [{
   title: '待确认',
@@ -51,15 +53,30 @@ class Index extends React.Component {
     });
   }
 
-  onDetail = (id) => {
-    console.log(id);
+  onDetail = (e, id) => {
+    e.stopPropagation();
     this.context.router.push(`/hotelOrder/detail/${id}`);
   }
 
-  onDelete = (id) => {
-    console.log(id);
+  onDelete = (e, id) => {
+    e.stopPropagation();
+    let param = {};
+    param.id = id;
+    param.state = 1;
+    axios.post('hotelKeeper/orderCheck', param).then(res => res.data).then(data => {
+      if (data.success) {
+        Toast.success('订单取消成功!', 1);
+        this.setState({
+          params: {
+            pageNumber: 1,
+            pageSize: 10
+          }
+        })
+      } else {
+        Toast.fail('订单取消失败!', 1);
+      }
+    })
   }
-
 
   handleClick = (id, flag) => {
     console.log(id, flag);
@@ -103,11 +120,18 @@ class Index extends React.Component {
           <Card.Footer
             content={'预定时间：' + obj.created_at}
             extra={
-              <Button
-                size='small'
-                style={{float: 'right', color: '#888'}}
-                onClick={() => this.handleClick(obj.id, obj.state )}
-              >{obj.status === 0 || obj.status === 2? '删除订单' : '查看详情'}</Button>
+              obj.state === 0 || obj.state === 2 ?
+                <Button
+                  size='small'
+                  style={{float: 'right', color: '#888'}}
+                  onClick={(e) => this.onDelete(e,obj.id)}
+                >取消订单</Button>
+                :
+                <Button
+                  size='small'
+                  style={{float: 'right', color: '#888'}}
+                  onClick={(e) => this.onDetail(e, obj.id)}
+                >查看详情</Button>
             }/>
         </Card>
       );

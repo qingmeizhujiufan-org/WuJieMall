@@ -109,10 +109,10 @@ class Index extends React.Component {
             <Card className='detail-card am-card-full'>
               <Card.Header title='联系人员信息'/>
               <Card.Body>
-                <p>联系人：{keeper.keeperName}</p>
-                <p>联系电话：{keeper.phone}</p>
-                <p>车牌号：{}</p>
-                <p>订单编号：{data.orderId}</p>
+                <p><span>联系人</span>{keeper.keeperName}</p>
+                <p><span>联系电话</span>{keeper.phone}</p>
+                <p><span>车牌号</span>{}</p>
+                <p><span>订单编号</span>{data.orderId}</p>
               </Card.Body>
             </Card>
             <Card className='detail-card am-card-full'>

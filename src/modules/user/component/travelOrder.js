@@ -1,23 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Tabs, Card, Button, Icon} from 'antd-mobile';
+import {Tabs, Card, Button, Icon, Toast} from 'antd-mobile';
 import '../index.less';
 import {Layout} from "Comps/zui-mobile";
 import DocumentTitle from "react-document-title";
 import {List} from 'Comps';
+import axios from "Utils/axios";
 
 const stateList = [{
   title: '待确认',
-  status: 0
+  state: 0
 }, {
   title: '已确认',
-  status: 2
+  state: 2
 }, {
   title: '已结束',
-  status: 3
+  state: 3
 }, {
   title: '已取消',
-  status: 1
+  state: 1
 }];
 
 class Index extends React.Component {
@@ -27,10 +28,10 @@ class Index extends React.Component {
     this.state = {
       params: {
         pageNumber: 1,
-        pageSize: 10,
-        userId: 'cd133890-5d95-11e9-a045-5328e803891c',
-        state: 0
+        pageSize: 10
       },
+      userId: sessionStorage.userId,
+      curState: 0
     }
   }
 
@@ -45,34 +46,42 @@ class Index extends React.Component {
       params: {
         pageNumber: 1,
         pageSize: 10,
-        userId: 'cd133890-5d95-11e9-a045-5328e803891c',
-        state: tab.status
-      }
+        userId: this.state.userId,
+        state: tab.state
+      },
+      curState: tab.state
     });
   }
 
   onDetail = (id) => {
-    console.log(id);
     this.context.router.push(`/travelOrder/detail/${id}`);
   }
 
-  onDelete = (id) => {
-    console.log(id);
-  }
-
-
-  handleClick = (id, flag) => {
-    console.log(id, flag);
-    if (flag === 0) {
-      this.onDelete(id);
-    } else {
-      this.onDetail(id)
-    }
+  onDelete = (e, id) => {
+    e.stopPropagation();
+    let param = {};
+    param.id = id;
+    param.state = 1;
+    axios.post('travelKeeper/orderCheck', param).then(res => res.data).then(data => {
+      if (data.success) {
+        Toast.success('订单取消成功!', 1);
+        this.setState({
+          params: {
+            pageNumber: 1,
+            pageSize: 10
+          }
+        })
+      } else {
+        Toast.fail('订单取消失败!', 1);
+      }
+    })
   }
 
   render() {
-    const {params} = this.state;
-    // const stateList = ['待出行', '已'];
+    const {params, userId, curState} = this.state;
+    params.userId = userId;
+    params.state = curState;
+
     const row = (rowData, sectionID, rowID) => {
       const obj = rowData;
       const travel = obj.Travel;
@@ -104,11 +113,18 @@ class Index extends React.Component {
           <Card.Footer
             content={'预定时间：' + obj.created_at}
             extra={
-              <Button
-                size='small'
-                style={{float: 'right', color: '#888'}}
-                onClick={() => this.handleClick(obj.id, obj.state )}
-              >{obj.state === 0 || obj.state === 2 ? '删除订单' : '查看详情'}</Button>
+              obj.state === 0 || obj.state === 2 ?
+                <Button
+                  size='small'
+                  style={{float: 'right', color: '#888'}}
+                  onClick={(e) => this.onDelete(e,obj.id)}
+                >取消订单</Button>
+                :
+                <Button
+                  size='small'
+                  style={{float: 'right', color: '#888'}}
+                  onClick={(e) => this.onDetail(e, obj.id)}
+                >查看详情</Button>
             }/>
         </Card>
       );
