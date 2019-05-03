@@ -7,7 +7,7 @@ import '../index.less';
 import restUrl from "RestUrl";
 import DocumentTitle from "react-document-title";
 import axios from "Utils/axios";
-import assign from 'lodash/assign';
+import _assign from 'lodash/assign';
 
 import {CardList} from 'Comps';
 
@@ -22,8 +22,8 @@ const GoodsCart = ({className = '', data, ...restProps}) => (
                 {data.foodName}
             </div>
             <Flex justify='between' className='goodsContent'>
-                <div className='goodsLabel'>【{data.shopName}】</div>
-                <div className='goodsAddress'>{data.shopAddress}</div>
+                <div className='goodsLabel'>【{data.keeperName}】</div>
+                <div className='goodsAddress'>{data.foodOrigin}</div>
             </Flex>
             <div className='goodsFooter'>
                 <div><span>￥</span><span style={{fontSize: '.3rem'}}>{data.foodSellingprice}</span></div>
@@ -41,10 +41,12 @@ class Index extends React.Component {
             params: {
                 pageNumber: 1,
                 pageSize: 10,
-                state: 2
+                state: 2,
+                foodCategoryId: null
             },
             keyWords: '',
             categoryList: [{
+                foodCategoryId: null,
                 title: '全部'
             }],
             goodsList: []
@@ -62,7 +64,7 @@ class Index extends React.Component {
             if (data.success) {
                 let list = data.backData.map(item => {
                     return {
-                        ...item,
+                        foodCategoryId: item.id,
                         title: item.foodCategoryName
                     }
                 })
@@ -75,8 +77,12 @@ class Index extends React.Component {
         });
     }
 
+    onSearch = keyWords => {
+        this.setState({params: _assign({}, this.state.params, {keyWords})});
+    }
+
     tabChange = (tab, index) => {
-        // console.log(tab, index)
+        this.setState({params: _assign({}, this.state.params, {foodCategoryId: tab.foodCategoryId})});
     }
 
     detail = (id) => {
@@ -99,7 +105,7 @@ class Index extends React.Component {
             <DocumentTitle title='特色食品'>
                 <div className="food">
                     <div className="zui-content">
-                        <SearchBar placeholder="请输入要搜索的商品" maxLength={16}/>
+                        <SearchBar placeholder="请输入要搜索的商品" maxLength={16} onSubmit={this.onSearch}/>
                         <Tabs
                             tabs={categoryList}
                             swipeable={false}
@@ -108,7 +114,7 @@ class Index extends React.Component {
                             renderTabBar={props => <Tabs.DefaultTabBar {...props} page={6}/>}
                         >
                             <CardList
-                                pageUrl={'food/queryAdminList'}
+                                pageUrl={'food/queryList'}
                                 params={params}
                                 row={row}
                                 multi

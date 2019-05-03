@@ -44,9 +44,11 @@
         .goodsImg {
             width: 100%;
             height: 2.6rem;
+
             img {
                 width: 100%;
                 height: 100%;
+                object-fit: cover;
             }
         }
         .goodsBody {
@@ -99,8 +101,9 @@
                     text-overflow: ellipsis;
                 }
             }
+
             .goodsFooter {
-                padding: .09rem .09rem .18rem .09rem;
+                padding: .19rem .09rem .18rem .09rem;
                 font-size: .24rem;
                 font-weight: 500;
                 color: rgba(231, 57, 57, 1);
@@ -206,6 +209,8 @@
             justify-content: space-between;
             align-items: center;
             font-size: 14px;
+            overflow: hidden;
+
             .goods-store-logo {
                 width: 50px;
                 height: 50px;
@@ -214,22 +219,28 @@
                 border: 1px solid #ffb836;
                 border-radius: 25px;
                 overflow: hidden;
+
                 img {
                     width: 100%;
                     height: 100%;
+                    object-fit: cover;
                 }
             }
+
             .goods-store-info {
+                width: calc(~'100vw - 170px');
                 padding: 10px;
-                flex: 1 1 auto;
+
                 > div {
                     overflow: hidden;
                     white-space: nowrap;
                     text-overflow: ellipsis;
+
                     &:first-child {
                         margin-bottom: 5px;
                         font-weight: 600;
                     }
+
                     &:last-child {
                         color: #797979;
                     }
@@ -259,9 +270,11 @@
                 .food-img {
                     width: 100%;
                     height: 80px;
+
                     img {
                         width: 100%;
                         height: 100%;
+                        object-fit: cover;
                     }
                 }
                 .food-body {

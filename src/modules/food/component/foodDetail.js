@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Carousel, List, Flex} from 'antd-mobile';
+import {Carousel, List, Flex, Toast} from 'antd-mobile';
 import {Layout, BaseInfo} from 'Comps/zui-mobile';
 import '../index.less';
 import DocumentTitle from "react-document-title";
@@ -23,19 +23,7 @@ class Index extends React.Component {
             goodsDetail: {},
             shopDetail: {},
             recommandList: [],
-            travelData: [{
-                url: 'AiyWuByWklrrUDlFignR',
-                date: '2018-01-25',
-                name: '武汉金秋游'
-            }, {
-                url: 'AiyWuByWklrrUDlFignR',
-                date: '2018-01-25',
-                name: '武汉金秋游'
-            }, {
-                url: 'AiyWuByWklrrUDlFignR',
-                date: '2018-01-25',
-                name: '武汉金秋游'
-            }]
+            travelData: []
         }
     };
 
@@ -61,8 +49,8 @@ class Index extends React.Component {
                     const headerPic = backData.headerPic;
                     const detailPic = backData.detailPic;
 
-                    this.queryShopDetail(backData.shopId);
-                    this.queryListByShopId(backData.shopId);
+                    this.queryShopDetail(backData.foodkeeperId);
+                    this.queryListByShopId(backData.foodkeeperId);
                     headerPic.map(item => {
                         item.imgSrc = restUrl.FILE_ASSET + `${item.id + item.fileType}`;
                     });
@@ -73,6 +61,7 @@ class Index extends React.Component {
 
                     this.setState({
                         topSliderList: headerPic,
+                        currentIndex: 1,
                         detailPicList: detailPic,
                         goodsDetail: backData
                     });
@@ -83,27 +72,23 @@ class Index extends React.Component {
                     });
                 }
             } else {
-                Message.error('查询列表失败');
+                Toast.error('查询列表失败');
             }
             this.setState({loading: false});
         });
     }
 
-    queryShopDetail = (id) => {
+    queryShopDetail = id => {
         const param = {
             id
         };
-        axios.get('shop/queryDetail', {
+        axios.get('foodKeeper/queryDetail', {
             params: param
         }).then(res => res.data).then(data => {
             if (data.success) {
                 if (data.backData) {
                     let backData = data.backData;
-                    let shopPic = backData.shopPic;
-                    shopPic.map(item => {
-                        item.imgSrc = restUrl.FILE_ASSET + `${item.id + item.fileType}`;
-                    });
-                    backData.shopPic = shopPic[0];
+                    backData.shopPic = backData.headerPic[0];
                     this.setState({
                         shopDetail: backData
                     });
@@ -112,23 +97,24 @@ class Index extends React.Component {
         });
     }
 
-    queryListByShopId = (id) => {
+    queryListByShopId = id => {
         const param = {
-            id,
+            foodkeeperId: id,
+            state: 2,
             pageSize: 3,
             pageNumber: 1
         };
-        axios.get('food/queryListByShopId', {
+        axios.get('food/queryList', {
             params: param
         }).then(res => res.data).then(data => {
             if (data.success) {
                 if (data.backData) {
-                    let backData = data.backData.content;
-                    backData.map(item => {
-                        item.headerPic.imgSrc = restUrl.FILE_ASSET + `${item.headerPic.id + item.headerPic.fileType}`;
+                    let content = data.backData.content;
+                    content.map(item => {
+                        item.avatar = restUrl.FILE_ASSET + `${item.File.id + item.File.fileType}`;
                     });
                     this.setState({
-                        recommandList: backData
+                        recommandList: content
                     });
                 }
             }
@@ -137,16 +123,6 @@ class Index extends React.Component {
 
     detail = (id) => {
         this.context.router.push(`/food/detail/${id}`);
-    }
-
-    toBuy = () => {
-        const id = this.state.id;
-        this.context.router.push(`/order/add/${id}`);
-    }
-
-    toGoodsCar = () => {
-        const id = this.state.id;
-        this.context.router.push(`/order/add/${id}`);
     }
 
     render() {
@@ -215,16 +191,16 @@ class Index extends React.Component {
                                                         src={shopDetail.shopPic && shopDetail.shopPic.imgSrc}
                                                         alt=""/>
                                                 ) : (
-                                                    shopDetail.shopName && shopDetail.shopName.slice(0, 2)
+                                                    shopDetail.keeperName && shopDetail.keeperName.slice(0, 2)
                                                 )
                                         }
                                     </div>
                                     <div className='goods-store-info'>
-                                        <div>{shopDetail.shopName}</div>
-                                        <div>{shopDetail.mark}</div>
+                                        <div>{shopDetail.keeperName}</div>
+                                        <div className='mark'>{shopDetail.mark}</div>
                                     </div>
                                     <div className='goods-store-into'
-                                         onClick={() => this.context.router.push(`/shop/detail/${goodsDetail.shopId}`)}>
+                                         onClick={() => this.context.router.push(`/shop/detail/${goodsDetail.foodkeeperId}`)}>
                                         进入店铺
                                     </div>
                                 </div>
@@ -236,7 +212,7 @@ class Index extends React.Component {
                                                      onClick={() => this.showFood(item.id)}>
                                                     <div className='food-img'>
                                                         <img
-                                                            src={restUrl.FILE_ASSET + item.headerPic.id + item.headerPic.fileType}
+                                                            src={item.avatar}
                                                             alt=""/>
                                                     </div>
                                                     <div className='food-body'>
@@ -255,14 +231,14 @@ class Index extends React.Component {
                                         label: '生产许可证编号',
                                         value: goodsDetail.foodCode
                                     }, {
-                                        label: '厂址',
-                                        value: goodsDetail.foodStorage
+                                        label: '厂名',
+                                        value: goodsDetail.foodUnit
                                     }, {
                                         label: '产地省份',
                                         value: goodsDetail.foodOrigin
                                     }, {
                                         label: '保质期',
-                                        value: goodsDetail.foodStorage
+                                        value: goodsDetail.foodDate
                                     }, {
                                         label: '净含量',
                                         value: goodsDetail.foodNetWeight
