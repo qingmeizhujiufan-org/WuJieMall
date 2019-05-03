@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Carousel, Flex, Toast} from 'antd-mobile';
+import {Modal, Flex, Toast} from 'antd-mobile';
 import moment from 'moment';
 import '../index.less';
 
@@ -9,6 +9,8 @@ import axios from "Utils/axios";
 import restUrl from "RestUrl";
 import {Layout, BaseInfo, DatePicker, List, InputItem} from "Comps/zui-mobile";
 import vipDiscount from 'Img/vip_discount.png';
+
+const alert = Modal.alert;
 
 class Index extends React.Component {
     constructor(props) {
@@ -95,17 +97,17 @@ class Index extends React.Component {
         params.days = days;
         params.person = person;
         params.telephone = telephone;
+        params.totalMoney = parseFloat(data.roomPrice).days;
         axios.post('room/reserve', params).then(res => res.data).then(data => {
             if (data.success) {
-                alert('success');
+                alert('恭喜', '预订成功', [
+                    { text: '返回', onPress: () => this.context.router.goBack(-2) },
+                    { text: '查看订单', onPress: () => this.context.router.push('/hotelOrder') },
+                ])
             } else {
 
             }
         });
-        // this.context.router.push({
-        //     pathname: '/hotel/order/' + data.id,
-        //     state
-        // });
     }
 
     render() {

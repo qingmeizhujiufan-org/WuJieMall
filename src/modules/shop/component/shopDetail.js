@@ -8,6 +8,7 @@ import DocumentTitle from "react-document-title";
 import axios from "Utils/axios";
 
 import {CardList} from 'Comps';
+import {Flex} from "antd-mobile";
 
 const GoodsCart = ({className = '', data, ...restProps}) => (
     <div className={`${className} goodsCart`} {...restProps}>
@@ -19,10 +20,10 @@ const GoodsCart = ({className = '', data, ...restProps}) => (
                 {data.isTop ? <div className='isTop'>精品</div> : null}
                 {data.foodName}
             </div>
-            <div className='goodsContent'>
+            <Flex justify='between' className='goodsContent'>
                 <div className='goodsLabel'>【{data.keeperName}】</div>
                 <div className='goodsAddress'>{data.foodOrigin}</div>
-            </div>
+            </Flex>
             <div className='goodsFooter'>
                 <div><span>￥</span><span style={{fontSize: 15}}>{data.foodSellingprice}</span></div>
             </div>
@@ -104,16 +105,16 @@ class Index extends React.Component {
                                                     src={shopDetail.shopPic && shopDetail.shopPic.imgSrc}
                                                     alt=""/>
                                             ) : (
-                                                shopDetail.keeperName && shopDetail.keeperName.slice(0, 2)
+                                                shopDetail.foodKeeperName && shopDetail.foodKeeperName.slice(0, 2)
                                             )
                                     }
                                 </div>
                                 <div className='goods-store-info'>
-                                    {shopDetail.keeperName}
+                                    {shopDetail.foodKeeperName}
                                 </div>
-                                <div className='goods-store-into'>
-                                    关注店铺
-                                </div>
+                                {/*<div className='goods-store-into'>*/}
+                                {/*关注店铺*/}
+                                {/*</div>*/}
                             </div>
                             <div className='goods-store-body'>
                                 {shopDetail.mark}

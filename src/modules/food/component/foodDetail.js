@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Carousel, List, Flex, Toast} from 'antd-mobile';
+import {Carousel, List, Flex, Toast, Modal} from 'antd-mobile';
 import {Layout, BaseInfo} from 'Comps/zui-mobile';
 import '../index.less';
 import DocumentTitle from "react-document-title";
@@ -157,28 +157,14 @@ class Index extends React.Component {
                                 <Flex justify='between' className='goods-subscribe'>
                                     <div className='goods-price'>
                                         <span>￥ </span><span>{goodsDetail.foodSellingprice}</span></div>
-                                    <div className='goods-number'>
-                                        {
-                                            goodsDetail.number ? (
-                                                <div>
-                                                    <span>【现货】</span><span>&nbsp;&nbsp;&nbsp;</span><span>库存{goodsDetail.number}件</span>
-                                                </div>
-                                            ) : (
-                                                <span>缺货</span>
-                                            )
-                                        }
-                                    </div>
                                 </Flex>
                                 <div className='goods-vip'>
                                 </div>
                             </div>
                             <div className="goods-comments">
                                 <List className="my-list">
-                                    <Item arrow="horizontal" multipleLine onClick={() => {
-                                    }}>
-                                        商品评价&nbsp;
-                                        <span style={{color: 'red', fontSize: '14px'}}>{goodsDetail.comments}</span>
-                                    </Item>
+                                    <Item arrow="horizontal" multipleLine onClick={() => Modal.alert('无介评语', goodsDetail.mark)}
+                                    >无介评语</Item>
                                 </List>
                             </div>
                             <div className="goods-store">
@@ -191,12 +177,12 @@ class Index extends React.Component {
                                                         src={shopDetail.shopPic && shopDetail.shopPic.imgSrc}
                                                         alt=""/>
                                                 ) : (
-                                                    shopDetail.keeperName && shopDetail.keeperName.slice(0, 2)
+                                                    shopDetail.foodKeeperName && shopDetail.foodKeeperName.slice(0, 2)
                                                 )
                                         }
                                     </div>
                                     <div className='goods-store-info'>
-                                        <div>{shopDetail.keeperName}</div>
+                                        <div>{shopDetail.foodKeeperName}</div>
                                         <div className='mark'>{shopDetail.mark}</div>
                                     </div>
                                     <div className='goods-store-into'

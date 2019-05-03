@@ -189,11 +189,11 @@ class Index extends React.Component {
                                         [0, 1, 2, 3, 4].map((item, index) => {
                                             return (
                                                 <span key={index}
-                                                      className={`iconfont icon-xingzhuang1 star${index < 3 ? ' active' : ''}`}></span>
+                                                      className={`iconfont icon-xingzhuang1 star${index < data.grade ? ' active' : ''}`}></span>
                                             )
                                         })
                                     }
-                                    <span>推荐 <span className='num'>{3}</span>分</span>
+                                    <span>推荐 <span className='num'>{data.grade}</span>分</span>
                                 </div>
                             </Flex>
                             <Flex justify='between' align='center'>

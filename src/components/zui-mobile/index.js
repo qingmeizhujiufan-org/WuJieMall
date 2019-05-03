@@ -13,6 +13,7 @@ import DistPicker from './distpicker';
 import GoodsCard from './goods-card';
 import Stepper from './stepper';
 import SearchBar from './search-bar';
+import Empty from './empty';
 
 module.exports = {
     List,
@@ -30,4 +31,5 @@ module.exports = {
     GoodsCard,
     Stepper,
     SearchBar,
+    Empty,
 }

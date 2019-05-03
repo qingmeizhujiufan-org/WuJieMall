@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Flex, Toast, Accordion} from 'antd-mobile';
-import {Layout} from "Comps/zui-mobile";
+import {Layout, Empty} from "Comps/zui-mobile";
 import '../index.less';
 import DocumentTitle from "react-document-title";
 import axios from "Utils/axios";
@@ -57,7 +57,7 @@ class Index extends React.Component {
                     <Layout.Content>
                         <div className='comment-list'>
                             {
-                                data.map(item => {
+                                data.length > 0 ? data.map(item => {
                                     return (
                                         <div key={item.id} className='comment-list-item'>
                                             <div className='comment-list-item-header'>
@@ -92,12 +92,14 @@ class Index extends React.Component {
                                                                 <p className='reply-comment'>{item.children[0].commentContent}</p>
                                                             </Accordion.Panel>
                                                         </Accordion>
-                                                    ): null
+                                                    ) : null
                                                 }
                                             </div>
                                         </div>
                                     )
-                                })
+                                }) : (
+                                    <Empty description={'暂无评论'}/>
+                                )
                             }
                         </div>
                     </Layout.Content>
