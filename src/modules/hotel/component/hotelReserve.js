@@ -97,12 +97,12 @@ class Index extends React.Component {
         params.days = days;
         params.person = person;
         params.telephone = telephone;
-        params.totalMoney = parseFloat(data.roomPrice).days;
+        params.totalMoney = parseFloat(data.roomPrice) * days;
         axios.post('room/reserve', params).then(res => res.data).then(data => {
             if (data.success) {
                 alert('恭喜', '预订成功', [
-                    { text: '返回', onPress: () => this.context.router.goBack(-2) },
-                    { text: '查看订单', onPress: () => this.context.router.push('/hotelOrder') },
+                    {text: '返回', onPress: () => this.context.router.goBack(-2)},
+                    {text: '查看订单', onPress: () => this.context.router.push('/hotelOrder')},
                 ])
             } else {
 

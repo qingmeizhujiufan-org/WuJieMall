@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Carousel, Flex, Toast} from 'antd-mobile';
-import moment from 'moment';
 import '../index.less';
 import DocumentTitle from "react-document-title";
 import axios from "Utils/axios";
@@ -15,7 +14,8 @@ class Index extends React.Component {
 
         this.state = {
             data: {},
-            detailPicList: []
+            detailPicList: [],
+            currentIndex: 0
         }
     };
 
@@ -45,6 +45,7 @@ class Index extends React.Component {
 
                     this.setState({
                         detailPicList: detailPic,
+                        currentIndex: 1,
                         data: backData
                     });
                 } else {
@@ -77,26 +78,43 @@ class Index extends React.Component {
     }
 
     render() {
-        const {data, detailPicList} = this.state;
+        const {data, detailPicList, currentIndex} = this.state;
 
         return (
             <DocumentTitle title='特色民宿'>
                 <Layout className="hotel-room" withFooter>
                     <Layout.Content>
+                        <div className='wrap-carousel'>
+                            <Carousel
+                                dots={false}
+                                beforeChange={(from, to) => this.setState({currentIndex: to + 1})}
+                            >
+                                {detailPicList.map((item, index) => (
+                                    <div key={index} className='carousel-item'>
+                                        <img
+                                            src={item.imgSrc}
+                                            alt=""
+                                            style={{width: '100%', height: '100%', verticalAlign: 'top'}}
+                                        />
+                                    </div>
+                                ))}
+                            </Carousel>
+                            <div className='dot'>{currentIndex} / {detailPicList.length}</div>
+                        </div>
                         <div className='box'>
                             <Flex justify='between'>
                                 <div className='box-title room-name'>{data.roomName}</div>
                                 <div className='view-comment' onClick={this.viewComment}>查看评价 ></div>
                             </Flex>
-                            <div className='detail-pic-list'>
-                                {
-                                    detailPicList.map((item, index) => {
-                                        return (
-                                            <div key={index} className='wrap-img'><img src={item.imgSrc}/></div>
-                                        )
-                                    })
-                                }
-                            </div>
+                            {/*<div className='detail-pic-list'>*/}
+                                {/*{*/}
+                                    {/*detailPicList.map((item, index) => {*/}
+                                        {/*return (*/}
+                                            {/*<div key={index} className='wrap-img'><img src={item.imgSrc}/></div>*/}
+                                        {/*)*/}
+                                    {/*})*/}
+                                {/*}*/}
+                            {/*</div>*/}
                             <Flex>
                                 <div className='left-block'>
                                     <div className='item'>

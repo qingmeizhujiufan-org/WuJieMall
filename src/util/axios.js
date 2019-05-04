@@ -1,4 +1,5 @@
 import axios from 'axios';
+import 'promise.prototype.finally';
 import {Toast} from 'antd-mobile';
 import restUrl from 'RestUrl';
 
@@ -22,13 +23,13 @@ axios.interceptors.response.use(response => {
 }, error => {
     // 对响应错误做点什么
     const response = error.response;
-    if(response) {
+    if (response) {
         if (response.status === 401 || response.status === 403) {
             const data = response.data || {};
             Toast.fail(data.message);
         }
-    }else {
-      Toast.fail('服务异常');
+    } else {
+        Toast.fail('服务异常');
     }
 
     return Promise.reject(error);

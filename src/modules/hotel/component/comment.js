@@ -62,12 +62,12 @@ class Index extends React.Component {
                                         <div key={item.id} className='comment-list-item'>
                                             <div className='comment-list-item-header'>
                                                 <div className='wrap-img'>
-                                                    <img/>
+                                                    <img src={item.User && item.User.headimgurl}/>
                                                 </div>
                                                 <div className='comment-list-item-header-content'>
-                                                    <div className='user-name'>{'张三'}</div>
+                                                    <div className='user-name'>{item.User && item.User.nickname || '无介用户'}</div>
                                                     <Flex justify='between'>
-                                                        <p className='room-name'>{'梦想小屋'}</p>
+                                                        <p className='room-name'>{item.Room && item.Room.roomName}</p>
                                                         <div
                                                             className='date'>{item.created_at.substring(0, 10)}</div>
                                                     </Flex>

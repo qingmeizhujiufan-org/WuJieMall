@@ -2,6 +2,40 @@
 
 .travel {
 
+    .range-date {
+        height: 1.1rem;
+        font-size: .24rem;
+        color: #6F6F6F;
+
+        &-between {
+            flex-basis: 80%;
+            padding-left: .3rem;
+
+            .wrap-date {
+                flex-basis: 45%;
+                height: .68rem;
+                padding-left: .43rem;
+                border-radius: .68rem;
+                background-color: #ffffff;
+
+                .iconfont {
+                    margin-right: .18rem;
+                    font-size: .24rem;
+                }
+            }
+
+            .separate {
+                flex-basis: 10%;
+                font-size: .5rem;
+                text-align: center;
+            }
+        }
+
+        &-days {
+            flex-basis: 15%;
+        }
+    }
+
     .travel-item {
         background-color: #ffffff;
 
@@ -23,6 +57,7 @@
             img {
                 width: 100%;
                 height: 100%;
+                object-fit: cover;
             }
 
             .travel-from {
@@ -58,6 +93,10 @@
                 line-height: 17px;
 
                 .base-info {
+                    width: 55%;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
                 }
 
                 .sign-info {
@@ -77,10 +116,17 @@
                 font-size: 12px;
 
                 .rest-sign-time {
+                    color: #999999;
 
                     .rest-time {
                         color: #F28E00;
                         font-size: 14px;
+                    }
+
+                    .end {
+                        font-size: .28rem;
+                        font-weight: 600;
+                        color: #999999;
                     }
                 }
 
@@ -93,6 +139,10 @@
                 }
             }
         }
+    }
+
+    .am-calendar {
+        font-size: 14px;
     }
 }
 
@@ -189,6 +239,7 @@
 
             img {
                 width: 100%;
+                object-fit: cover;
             }
         }
     }
@@ -223,6 +274,11 @@
             color: #FFFFFF;
             font-size: 16px;
             background-color: #F16B6B;
+
+            &.disabled {
+                color: #999999;
+                background-color: #CCCCCC;
+            }
         }
     }
 }

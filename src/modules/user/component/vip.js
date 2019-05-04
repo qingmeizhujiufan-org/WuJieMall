@@ -38,7 +38,7 @@ class Index extends React.Component {
         const {data} = this.state;
 
         return (
-            <DocumentTitle title='VIP兑换'>
+            <DocumentTitle title='VIP权益'>
                 <div id="goodsDetail">
                     <Layout>
                         <Layout.Content>
@@ -58,19 +58,16 @@ class Index extends React.Component {
                                     </div>
                                     <div className='info-area'>
                                         <div className='vip-rule'>
-                                            <div className='vip-rule-title'>积分兑换VIP原则：</div>
-                                            <div
-                                                className='vip-rule-desc'>1、积分积累原则：用户在购买特产食品后的金额会积累为用户的消费积分（一元积累为一个积分，例如：36元的消费即为36分）
+                                            <div className='vip-rule-title'>VIP原则：</div>
+                                            <div className='vip-rule-desc'>凡是关注“湖北民俗文化推广平台”公众号的用户，一旦关注本公众号即成为“湖北民俗文化推广平台”的会员
                                             </div>
                                             <br/>
-                                            <div className='vip-rule-desc'>2、积分兑换VIP会员：积累3000分的用户可以使用积分兑换VIP会员</div>
-                                            <br/>
                                             <div className='vip-rule-title'>VIP所享福利：</div>
-                                            <div className='vip-rule-desc'>1、VIP用户购买特产食品可以享受所有商品9折优惠</div>
-                                            <div className='vip-rule-desc'>2、VIP用户预定特色民宿可以享9折优惠</div>
+                                            <div className='vip-rule-desc'>VIP用户预定特色民宿可以享9折优惠</div>
                                             <br/>
                                             <div className='vip-rule-title'>VIP会员服务协议：</div>
-                                            <div className='vip-rule-desc'>会员服务的最终解释权归新华资产有限公司所有</div>
+                                            <div className='vip-rule-desc'>会员服务的最终解释权归</div>
+                                            <div className='vip-rule-desc'>湖北省新华资产管理有限公司所有</div>
                                         </div>
                                     </div>
                                 </div>

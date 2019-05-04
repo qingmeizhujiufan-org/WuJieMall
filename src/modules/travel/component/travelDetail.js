@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Carousel, Flex, Tabs} from 'antd-mobile';
+import {Carousel, Flex, Tabs, Toast} from 'antd-mobile';
 import '../index.less';
 import DocumentTitle from "react-document-title";
 import axios from "Utils/axios";
@@ -75,15 +75,16 @@ class Index extends React.Component {
                     });
                 }
             } else {
-                Message.error('查询列表失败');
+                Toast.error('查询列表失败');
             }
-            this.setState({loading: false});
+        }).finally(() => {
+            Toast.hide();
         });
     }
 
     setTimer = time => {
         const that = this;
-        const travelBeginTime = time && new Date(time.substring(0, 10) + ' 00:00:00').getTime() || new Date().getTime();
+        const travelBeginTime = time && new Date(time.replace(/-/g, "/").substring(0, 10) + ' 00:00:00').getTime() || new Date().getTime();
         let restTime = travelBeginTime - new Date().getTime();
         this.id = setInterval(timeTicker, 1000);
 
@@ -268,7 +269,8 @@ class Index extends React.Component {
                     <Layout.Footer>
                         <Flex className='footer-btn-group'>
                             <div className='call'><i className='iconfont icon-kefu'></i> 拨打咨询电话</div>
-                            <div className='sign' onClick={this.signUp}>我要报名</div>
+                            <div className={`sign${restTimer === '已结束' ? ' disabled' : ''}`}
+                                 onClick={restTimer !== '已结束' ? this.signUp : null}>{restTimer !== '已结束' ? '我要报名' : '已结束'}</div>
                         </Flex>
                     </Layout.Footer>
                 </Layout>

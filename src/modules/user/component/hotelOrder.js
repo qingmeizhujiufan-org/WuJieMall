@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Tabs, Card, Button, Icon} from 'antd-mobile';
+import {Tabs, Card, Button, Flex} from 'antd-mobile';
 import '../index.less';
 import {Layout} from "Comps/zui-mobile";
 import DocumentTitle from "react-document-title";
@@ -9,14 +9,14 @@ import {Toast} from "antd-mobile/lib/index";
 import axios from "Utils/axios";
 
 const stateList = [{
-    title: '待确认',
+    title: '待出行',
     status: 0
-}, {
-    title: '已确认',
-    status: 2
 }, {
     title: '已结束',
     status: 3
+}, {
+    title: '已评价',
+    status: 4
 }];
 
 class Index extends React.Component {
@@ -50,9 +50,12 @@ class Index extends React.Component {
         });
     }
 
-    onDetail = (e, id) => {
-        e.stopPropagation();
+    onDetail = id => {
         this.context.router.push(`/hotelOrder/detail/${id}`);
+    }
+
+    onComment = id => {
+        this.context.router.push(`/hotelOrder/comment/${id}`);
     }
 
     onDelete = (e, id) => {
@@ -94,41 +97,40 @@ class Index extends React.Component {
                 <Card
                     key={rowID}
                     className='am-card-full order-card'
-                    style={{padding: '10px 0', width: '100vw'}}
-                    onClick={() => this.onDetail(obj.id)}
                 >
                     <Card.Header
                         title={
-                            <div className='card-head-title'>
-                                <Icon type='check-circle'/>
+                            <Flex className='card-head-title'>
+                                <span className='iconfont icon-fangjianxinxi'></span>
                                 <div>{hotel.hotelName}</div>
-                            </div>}
-                        // extra={<span>{obj.status === 0 ? '未出行' : '已结束'}</span>}
+                            </Flex>}
+                        extra={<span>{obj.status === 0 ? '等待入住' : '交易已关闭'}</span>}
                     />
                     <Card.Body>
                         <div className='card-body-title'>{room.roomName + "-" + room.breakfast}</div>
                         <div className='card-body-middle'>
-                            <div>入住{obj.beginDate}</div>
-                            <div>离店{obj.endDate}</div>
-                            <div>{obj.days}晚</div>
+                            <div>入<span className='highlight'>{obj.beginDate}</span></div>
+                            <div>离<span className='highlight'>{obj.endDate}</span></div>
+                            <div className='highlight'>{obj.days}晚</div>
                         </div>
-                        <div className='card-body-footer'>价格：￥{obj.totalMoney}</div>
+                        <div className='card-body-footer'>￥<span className='money'>{obj.totalMoney}</span></div>
                     </Card.Body>
                     <Card.Footer
-                        content={'预定时间：' + obj.created_at}
                         extra={
-                            obj.state === 0 || obj.state === 2 ?
+                            <div>
                                 <Button
                                     size='small'
-                                    style={{float: 'right', color: '#888'}}
-                                    onClick={(e) => this.onDelete(e, obj.id)}
-                                >取消订单</Button>
-                                :
-                                <Button
-                                    size='small'
-                                    style={{float: 'right', color: '#888'}}
-                                    onClick={(e) => this.onDetail(e, obj.id)}
-                                >查看详情</Button>
+                                    className='footer-btn'
+                                    onClick={() => this.onDetail(obj.id)}
+                                >查看订单</Button>
+                                {
+                                    obj.commentStatus !== 1 ? (<Button
+                                        size='small'
+                                        className='footer-btn comment'
+                                        onClick={() => this.onComment(obj.id)}
+                                    >评价</Button>) : null
+                                }
+                            </div>
                         }/>
                 </Card>
             );
@@ -136,7 +138,7 @@ class Index extends React.Component {
 
         return (
             <DocumentTitle title='民宿订单'>
-                <Layout>
+                <Layout className='hotel-order'>
                     <Layout.Content>
                         <Tabs
                             tabs={stateList}

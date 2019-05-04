@@ -1,14 +1,15 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import {Toast, Flex} from 'antd-mobile';
+import {Flex, Calendar} from 'antd-mobile';
 import '../index.less';
 import restUrl from "RestUrl";
 import DocumentTitle from "react-document-title";
-import axios from "Utils/axios";
-import assign from 'lodash/assign';
+import _assign from 'lodash/assign';
+import moment from 'moment';
 
 import {List} from 'Comps';
+
+const now = new Date();
 
 class Index extends React.Component {
     constructor(props) {
@@ -16,7 +17,18 @@ class Index extends React.Component {
 
         this.state = {
             isLoading: false,
-            goodsList: []
+            params: {
+                pageNumber: 1,
+                pageSize: 10,
+                state: 2
+            },
+            goodsList: [],
+            rangeDate: {
+                beginDate: '开始日期',
+                endDate: '结束日期',
+                days: 0
+            },
+            show: false
         }
     };
 
@@ -27,11 +39,39 @@ class Index extends React.Component {
         this.context.router.push(`/travel/detail/${id}`);
     }
 
+    onShowCalendar = () => {
+        this.setState({show: true});
+    }
+
+    onCloseCalendar = () => {
+        this.setState({show: false});
+    }
+
+    onConfirm = (startDateTime, endDateTime) => {
+        console.log('startDateTime == ', startDateTime);
+        console.log('endDateTime == ', endDateTime);
+        const beginDate = new moment(startDateTime).format('YYYY-MM-DD');
+        const endDate = new moment(endDateTime).format('YYYY-MM-DD');
+        const days = new moment(endDateTime).diff(new moment(startDateTime).format('YYYY-MM-DD'), 'days');
+        this.setState({
+            show: false,
+            rangeDate: {
+                beginDate,
+                endDate,
+                days: days > 0 ? days : 1
+            },
+            params: _assign({}, this.state.params, {
+                travelBeginTime: beginDate,
+                travelEndTime: endDate
+            })
+        });
+    }
+
     render() {
-        const {params} = this.state;
+        const {params, rangeDate, show} = this.state;
         const row = (rowData, sectionID, rowID) => {
             const obj = rowData;
-            let travelBeginTime = obj.travelBeginTime && new Date(obj.travelBeginTime.substring(0, 10) + ' 00:00:00').getTime() || new Date().getTime();
+            let travelBeginTime = obj.travelBeginTime && new Date(obj.travelBeginTime.replace(/-/g, "/").substring(0, 10) + ' 00:00:00').getTime() || new Date().getTime();
             let restTime = travelBeginTime - new Date().getTime();
             let day = 0, hour = 0;
             if (restTime > 0) {
@@ -62,8 +102,15 @@ class Index extends React.Component {
                             </div>
                             <div className='travel-item-content-footer'>
                                 <Flex justify='between'>
-                                    <div className='rest-sign-time'><span
-                                        className='rest-time'>{day}天{hour}小时</span> 报名结束
+                                    <div className='rest-sign-time'>
+                                        {
+                                            day === 0 && hour === 0 ? (
+                                                <span className='end'>报名已截止</span>
+                                            ) : (
+                                                <span>
+                                                    <span className='rest-time'>{day}天{hour}小时</span> 报名结束</span>
+                                            )
+                                        }
                                     </div>
                                     <div className='sign-price'>￥ <span className='price'>{obj.manPrice}</span></div>
                                 </Flex>
@@ -78,12 +125,38 @@ class Index extends React.Component {
             <DocumentTitle title='主题旅游'>
                 <div className="travel">
                     <div className="zui-content">
+                        <Flex justify='between' className='range-date' onClick={this.onShowCalendar}>
+                            <div className='range-date-between'>
+                                <Flex>
+                                    <Flex className='wrap-date'>
+                                        <span className='iconfont icon-kaishishijian'></span>
+                                        <span>{rangeDate.beginDate}</span>
+                                    </Flex>
+                                    <div className='separate'>-</div>
+                                    <Flex className='wrap-date'>
+                                        <span className='iconfont icon-kaishishijian'></span>
+                                        <span>{rangeDate.endDate}</span>
+                                    </Flex>
+                                </Flex>
+                            </div>
+                            <div className='range-date-days'>
+                                <span style={{marginRight: '.1rem', fontSize: '.32rem'}}>{rangeDate.days}</span>天
+                            </div>
+                        </Flex>
                         <List
                             pageUrl={'travel/queryList'}
                             params={params}
                             row={row}
                         />
                     </div>
+                    <Calendar
+                        visible={show}
+                        onCancel={this.onCloseCalendar}
+                        onConfirm={this.onConfirm}
+                        defaultDate={now}
+                        minDate={new Date(+now - 5184000000)}
+                        maxDate={new Date(+now + 31536000000)}
+                    />
                 </div>
             </DocumentTitle>
         );

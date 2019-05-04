@@ -62,11 +62,9 @@ class Index extends React.Component {
         }).then(res => res.data).then(data => {
             if (data.success) {
                 let backData = data.backData;
-                let shopPic = backData.shopPic || [];
-                shopPic.map(item => {
-                    item.imgSrc = restUrl.FILE_ASSET + `${item.id + item.fileType}`;
-                });
-                backData.shopPic = shopPic[0];
+                if (backData.headerPic && backData.headerPic[0]) {
+                    backData.logo = restUrl.FILE_ASSET + `${backData.headerPic[0].id + backData.headerPic[0].fileType}`;
+                }
                 this.setState({
                     shopDetail: backData
                 });
@@ -99,10 +97,10 @@ class Index extends React.Component {
                             <div className='goods-store-header'>
                                 <div className='goods-store-logo'>
                                     {
-                                        shopDetail.shopPic && shopDetail.shopPic.imgSrc ?
+                                        shopDetail.logo ?
                                             (
                                                 <img
-                                                    src={shopDetail.shopPic && shopDetail.shopPic.imgSrc}
+                                                    src={shopDetail.logo}
                                                     alt=""/>
                                             ) : (
                                                 shopDetail.foodKeeperName && shopDetail.foodKeeperName.slice(0, 2)

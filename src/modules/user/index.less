@@ -119,7 +119,7 @@
 
                 .user-detail {
                     display: flex;
-                    height:.8rem;
+                    height: .8rem;
                     margin-left: 10px;
                     flex-direction: column;
                     justify-content: space-between;
@@ -171,6 +171,171 @@
                     }
                 }
             }
+        }
+    }
+}
+
+.hotel-order,
+.travel-order,
+.hotel-detail-order,
+.hotel-comment-order {
+
+    .order-card,
+    .detail-card {
+        margin-top: .2rem;
+        padding: 0;
+    }
+
+    .am-card-header {
+        height: 1rem;
+        padding: 0 .36rem 0 .3rem;
+        font-size: .28rem;
+        color: #0C0C0C;
+
+        .iconfont {
+            margin-right: .2rem;
+            font-size: .4rem;
+        }
+    }
+
+    .am-card-body {
+        padding: .3rem;
+        font-size: .24rem;
+        color: #999999;
+
+        .card-body-title {
+            height: .33rem;
+            line-height: .33rem;
+            color: #0C0C0C;
+        }
+
+        .card-body-middle {
+            margin: .2rem 0;
+
+            > div {
+                display: inline-block;
+                margin-right: .2rem;
+            }
+
+            .highlight {
+                color: #0C0C0C;
+            }
+        }
+
+        .card-body-footer {
+            color: #E73939;
+
+            .money {
+                font-size: .32rem;
+            }
+        }
+    }
+
+    .am-card-header-extra {
+        font-size: .28rem;
+        color: #787171;
+    }
+
+    .am-card-footer {
+        display: flex;
+        align-items: center;
+        height: .93rem;
+        border-top: .01rem solid #EBEBEB;
+
+        .footer-btn {
+            display: inline-block;
+            height: .57rem;
+            line-height: .57rem;
+            font-size: .28rem;
+            color: #787171;
+            overflow: initial;
+
+            &:before {
+                border-color: #787171 !important;
+            }
+
+            &.comment {
+                margin-left: .2rem;
+                color: #E73939;
+
+                &:before {
+                    border-color: #E73939 !important;
+                }
+            }
+        }
+    }
+}
+
+.hotel-detail-order {
+
+    .hotel-info {
+        padding-bottom: .3rem;
+        border-bottom: .01rem solid #EBEBEB;
+
+        > div {
+            height: .4rem;
+            font-size: .28rem;
+            line-height: .4rem;
+
+            .iconfont {
+                font-size: .24rem;
+            }
+        }
+    }
+
+    .room-info {
+        padding-top: .3rem;
+        font-size: .28rem;
+        color: #000;
+    }
+
+    .order-info {
+        margin-top: .2rem;
+        font-size: .28rem;
+        color: #000;
+    }
+
+    .reservations-info {
+
+        .am-card-body {
+            padding: 0;
+        }
+
+        .zui-list-unstyled.base-info > li {
+            padding: 0 18px 0 .36rem;
+            min-height: initial;
+
+            &:after {
+                display: none;
+            }
+        }
+
+        .zui-list-unstyled.base-info > li > span:first-child {
+            width: 80px;
+            padding: 5px 0;
+        }
+
+        .zui-list-unstyled.base-info > li > span:last-child {
+            padding: 5px 0;
+            text-align: left;
+        }
+    }
+}
+
+.hotel-comment-order {
+
+    .detail-card {
+        margin-top: 0;
+    }
+
+    .zui-layout-footer {
+
+        .am-button {
+            height: .8rem;
+            line-height: .8rem;
+            margin-top: .15rem;
+            background: rgba(241, 107, 107, 1);
+            border-radius: 6px;
         }
     }
 }
