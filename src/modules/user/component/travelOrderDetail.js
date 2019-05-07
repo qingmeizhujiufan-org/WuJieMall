@@ -87,7 +87,7 @@ class Index extends React.Component {
                 <Brief>{travel.travelTheme}</Brief>
 
                 <p>
-                  {travel.travelBeginTime + '至' + travel.travelEndTime}
+                  <span>{travel.travelBeginTime}至{travel.travelEndTime}</span>
                   <span style={{marginLeft: '10px'}}>{travel.travelLastTime}</span>
                 </p>
                 <Brief>包含元素 {travel.travelHas}</Brief>
@@ -98,7 +98,7 @@ class Index extends React.Component {
                      style={{
                        display: 'block',
                        margin: '10px 15%',
-                       padding: '5px 0',
+                       padding: '10px 0',
                        textAlign: 'center',
                        backgroundColor: '#fff0ca',
                        color: '#FF5745'
@@ -109,10 +109,22 @@ class Index extends React.Component {
             <Card className='detail-card am-card-full'>
               <Card.Header title='联系人员信息'/>
               <Card.Body>
-                <p><span>联系人</span>{keeper.keeperName}</p>
-                <p><span>联系电话</span>{keeper.phone}</p>
-                <p><span>车牌号</span>{}</p>
-                <p><span>订单编号</span>{data.orderId}</p>
+                <p className='card-body-middle'>
+                  <span>联系人</span>
+                  <span className='highlight'>{keeper.keeperName}</span>
+                </p>
+                <p className='card-body-middle'>
+                  <span>联系电话</span>
+                  <span className='highlight'>{keeper.phone}</span>
+                </p>
+                <p className='card-body-middle'>
+                  <span>车牌号</span>
+                 <span className='highlight'>{data.orderId}</span>
+                </p>
+                <p className='card-body-middle'>
+                  <span>订单编号</span>
+                  <span className='highlight'>{data.orderId}</span>
+                </p>
               </Card.Body>
             </Card>
             <Card className='detail-card am-card-full'>

@@ -100,15 +100,15 @@ class Index extends React.Component {
                     <Card.Body>
                         <div className='card-body-title'>{travel.travelTheme}</div>
                         <div className='card-body-middle'>
-                            <div>出发{travel.travelBeginTime}</div>
-                            <div>返回{travel.travelEndTime}</div>
-                            <div>{travel.travelLastTime}</div>
+                          <div>出发<span className="highlight">{travel.travelBeginTime}</span> </div>
+                            <div>返回<span className="highlight">{travel.travelEndTime}</span></div>
+                            <div className="highlight">{travel.travelLastTime}</div>
                         </div>
                         <div className='card-body-desc'>包含：{travel.travelHas}</div>
-                        <div className='card-body-footer'>价格：￥{travel.manPrice}</div>
+                        <div className='card-body-footer'>￥<span className='money'>{travel.manPrice}</span></div>
                     </Card.Body>
                     <Card.Footer
-                        content={'预定时间：' + obj.created_at}
+                        // content={'预定时间：' + obj.created_at}
                         extra={
                             obj.state === 0 || obj.state === 2 ?
                                 <Button
@@ -129,7 +129,7 @@ class Index extends React.Component {
 
         return (
             <DocumentTitle title='旅游订单'>
-                <Layout>
+                <Layout className="travel-order">
                     <Layout.Content>
                         <Tabs
                             tabs={stateList}
