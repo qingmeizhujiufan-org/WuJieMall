@@ -204,7 +204,7 @@ class Index extends React.Component {
                                                 <img src={foodData[0].imgSrc} alt=""/>
                                             </div>
                                         </div>
-                                    ) : null
+                                    ) : <div className='left'></div>
                                 }
                                 <div className='right'>
                                     {
@@ -221,7 +221,11 @@ class Index extends React.Component {
                                                     <img src={foodData[1].imgSrc} alt=""/>
                                                 </div>
                                             </Flex>
-                                        ) : null
+                                        ) : <Flex
+                                            direction='column'
+                                            justify='center'
+                                            align='start'
+                                        ></Flex>
                                     }
                                     {
                                         foodData[2] ? (
@@ -237,7 +241,11 @@ class Index extends React.Component {
                                                     <img src={foodData[2].imgSrc} alt=""/>
                                                 </div>
                                             </Flex>
-                                        ) : null
+                                        ) : <Flex
+                                            direction='column'
+                                            justify='center'
+                                            align='start'
+                                        ></Flex>
                                     }
                                 </div>
                             </div>

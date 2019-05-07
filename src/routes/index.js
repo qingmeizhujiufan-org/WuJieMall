@@ -175,7 +175,7 @@ const TravelOrderDetail = Loadable({
 module.exports = (
     <Route path="/"
            component={App}
-           onEnter={requireAuth}
+           // onEnter={requireAuth}
         // onEnter={() => sessionStorage.userId = '10c2db90-63ef-11e9-a530-1dc6d07de126'}
     >
         <IndexRoute component={Index}/>

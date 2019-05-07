@@ -268,7 +268,8 @@ class Index extends React.Component {
                     </Layout.Content>
                     <Layout.Footer>
                         <Flex className='footer-btn-group'>
-                            <div className='call'><i className='iconfont icon-kefu'></i> 拨打咨询电话</div>
+                            <div className='call'><a href={`tel: ${data.telephone}`}><i
+                                className='iconfont icon-kefu'></i> 拨打咨询电话</a></div>
                             <div className={`sign${restTimer === '已结束' ? ' disabled' : ''}`}
                                  onClick={restTimer !== '已结束' ? this.signUp : null}>{restTimer !== '已结束' ? '我要报名' : '已结束'}</div>
                         </Flex>

@@ -65,7 +65,14 @@ class Index extends React.Component {
                     if (data.success) {
                         this.props.form.resetFields();
                         this.setState({count: [0]});
-                        Modal.alert('您已报名成功！', '稍后客服人员会联系您，您也可以在我的订单中查询');
+                        Modal.alert('您已报名成功！', '稍后客服人员会联系您，您也可以在我的订单中查询', [
+                            {
+                                text: '查看订单',
+                                onPress: () => {
+                                    this.context.router.push('/travelOrder');
+                                }
+                            }
+                        ]);
                     }
                 });
             } else {

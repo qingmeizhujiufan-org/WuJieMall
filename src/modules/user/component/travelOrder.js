@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Tabs, Card, Button, Icon, Toast} from 'antd-mobile';
+import {Tabs, Card, Button, Icon, Toast, Flex} from 'antd-mobile';
 import '../index.less';
 import {Layout} from "Comps/zui-mobile";
 import DocumentTitle from "react-document-title";
@@ -8,11 +8,8 @@ import {List} from 'Comps';
 import axios from "Utils/axios";
 
 const stateList = [{
-    title: '待确认',
+    title: '待出行',
     state: 0
-}, {
-    title: '已确认',
-    state: 2
 }, {
     title: '已结束',
     state: 3
@@ -86,21 +83,20 @@ class Index extends React.Component {
                 <Card
                     key={rowID}
                     className='am-card-full order-card'
-                    style={{padding: '10px 0', width: '100vw'}}
                     onClick={() => this.onDetail(obj.id)}
                 >
                     <Card.Header
                         title={
-                            <div className='card-head-title'>
-                                <Icon type='check-circle'/>
+                            <Flex className='card-head-title'>
+                                <span className='iconfont icon-fangjianxinxi'></span>
                                 <div>{travel.travelTheme}</div>
-                            </div>}
-                        // extra={<span>{obj.state === 0 ? '未出行' : '已结束'}</span>}
+                            </Flex>}
+                        extra={<span>{obj.state === 0 ? '待出行' : '交易已关闭'}</span>}
                     />
                     <Card.Body>
                         <div className='card-body-title'>{travel.travelTheme}</div>
                         <div className='card-body-middle'>
-                          <div>出发<span className="highlight">{travel.travelBeginTime}</span> </div>
+                            <div>出发<span className="highlight">{travel.travelBeginTime}</span></div>
                             <div>返回<span className="highlight">{travel.travelEndTime}</span></div>
                             <div className="highlight">{travel.travelLastTime}</div>
                         </div>
@@ -110,18 +106,11 @@ class Index extends React.Component {
                     <Card.Footer
                         // content={'预定时间：' + obj.created_at}
                         extra={
-                            obj.state === 0 || obj.state === 2 ?
-                                <Button
-                                    size='small'
-                                    style={{float: 'right', color: '#888'}}
-                                    onClick={(e) => this.onDelete(e, obj.id)}
-                                >取消订单</Button>
-                                :
-                                <Button
-                                    size='small'
-                                    style={{float: 'right', color: '#888'}}
-                                    onClick={(e) => this.onDetail(e, obj.id)}
-                                >查看详情</Button>
+                            <Button
+                                size='small'
+                                style={{float: 'right', color: '#888'}}
+                                onClick={(e) => this.onDetail(e, obj.id)}
+                            >查看订单</Button>
                         }/>
                 </Card>
             );

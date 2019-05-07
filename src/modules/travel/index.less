@@ -220,7 +220,11 @@
         }
 
         .extra-info {
-            font-size: 12px;
+            width: 50%;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            font-size: .24rem;
         }
     }
 
@@ -266,6 +270,11 @@
 
                 transform: scaleY(0.5);
                 transform-origin: 0% 0%;
+            }
+
+            a {
+                display: block;
+                color: #0C0C0C;
             }
         }
 
