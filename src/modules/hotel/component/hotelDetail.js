@@ -173,18 +173,6 @@ class Index extends React.Component {
     });
   }
 
-  signUp = () => {
-    const data = this.state.data;
-    this.context.router.push({
-      pathname: '/travel/signinfo',
-      state: {
-        travelId: data.id,
-        manPrice: data.manPrice,
-        childPrice: data.childPrice
-      }
-    });
-  }
-
   render() {
     const {data, topSliderList, currentIndex, rangeDate, show, days, rooms} = this.state;
 
