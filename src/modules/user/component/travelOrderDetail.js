@@ -94,7 +94,7 @@ class Index extends React.Component {
 
                 <p style={{marginTop: '20px'}}>
                   <a size='small'
-                     href={`tel:${keeper.phone}`}
+                     href={`tel:${travel.telephone}`}
                      style={{
                        display: 'block',
                        margin: '10px 15%',
