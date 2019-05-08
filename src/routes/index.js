@@ -46,7 +46,7 @@ const requireAuth = (nextState, replace) => {
             const appid = 'wxdd6ab56296fa5c11';
             const redirect_uri = encodeURIComponent(window.location.href);
             const url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${redirect_uri}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`;
-            window.location.href = url;
+            window.location.replace(url);
         }
     } else {
 
