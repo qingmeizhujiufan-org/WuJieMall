@@ -16,7 +16,7 @@ class Index extends React.Component {
             data: {},
             topSliderList: [],
             currentIndex: 0,
-            restTimer: '--'
+            restTimer: '---'
         }
     };
 
@@ -53,7 +53,6 @@ class Index extends React.Component {
                         item.imgSrc = restUrl.FILE_ASSET + `${item.id + item.fileType}`;
                     });
                     this.setTimer(backData.travelBeginTime);
-
                     if (backData.expenseDesc && backData.expenseDesc !== '') {
                         backData.expenseDescHtml = draftToHtml(JSON.parse(backData.expenseDesc));
                     }
@@ -86,7 +85,9 @@ class Index extends React.Component {
         const that = this;
         const travelBeginTime = time && new Date(time.replace(/-/g, "/").substring(0, 10) + ' 00:00:00').getTime() || new Date().getTime();
         let restTime = travelBeginTime - new Date().getTime();
-        this.id = setInterval(timeTicker, 1000);
+        timeTicker();
+
+        // this.id = setInterval(timeTicker, 1000);
 
         function timeTicker() {
             if (restTime > 0) {

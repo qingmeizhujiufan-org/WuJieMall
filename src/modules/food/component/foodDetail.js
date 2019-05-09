@@ -252,7 +252,7 @@ class Index extends React.Component {
                             </div>
                         </Layout.Content>
                         <Layout.Footer className='footer'>
-                            <a href="【猫人袜子男士袜子长袜中筒棉袜纯色潮男士棉袜子薄浅口短袜男夏季】https://m.tb.cn/h.eXbl9QS?sm=a867a3 点击链接，再选择浏览器咑閞；或復|制这段描述￥TYFgY18pLWO￥后到淘♂寳♀">前往淘宝查看</a>
+                            <a href={goodsDetail.taobaoUrl}>查看购买</a>
                         </Layout.Footer>
                     </Layout>
                 </div>
