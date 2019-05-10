@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Card, Button, Icon, Toast, List, WingBlank} from 'antd-mobile';
+import {Card, Icon, Toast, List} from 'antd-mobile';
 import '../index.less';
 import {Layout} from "Comps/zui-mobile";
 import DocumentTitle from "react-document-title";
@@ -98,7 +98,7 @@ class Index extends React.Component {
 
                                 <p style={{marginTop: '20px'}}>
                                     <a size='small'
-                                       href={`tel:${keeper.phone}`}
+                                       href={`tel:${keeper.telephone}`}
                                        style={{
                                            display: 'block',
                                            height: '.64rem',
@@ -117,15 +117,15 @@ class Index extends React.Component {
                             <Card.Body>
                                 <p className='card-body-middle'>
                                     <span>联系人</span>
-                                    <span className='highlight'>{keeper.keeperName}</span>
+                                    <span className='highlight'>{data.contract}</span>
                                 </p>
                                 <p className='card-body-middle'>
                                     <span>联系电话</span>
-                                    <span className='highlight'>{keeper.phone}</span>
+                                    <span className='highlight'>{data.contractPhone}</span>
                                 </p>
                                 <p className='card-body-middle'>
                                     <span>车牌号</span>
-                                    <span className='highlight'>{data.orderId}</span>
+                                    <span className='highlight'>{data.plateNumber}</span>
                                 </p>
                                 <p className='card-body-middle'>
                                     <span>订单编号</span>

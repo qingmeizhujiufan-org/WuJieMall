@@ -47,7 +47,7 @@ class Index extends React.Component {
         });
     }
 
-    onDetail = (id) => {
+    onDetail = id => {
         this.context.router.push(`/travelOrder/detail/${id}`);
     }
 
@@ -83,7 +83,6 @@ class Index extends React.Component {
                 <Card
                     key={rowID}
                     className='am-card-full order-card'
-                    onClick={() => this.onDetail(obj.id)}
                 >
                     <Card.Header
                         title={
@@ -101,7 +100,7 @@ class Index extends React.Component {
                             <div className="highlight">{travel.travelLastTime}</div>
                         </div>
                         <div className='card-body-desc'>包含：{travel.travelHas}</div>
-                        <div className='card-body-footer'>￥<span className='money'>{travel.manPrice}</span></div>
+                        <div className='card-body-footer'>￥<span className='money'>{obj.totalMoney}</span></div>
                     </Card.Body>
                     <Card.Footer
                         // content={'预定时间：' + obj.created_at}
@@ -109,7 +108,7 @@ class Index extends React.Component {
                             <Button
                                 size='small'
                                 style={{float: 'right', color: '#888'}}
-                                onClick={(e) => this.onDetail(e, obj.id)}
+                                onClick={() => this.onDetail(obj.id)}
                             >查看订单</Button>
                         }/>
                 </Card>

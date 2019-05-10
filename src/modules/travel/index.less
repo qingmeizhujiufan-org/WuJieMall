@@ -152,8 +152,18 @@
         position: relative;
         height: 60vw;
 
+        .slider-list, .slider-slide {
+            height: 60vw !important;
+        }
+
         .carousel-item {
             height: 60vw !important;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
         }
 
         .dot {

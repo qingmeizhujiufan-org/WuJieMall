@@ -105,7 +105,7 @@ class Index extends React.Component {
                     min = Math.floor((restTime - day * _d - hour * _h) / _min);
                     s = Math.floor((restTime - day * _d - hour * _h - min * _min) / _s);
 
-                    const format_time = `${day}天 ${hour < 10 ? ('0' + hour) : hour}:${min < 10 ? ('0' + min) : min}:${s < 10 ? ('0' + s) : s}`;
+                    const format_time = `${day}天${hour}时${min}分`;
                     that.setState({restTimer: format_time});
 
                     restTime -= 1000;
@@ -147,7 +147,6 @@ class Index extends React.Component {
                                         <img
                                             src={item.imgSrc}
                                             alt=""
-                                            style={{width: '100%', height: '100%', verticalAlign: 'top'}}
                                         />
                                     </div>
                                 ))}
