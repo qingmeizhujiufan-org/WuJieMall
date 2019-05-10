@@ -37,7 +37,6 @@ class Index extends React.Component {
     }
 
     queryTopSliderList = () => {
-        this.setState({loading: true});
         axios.get('app/queryTopSliderList').then(res => res.data).then(data => {
             if (data.success) {
                 if (data.backData) {
@@ -58,8 +57,6 @@ class Index extends React.Component {
                 }
             } else {
             }
-        }).finally(() => {
-            this.setState({loading: false});
         });
     }
 

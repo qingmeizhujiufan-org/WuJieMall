@@ -28,7 +28,7 @@ class Index extends React.Component {
     }
 
     componentWillUnmount() {
-        clearInterval(this.id);
+        // clearInterval(this.id);
     }
 
     queryDetail = () => {
@@ -111,7 +111,7 @@ class Index extends React.Component {
                     restTime -= 1000;
                 }
             } else {
-                clearInterval(this.id);
+                // clearInterval(this.id);
                 that.setState({restTimer: '已结束'});
             }
         }

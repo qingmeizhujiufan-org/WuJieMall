@@ -27,4 +27,4 @@ class App extends React.Component {
     }
 }
 
-module.exports = connect()(App);
+module.exports = App;
