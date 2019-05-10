@@ -16,7 +16,8 @@ const stateList = [{
   status: 3
 }, {
   title: '已评价',
-  status: 4
+  status: 3,
+  commentStatus: 1
 }];
 
 class Index extends React.Component {
@@ -40,7 +41,7 @@ class Index extends React.Component {
       this.setState({
         page: state.page
       }, () => {
-        this.tabChange(stateList[state.page],state.page);
+        this.tabChange(stateList[state.page], state.page);
       });
     }
   }
@@ -49,15 +50,28 @@ class Index extends React.Component {
   }
 
   tabChange = (tab, index) => {
-    this.setState({
-      params: {
-        pageNumber: 1,
-        pageSize: 10,
-        userId: sessionStorage.userId,
-        status: tab.status
-      },
-      page: index
-    });
+    const temp =  {
+      pageNumber: 1,
+      pageSize: 10,
+      userId: sessionStorage.userId,
+      status: tab.status
+    };
+    if (tab.commentStatus) {
+      this.setState({
+        params: {
+          ...temp,
+          commentStatus: tab.commentStatus
+        },
+        page: index
+      });
+    } else {
+      this.setState({
+        params: {
+          ...temp
+        },
+        page: index
+      });
+    }
   }
 
   onDetail = id => {
