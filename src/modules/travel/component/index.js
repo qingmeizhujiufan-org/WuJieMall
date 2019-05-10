@@ -129,12 +129,12 @@ class Index extends React.Component {
                             <div className='range-date-between'>
                                 <Flex>
                                     <Flex className='wrap-date'>
-                                        <span className='iconfont icon-kaishishijian'></span>
+                                        <span className='iconfont icon-rilikaishi'></span>
                                         <span>{rangeDate.beginDate}</span>
                                     </Flex>
                                     <div className='separate'>-</div>
                                     <Flex className='wrap-date'>
-                                        <span className='iconfont icon-kaishishijian'></span>
+                                        <span className='iconfont icon-rili'></span>
                                         <span>{rangeDate.endDate}</span>
                                     </Flex>
                                 </Flex>

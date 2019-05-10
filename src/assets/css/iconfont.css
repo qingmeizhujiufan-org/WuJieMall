@@ -29,10 +29,6 @@
     content: "\e705";
 }
 
-.icon-kaishishijian:before {
-    content: "\e706";
-}
-
 .icon-lujingcopy:before {
     content: "\e707";
 }
@@ -104,4 +100,13 @@
 .icon-gerenzhongxin-minsudingdan:before {
     content: "\e718";
 }
+
+.icon-rili:before {
+    content: "\e719";
+}
+
+.icon-rilikaishi:before {
+    content: "\e71a";
+}
+
 

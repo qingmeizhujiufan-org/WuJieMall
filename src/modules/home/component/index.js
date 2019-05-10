@@ -286,7 +286,7 @@ class Index extends React.Component {
                                                     <div className='travel-name'>{item.travelTheme}</div>
                                                     <div className='travel-date iconfont icon-calendar'>
                                                         <span><i
-                                                            className='iconfont icon-kaishishijian'></i> {item.travelBeginTime}</span>
+                                                            className='iconfont icon-rilikaishi'></i> {item.travelBeginTime}</span>
                                                     </div>
                                                 </div>
                                             </div>
