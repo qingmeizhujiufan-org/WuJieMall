@@ -166,14 +166,15 @@ class Index extends React.Component {
   //   }
   // }
 
-  showRoomDetail = id => {
+  showRoomDetail = (id, status)=> {
     const {beginDate, endDate, days} = this.state.rangeDate;
     this.context.router.push({
       pathname: '/hotel/room/' + id,
       state: {
         beginDate,
         endDate,
-        days
+        days,
+        status
       }
     });
   }
@@ -267,7 +268,7 @@ class Index extends React.Component {
                 rooms.map((item, index) => {
                   return (
                     <div key={index} className='hotel-room-list-item'
-                         onClick={() => this.showRoomDetail(item.id)}>
+                         onClick={() => this.showRoomDetail(item.id, item.roomStatus)}>
                       <div className='wrap-thumbnail'>
                         <img src={item.thumbnail}/>
                       </div>
