@@ -160,7 +160,6 @@ class Index extends React.Component {
                                 {topSliderList.map(item => (
                                     <a
                                         key={item.id}
-                                        href={item.foodLink}
                                         style={{display: 'inline-block', width: '100%', height: '2.42rem'}}
                                         onClick={() => this.context.router.push('food/detail/' + item.foodLink)}
                                     >
